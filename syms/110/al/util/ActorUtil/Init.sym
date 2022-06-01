@@ -1,0 +1,2 @@
+/* Init ActorUtil */
+_ZN2al9initActorEPNS_9LiveActorERKNS_13ActorInitInfoE = 0x00838240 - 0x01b52000;

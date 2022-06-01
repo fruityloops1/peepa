@@ -1,0 +1,22 @@
+/* nnsdk */
+
+_Znwm = 0x004e4288 + __sdk_start;
+_ZnwmRKSt9nothrow_t = 0x004e42f8 + __sdk_start;
+_Znam = 0x004e4328 + __sdk_start;
+_ZnamRKSt9nothrow_t = 0x004e4330 + __sdk_start;
+_ZdlPv = 0x004e4360 + __sdk_start;
+_ZdlPvRKSt9nothrow_t = 0x004e4368 + __sdk_start;
+_ZdlPvm = 0x004e4370 + __sdk_start;
+_ZdaPv = 0x004e4378 + __sdk_start;
+_ZdaPvRKSt9nothrow_t = 0x004e4380 + __sdk_start;
+_ZdaPvm = 0x004e4388 + __sdk_start;
+_ZnwmSt11align_val_t = 0x004e4390 + __sdk_start;
+_ZnwmSt11align_val_tRKSt9nothrow_t = 0x004e4418 + __sdk_start;
+_ZnamSt11align_val_t = 0x004e4448 + __sdk_start;
+_ZnamSt11align_val_tRKSt9nothrow_t = 0x004e4450 + __sdk_start;
+_ZdlPvSt11align_val_t = 0x004e4480 + __sdk_start;
+_ZdlPvSt11align_val_tRKSt9nothrow_t = 0x004e4488 + __sdk_start;
+_ZdlPvmSt11align_val_t = 0x004e4490 + __sdk_start;
+_ZdaPvSt11align_val_t = 0x004e4498 + __sdk_start;
+_ZdaPvSt11align_val_tRKSt9nothrow_t = 0x004e44a0 + __sdk_start;
+_ZdaPvmSt11align_val_t = 0x004e44a8 + __sdk_start;

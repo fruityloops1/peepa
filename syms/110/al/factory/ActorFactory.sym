@@ -1,0 +1,4 @@
+/* al::ActorFactory */
+
+_ZN2al12ActorFactoryC2EPKc = 0x0080f030 - 0x01b52000;
+_ZN2al12ActorFactoryC4EPKc = 0x0080f030 - 0x01b52000;
