@@ -20,3 +20,4 @@
 #include "lib/util/soc.hpp"
 
 #include "lib/hook.hpp"
+#include "lib/replace.hpp"
