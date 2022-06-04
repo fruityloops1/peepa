@@ -1,4 +1,7 @@
 /* LiveActor* al::createActorFunction<T>(const char*) */
+/* unneeded since actor table entries are copied automatically now */
+/* symbols for actors in al like al::Sky are wrong (::Sky instead) */
+
 _ZN2al19createActorFunctionI14AllDeadWatcherEEPNS_9LiveActorEPKc = 0x003d8700 - 0x01b52000;
 _ZN2al19createActorFunctionI24DisasterBlockDeadWatcherEEPNS_9LiveActorEPKc = 0x003d8740 - 0x01b52000;
 _ZN2al19createActorFunctionI19AssistSlideMapPartsEEPNS_9LiveActorEPKc = 0x003d8780 - 0x01b52000;
