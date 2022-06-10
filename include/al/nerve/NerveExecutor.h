@@ -1,7 +1,8 @@
 #pragma once
 
 #include "al/interfaces/IUseHioNode.h"
-#include "al/nerve/NerveKeeper.h"
+#include "al/interfaces/IUseNerve.h"
+#include "al/nerve/Nerve.h"
 
 namespace al {
 
@@ -15,7 +16,7 @@ namespace al {
         void initNerve(const Nerve*, int);
         void updateNerve();
 
-        al::NerveKeeper* mKeeper;
+        al::NerveKeeper* mNerveKeeper;
     };
 
 } // namespace al
