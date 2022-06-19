@@ -2,6 +2,7 @@
 
 namespace al {
 
-    class EffectKeeper {};
+class EffectKeeper {
+};
 
 } // namespace al

@@ -2,6 +2,7 @@
 
 namespace al {
 
-    class LayoutActionKeeper {};
+class LayoutActionKeeper {
+};
 
 } // namespace al

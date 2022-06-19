@@ -5,8 +5,8 @@
 
 namespace al {
 
-    class ScreenPointKeeper {
-        sead::PtrArray<ScreenPointTarget> mScreenPointTargets;
-    };
+class ScreenPointKeeper {
+    sead::PtrArray<ScreenPointTarget> mScreenPointTargets;
+};
 
 } // namespace al

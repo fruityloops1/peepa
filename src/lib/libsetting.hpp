@@ -8,18 +8,18 @@
 
 namespace exl::setting {
 
-    enum class LoadKind {
-        Kip,
-        AsRtld,
-        Module,
-    };
-    /* Ensure consistency with preprocessor constants. */
-    static_assert(EXL_LOAD_KIND_KIP == static_cast<int>(LoadKind::Kip), "");
-    static_assert(EXL_LOAD_KIND_ASRTLD == static_cast<int>(LoadKind::AsRtld), "");
-    static_assert(EXL_LOAD_KIND_MODULE == static_cast<int>(LoadKind::Module), "");
+enum class LoadKind {
+    Kip,
+    AsRtld,
+    Module,
+};
+/* Ensure consistency with preprocessor constants. */
+static_assert(EXL_LOAD_KIND_KIP == static_cast<int>(LoadKind::Kip), "");
+static_assert(EXL_LOAD_KIND_ASRTLD == static_cast<int>(LoadKind::AsRtld), "");
+static_assert(EXL_LOAD_KIND_MODULE == static_cast<int>(LoadKind::Module), "");
 
-    static constexpr LoadKind SelfLoadKind = LoadKind::EXL_LOAD_KIND;
-    static constexpr u64 ProgramId = EXL_PROGRAM_ID;
+static constexpr LoadKind SelfLoadKind = LoadKind::EXL_LOAD_KIND;
+static constexpr u64 ProgramId = EXL_PROGRAM_ID;
 }; // namespace exl::setting
 
 #ifndef EXL_LOAD_KIND_ENUM

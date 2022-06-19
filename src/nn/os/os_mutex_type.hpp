@@ -21,19 +21,19 @@
 
 namespace nn::os {
 
-    struct ThreadType;
+struct ThreadType;
 
-    struct MutexType {
-        enum State : u8 {
-            State_NotInitialized = 0,
-            State_Initialized = 1,
-        };
-
-        State state;
-        bool is_recursive;
-        s32 lock_level;
-        s32 nest_count;
-        ThreadType* owner_thread;
-        detail::InternalCriticalSection critical_section;
+struct MutexType {
+    enum State : u8 {
+        State_NotInitialized = 0,
+        State_Initialized = 1,
     };
+
+    State state;
+    bool is_recursive;
+    s32 lock_level;
+    s32 nest_count;
+    ThreadType* owner_thread;
+    detail::InternalCriticalSection critical_section;
+};
 } // namespace nn::os

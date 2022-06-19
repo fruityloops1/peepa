@@ -4,9 +4,9 @@
 
 namespace al {
 
-    class IUseMessageSystem {
-      public:
-        virtual MessageSystem* getMessageSystem() const = 0;
-    };
+class IUseMessageSystem {
+public:
+    virtual MessageSystem* getMessageSystem() const = 0;
+};
 
 } // namespace al

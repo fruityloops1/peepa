@@ -1,6 +1,7 @@
 #include "utils.hpp"
 
-extern "C" unsigned long __rtld_elf_hash(const char* name) {
+extern "C" unsigned long __rtld_elf_hash(const char* name)
+{
     unsigned long h = 0;
     unsigned long g;
 

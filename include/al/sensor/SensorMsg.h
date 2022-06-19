@@ -2,6 +2,7 @@
 
 namespace al {
 
-    class SensorMsg {};
+class SensorMsg {
+};
 
 } // namespace al

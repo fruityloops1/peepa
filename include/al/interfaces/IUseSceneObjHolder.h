@@ -4,8 +4,8 @@
 
 namespace al {
 
-    class IUseSceneObjHolder {
-        virtual SceneObjHolder* getSceneObjHolder() const = 0;
-    };
+class IUseSceneObjHolder {
+    virtual SceneObjHolder* getSceneObjHolder() const = 0;
+};
 
 } // namespace al

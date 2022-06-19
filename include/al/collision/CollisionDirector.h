@@ -2,6 +2,7 @@
 
 namespace al {
 
-    class CollisionDirector {};
+class CollisionDirector {
+};
 
 } // namespace al

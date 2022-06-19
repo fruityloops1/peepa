@@ -18,9 +18,9 @@
 
 namespace nn::os {
 
-    enum class ConditionVariableStatus {
-        TimedOut = 0,
-        Success = 1,
-    };
+enum class ConditionVariableStatus {
+    TimedOut = 0,
+    Success = 1,
+};
 
 }

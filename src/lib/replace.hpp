@@ -2,11 +2,11 @@
 #include "hook.hpp"
 
 namespace exl::replace {
-    void ReplaceData(uintptr_t target, uintptr_t source, size_t size);
+void ReplaceData(uintptr_t target, uintptr_t source, size_t size);
 
-#define MAKE_ASM(name, assembly)                                                                                       \
-    asm(".global __asm" #name "\n"                                                                                     \
-        "__asm" #name ":\n" assembly);                                                                                 \
+#define MAKE_ASM(name, assembly)       \
+    asm(".global __asm" #name "\n"     \
+        "__asm" #name ":\n" assembly); \
     extern const u32 __asm##name[]
 
 #define REPLACE_DATA(target, source, size) exl::replace::ReplaceData((uintptr_t)target, (uintptr_t)source, size)

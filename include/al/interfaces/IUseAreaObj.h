@@ -4,8 +4,8 @@
 
 namespace al {
 
-    class IUseAreaObj {
-        virtual AreaObjDirector* getAreaObjDirector() const = 0;
-    };
+class IUseAreaObj {
+    virtual AreaObjDirector* getAreaObjDirector() const = 0;
+};
 
 } // namespace al

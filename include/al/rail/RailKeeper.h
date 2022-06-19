@@ -4,11 +4,11 @@
 #include "al/rail/RailRider.h"
 namespace al {
 
-    class RailKeeper : IUseRail {
-        RailRider* mRailRider = nullptr;
+class RailKeeper : IUseRail {
+    RailRider* mRailRider = nullptr;
 
-      public:
-        al::RailRider* getRailRider() const override { return mRailRider; }
-    };
+public:
+    al::RailRider* getRailRider() const override { return mRailRider; }
+};
 
 } // namespace al

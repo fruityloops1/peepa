@@ -2,6 +2,7 @@
 
 namespace al {
 
-    class LayoutInitInfo {};
+class LayoutInitInfo {
+};
 
 } // namespace al

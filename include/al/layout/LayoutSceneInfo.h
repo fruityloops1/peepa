@@ -2,6 +2,7 @@
 
 namespace al {
 
-    class LayoutSceneInfo {};
+class LayoutSceneInfo {
+};
 
 } // namespace al

@@ -20,14 +20,14 @@
 
 namespace nn::os {
 
-    struct MutexType;
+struct MutexType;
 
-    void InitializeMutex(MutexType* mutex, bool recursive, int lock_level);
-    void FinalizeMutex(MutexType* mutex);
+void InitializeMutex(MutexType* mutex, bool recursive, int lock_level);
+void FinalizeMutex(MutexType* mutex);
 
-    void LockMutex(MutexType* mutex);
-    bool TryLockMutex(MutexType* mutex);
-    void UnlockMutex(MutexType* mutex);
+void LockMutex(MutexType* mutex);
+bool TryLockMutex(MutexType* mutex);
+void UnlockMutex(MutexType* mutex);
 
-    bool IsMutexLockedByCurrentThread(const MutexType* mutex);
+bool IsMutexLockedByCurrentThread(const MutexType* mutex);
 }; // namespace nn::os

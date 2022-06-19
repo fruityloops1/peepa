@@ -10,12 +10,12 @@
 
 namespace al {
 
-    void setNerve(IUseNerve* parent, const Nerve* nerve);
-    bool isNerve(const IUseNerve* parent, const Nerve* nerve);
-    const Nerve* getCurrentNerve(const IUseNerve* parent);
+void setNerve(IUseNerve* parent, const Nerve* nerve);
+bool isNerve(const IUseNerve* parent, const Nerve* nerve);
+const Nerve* getCurrentNerve(const IUseNerve* parent);
 
-    int getNerveStep(const IUseNerve* parent);
-    bool isFirstStep(const IUseNerve* parent);
-    bool isStep(const IUseNerve* parent, int step);
+int getNerveStep(const IUseNerve* parent);
+bool isFirstStep(const IUseNerve* parent);
+bool isStep(const IUseNerve* parent, int step);
 
 } // namespace al

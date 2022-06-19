@@ -5,8 +5,8 @@
 
 namespace al {
 
-    class HitSensorKeeper {
-        sead::PtrArray<HitSensor> mHitSensors;
-    };
+class HitSensorKeeper {
+    sead::PtrArray<HitSensor> mHitSensors;
+};
 
 } // namespace al

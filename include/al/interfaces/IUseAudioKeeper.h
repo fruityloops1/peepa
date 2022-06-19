@@ -4,8 +4,8 @@
 
 namespace al {
 
-    class IUseAudioKeeper {
-        virtual AudioKeeper* getAudioKeeper() const = 0;
-    };
+class IUseAudioKeeper {
+    virtual AudioKeeper* getAudioKeeper() const = 0;
+};
 
 } // namespace al

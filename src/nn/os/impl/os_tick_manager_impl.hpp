@@ -24,30 +24,31 @@
 
 namespace nn::os::detail {
 
-    /* Tick frequency must be less than INT64_MAX / 1 second. */
-    static constexpr s64 MaxTickFrequency =
-        (std::numeric_limits<s64>::max() / TimeSpan::FromSeconds(1).GetNanoSeconds()) - 1;
+/* Tick frequency must be less than INT64_MAX / 1 second. */
+static constexpr s64 MaxTickFrequency = (std::numeric_limits<s64>::max() / TimeSpan::FromSeconds(1).GetNanoSeconds()) - 1;
 
-    class TickManager {
-      private:
-        TickManagerImpl m_impl;
+class TickManager {
+private:
+    TickManagerImpl m_impl;
 
-      public:
-        constexpr TickManager() : m_impl() { /* ... */
-        }
+public:
+    constexpr TickManager()
+        : m_impl()
+    { /* ... */
+    }
 
-        ALWAYS_INLINE Tick GetTick() const { return m_impl.GetTick(); }
+    ALWAYS_INLINE Tick GetTick() const { return m_impl.GetTick(); }
 
-        ALWAYS_INLINE Tick GetSystemTickOrdered() const { return m_impl.GetSystemTickOrdered(); }
+    ALWAYS_INLINE Tick GetSystemTickOrdered() const { return m_impl.GetSystemTickOrdered(); }
 
-        ALWAYS_INLINE s64 GetTickFrequency() const { return m_impl.GetTickFrequency(); }
+    ALWAYS_INLINE s64 GetTickFrequency() const { return m_impl.GetTickFrequency(); }
 
-        ALWAYS_INLINE s64 GetMaxTick() const { return m_impl.GetMaxTick(); }
+    ALWAYS_INLINE s64 GetMaxTick() const { return m_impl.GetMaxTick(); }
 
-        ALWAYS_INLINE s64 GetMaxTimeSpanNs() const { return m_impl.GetMaxTimeSpanNs(); }
+    ALWAYS_INLINE s64 GetMaxTimeSpanNs() const { return m_impl.GetMaxTimeSpanNs(); }
 
-        TimeSpan ConvertToTimeSpan(Tick tick) const;
-        Tick ConvertToTick(TimeSpan ts) const;
-    };
+    TimeSpan ConvertToTimeSpan(Tick tick) const;
+    Tick ConvertToTick(TimeSpan ts) const;
+};
 
 } // namespace nn::os::detail

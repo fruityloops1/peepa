@@ -33,12 +33,14 @@ static VirtmemReservation* g_Reservations;
 
 static bool g_IsLegacyKernel;
 
-uintptr_t __virtmem_rng(void) {
+uintptr_t __virtmem_rng(void)
+{
     /* lol. */
     return svcGetSystemTick();
 }
 
-static Result _memregionInitWithInfo(MemRegion* r, InfoType id0_addr, InfoType id0_sz) {
+static Result _memregionInitWithInfo(MemRegion* r, InfoType id0_addr, InfoType id0_sz)
+{
     u64 base;
     Result rc = svcGetInfo(&base, id0_addr, CUR_PROCESS_HANDLE, 0);
 
@@ -55,20 +57,24 @@ static Result _memregionInitWithInfo(MemRegion* r, InfoType id0_addr, InfoType i
     return rc;
 }
 
-static void _memregionInitHardcoded(MemRegion* r, uintptr_t start, uintptr_t end) {
+static void _memregionInitHardcoded(MemRegion* r, uintptr_t start, uintptr_t end)
+{
     r->start = start;
     r->end = end;
 }
 
-NX_INLINE bool _memregionIsInside(MemRegion* r, uintptr_t start, uintptr_t end) {
+NX_INLINE bool _memregionIsInside(MemRegion* r, uintptr_t start, uintptr_t end)
+{
     return start >= r->start && end <= r->end;
 }
 
-NX_INLINE bool _memregionOverlaps(MemRegion* r, uintptr_t start, uintptr_t end) {
+NX_INLINE bool _memregionOverlaps(MemRegion* r, uintptr_t start, uintptr_t end)
+{
     return start < r->end && r->start < end;
 }
 
-NX_INLINE bool _memregionIsMapped(uintptr_t start, uintptr_t end, uintptr_t guard, uintptr_t* out_end) {
+NX_INLINE bool _memregionIsMapped(uintptr_t start, uintptr_t end, uintptr_t guard, uintptr_t* out_end)
+{
     // Adjust start/end by the desired guard size.
     start -= guard;
     end += guard;
@@ -91,7 +97,8 @@ NX_INLINE bool _memregionIsMapped(uintptr_t start, uintptr_t end, uintptr_t guar
     return false;
 }
 
-NX_INLINE bool _memregionIsReserved(uintptr_t start, uintptr_t end, uintptr_t guard, uintptr_t* out_end) {
+NX_INLINE bool _memregionIsReserved(uintptr_t start, uintptr_t end, uintptr_t guard, uintptr_t* out_end)
+{
     // Adjust start/end by the desired guard size.
     start -= guard;
     end += guard;
@@ -108,7 +115,8 @@ NX_INLINE bool _memregionIsReserved(uintptr_t start, uintptr_t end, uintptr_t gu
     return false;
 }
 
-static void* _memregionFindRandom(MemRegion* r, size_t size, size_t guard_size) {
+static void* _memregionFindRandom(MemRegion* r, size_t size, size_t guard_size)
+{
     // Page align the sizes.
     size = (size + 0xFFF) & ~0xFFF;
     guard_size = (guard_size + 0xFFF) & ~0xFFF;
@@ -154,7 +162,8 @@ static void* _memregionFindRandom(MemRegion* r, size_t size, size_t guard_size) 
     return NULL;
 }
 
-void virtmemSetup(void) {
+void virtmemSetup(void)
+{
     Result rc;
 
     // Retrieve memory region information for the reserved alias region.
@@ -200,33 +209,38 @@ void virtmemSetup(void) {
 }
 
 /* TODO: thread safety. */
-void virtmemLock(void) {
+void virtmemLock(void)
+{
     /*
     mutexLock(&g_VirtmemMutex);
     */
 }
 
-void virtmemUnlock(void) {
+void virtmemUnlock(void)
+{
     /*
     mutexUnlock(&g_VirtmemMutex);
     */
 }
 
-void* virtmemFindAslr(size_t size, size_t guard_size) {
+void* virtmemFindAslr(size_t size, size_t guard_size)
+{
     /*
     if (!mutexIsLockedByCurrentThread(&g_VirtmemMutex)) return NULL;
     */
     return _memregionFindRandom(&g_AslrRegion, size, guard_size);
 }
 
-void* virtmemFindStack(size_t size, size_t guard_size) {
+void* virtmemFindStack(size_t size, size_t guard_size)
+{
     /*
     if (!mutexIsLockedByCurrentThread(&g_VirtmemMutex)) return NULL;
     */
     return _memregionFindRandom(&g_StackRegion, size, guard_size);
 }
 
-void* virtmemFindCodeMemory(size_t size, size_t guard_size) {
+void* virtmemFindCodeMemory(size_t size, size_t guard_size)
+{
     /*
     if (!mutexIsLockedByCurrentThread(&g_VirtmemMutex)) return NULL;
     */
@@ -234,7 +248,8 @@ void* virtmemFindCodeMemory(size_t size, size_t guard_size) {
     return _memregionFindRandom(g_IsLegacyKernel ? &g_StackRegion : &g_AslrRegion, size, guard_size);
 }
 
-VirtmemReservation* virtmemAddReservation(void* mem, size_t size) {
+VirtmemReservation* virtmemAddReservation(void* mem, size_t size)
+{
     /*
     if (!mutexIsLockedByCurrentThread(&g_VirtmemMutex)) return NULL;
     */
@@ -251,7 +266,8 @@ VirtmemReservation* virtmemAddReservation(void* mem, size_t size) {
     return rv;
 }
 
-void virtmemRemoveReservation(VirtmemReservation* rv) {
+void virtmemRemoveReservation(VirtmemReservation* rv)
+{
     /*
     if (!mutexIsLockedByCurrentThread(&g_VirtmemMutex)) return;
     */

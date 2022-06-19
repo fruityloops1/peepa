@@ -4,29 +4,29 @@
 
 namespace al {
 
-    struct State {
-        al::NerveStateBase* mNerveStateBase;
-        const al::Nerve* mNerve;
-        const char* mName;
-    };
+struct State {
+    al::NerveStateBase* mNerveStateBase;
+    const al::Nerve* mNerve;
+    const char* mName;
+};
 
-    class NerveStateCtrl {
-      public:
-        NerveStateCtrl(int);
+class NerveStateCtrl {
+public:
+    NerveStateCtrl(int);
 
-        void addState(al::NerveStateBase*, const al::Nerve*, const char*);
-        bool updateCurrentState();
-        void startState(const al::Nerve*);
-        void update();
+    void addState(al::NerveStateBase*, const al::Nerve*, const char*);
+    bool updateCurrentState();
+    void startState(const al::Nerve*);
+    void update();
 
-        State* findStateInfo(const al::Nerve*);
-        bool isCurrentStateEnd() const;
-        void tryEndCurrentState();
+    State* findStateInfo(const al::Nerve*);
+    bool isCurrentStateEnd() const;
+    void tryEndCurrentState();
 
-        int _0;
-        int mStateCount;
-        State* mStates;
-        State* mCurrentState;
-    };
+    int _0;
+    int mStateCount;
+    State* mStates;
+    State* mCurrentState;
+};
 
 } // namespace al

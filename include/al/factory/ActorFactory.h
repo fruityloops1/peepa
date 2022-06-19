@@ -5,15 +5,15 @@
 
 namespace al {
 
-    using CreateActorFunctionType = al::LiveActor* (*)(const char*);
-    using ActorFactoryTableEntry = NameToCreator<CreateActorFunctionType>;
+using CreateActorFunctionType = al::LiveActor* (*)(const char*);
+using ActorFactoryTableEntry = NameToCreator<CreateActorFunctionType>;
 
-    class ActorFactory : public Factory<CreateActorFunctionType> {
-      public:
-        ActorFactory(const char* name);
-    };
+class ActorFactory : public Factory<CreateActorFunctionType> {
+public:
+    ActorFactory(const char* name);
+};
 
-    template <typename T>
-    LiveActor* createActorFunction(const char* name);
+template <typename T>
+LiveActor* createActorFunction(const char* name);
 
 } // namespace al

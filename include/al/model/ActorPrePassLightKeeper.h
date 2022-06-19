@@ -2,6 +2,7 @@
 
 namespace al {
 
-    class ActorPrePassLightKeeper {};
+class ActorPrePassLightKeeper {
+};
 
 } // namespace al

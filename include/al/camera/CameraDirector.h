@@ -2,6 +2,7 @@
 
 namespace al {
 
-    class CameraDirector {};
+class CameraDirector {
+};
 
 } // namespace al

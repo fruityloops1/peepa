@@ -2,6 +2,7 @@
 
 namespace al {
 
-    class ScreenPointTarget {};
+class ScreenPointTarget {
+};
 
 } // namespace al

@@ -21,10 +21,10 @@
 #endif
 #endif
 
-typedef u32 Handle;                ///< Kernel object handle.
-typedef u32 Result;                ///< Function error code result type.
+typedef u32 Handle; ///< Kernel object handle.
+typedef u32 Result; ///< Function error code result type.
 typedef void (*ThreadFunc)(void*); ///< Thread entrypoint function.
-typedef void (*VoidFn)(void);      ///< Function without arguments nor return value.
+typedef void (*VoidFn)(void); ///< Function without arguments nor return value.
 
 /// Creates a bitmask from a bit number.
 #ifndef BIT

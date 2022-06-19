@@ -24,39 +24,41 @@
 
 namespace nn::os::detail {
 
-    class TimeoutHelper {
-      private:
-        Tick m_absolute_end_tick;
+class TimeoutHelper {
+private:
+    Tick m_absolute_end_tick;
 
-      public:
-        explicit TimeoutHelper(TimeSpan timeout) {
-            if (timeout == TimeSpan::FromNanoSeconds(0)) {
-                /* If timeout is zero, don't do relative tick calculations. */
-                m_absolute_end_tick = Tick(0);
-            } else {
-                const auto& tick_manager = detail::GetTickManager();
+public:
+    explicit TimeoutHelper(TimeSpan timeout)
+    {
+        if (timeout == TimeSpan::FromNanoSeconds(0)) {
+            /* If timeout is zero, don't do relative tick calculations. */
+            m_absolute_end_tick = Tick(0);
+        } else {
+            const auto& tick_manager = detail::GetTickManager();
 
-                const u64 cur_tick = tick_manager.GetTick().GetInt64Value();
-                const u64 timeout_tick = tick_manager.ConvertToTick(timeout).GetInt64Value();
-                const u64 end_tick = cur_tick + timeout_tick + 1;
+            const u64 cur_tick = tick_manager.GetTick().GetInt64Value();
+            const u64 timeout_tick = tick_manager.ConvertToTick(timeout).GetInt64Value();
+            const u64 end_tick = cur_tick + timeout_tick + 1;
 
-                m_absolute_end_tick = Tick(std::min<u64>(std::numeric_limits<s64>::max(), end_tick));
-            }
+            m_absolute_end_tick = Tick(std::min<u64>(std::numeric_limits<s64>::max(), end_tick));
+        }
+    }
+
+    static void Sleep(TimeSpan tm) { TimeoutHelperImpl::Sleep(tm); }
+
+    bool TimedOut() const
+    {
+        if (m_absolute_end_tick.GetInt64Value() == 0) {
+            return true;
         }
 
-        static void Sleep(TimeSpan tm) { TimeoutHelperImpl::Sleep(tm); }
+        const Tick cur_tick = detail::GetTickManager().GetTick();
 
-        bool TimedOut() const {
-            if (m_absolute_end_tick.GetInt64Value() == 0) {
-                return true;
-            }
+        return cur_tick >= m_absolute_end_tick;
+    }
 
-            const Tick cur_tick = detail::GetTickManager().GetTick();
-
-            return cur_tick >= m_absolute_end_tick;
-        }
-
-        TargetTimeSpan GetTimeLeftOnTarget() const;
-    };
+    TargetTimeSpan GetTimeLeftOnTarget() const;
+};
 
 } // namespace nn::os::detail

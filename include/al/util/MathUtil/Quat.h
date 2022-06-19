@@ -4,8 +4,8 @@
 
 namespace al {
 
-    void rotateQuatXDirDegree(sead::Quatf* out, const sead::Quatf& from, float degree);
-    void rotateQuatYDirDegree(sead::Quatf* out, const sead::Quatf& from, float degree);
-    void rotateQuatZDirDegree(sead::Quatf* out, const sead::Quatf& from, float degree);
+void rotateQuatXDirDegree(sead::Quatf* out, const sead::Quatf& from, float degree);
+void rotateQuatYDirDegree(sead::Quatf* out, const sead::Quatf& from, float degree);
+void rotateQuatZDirDegree(sead::Quatf* out, const sead::Quatf& from, float degree);
 
 } // namespace al

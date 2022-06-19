@@ -23,48 +23,48 @@
 
 namespace nn::os {
 
-    struct ThreadType;
-    struct MultiWaitHolderType;
+struct ThreadType;
+struct MultiWaitHolderType;
 
-    Result CreateThread(ThreadType* thread, ThreadFunction function, void* argument, void* stack, size_t stack_size,
-                        s32 priority, s32 ideal_core);
-    Result CreateThread(ThreadType* thread, ThreadFunction function, void* argument, void* stack, size_t stack_size,
-                        s32 priority);
-    void DestroyThread(ThreadType* thread);
-    void StartThread(ThreadType* thread);
+Result CreateThread(ThreadType* thread, ThreadFunction function, void* argument, void* stack, size_t stack_size,
+    s32 priority, s32 ideal_core);
+Result CreateThread(ThreadType* thread, ThreadFunction function, void* argument, void* stack, size_t stack_size,
+    s32 priority);
+void DestroyThread(ThreadType* thread);
+void StartThread(ThreadType* thread);
 
-    ThreadType* GetCurrentThread();
+ThreadType* GetCurrentThread();
 
-    void WaitThread(ThreadType* thread);
-    bool TryWaitThread(ThreadType* thread);
+void WaitThread(ThreadType* thread);
+bool TryWaitThread(ThreadType* thread);
 
-    void YieldThread();
-    void SleepThread(TimeSpan time);
+void YieldThread();
+void SleepThread(TimeSpan time);
 
-    s32 SuspendThread(ThreadType* thread);
-    s32 ResumeThread(ThreadType* thread);
-    s32 GetThreadSuspendCount(const ThreadType* thread);
+s32 SuspendThread(ThreadType* thread);
+s32 ResumeThread(ThreadType* thread);
+s32 GetThreadSuspendCount(const ThreadType* thread);
 
-    void CancelThreadSynchronization(ThreadType* Thread);
+void CancelThreadSynchronization(ThreadType* Thread);
 
-    s32 ChangeThreadPriority(ThreadType* thread, s32 priority);
-    s32 GetThreadPriority(const ThreadType* thread);
-    s32 GetThreadCurrentPriority(const ThreadType* thread);
+s32 ChangeThreadPriority(ThreadType* thread, s32 priority);
+s32 GetThreadPriority(const ThreadType* thread);
+s32 GetThreadCurrentPriority(const ThreadType* thread);
 
-    void SetThreadName(ThreadType* thread, const char* name);
-    void SetThreadNamePointer(ThreadType* thread, const char* name);
-    const char* GetThreadNamePointer(const ThreadType* thread);
+void SetThreadName(ThreadType* thread, const char* name);
+void SetThreadNamePointer(ThreadType* thread, const char* name);
+const char* GetThreadNamePointer(const ThreadType* thread);
 
-    s32 GetCurrentProcessorNumber();
-    s32 GetCurrentCoreNumber();
+s32 GetCurrentProcessorNumber();
+s32 GetCurrentCoreNumber();
 
-    void SetThreadCoreMask(ThreadType* thread, s32 ideal_core, u64 affinity_mask);
-    void GetThreadCoreMask(s32* out_ideal_core, u64* out_affinity_mask, const ThreadType* thread);
+void SetThreadCoreMask(ThreadType* thread, s32 ideal_core, u64 affinity_mask);
+void GetThreadCoreMask(s32* out_ideal_core, u64* out_affinity_mask, const ThreadType* thread);
 
-    u64 GetThreadAvailableCoreMask();
+u64 GetThreadAvailableCoreMask();
 
-    ThreadId GetThreadId(const ThreadType* thread);
+ThreadId GetThreadId(const ThreadType* thread);
 
-    void InitializeMultiWaitHolder(MultiWaitHolderType* holder, ThreadType* thread);
+void InitializeMultiWaitHolder(MultiWaitHolderType* holder, ThreadType* thread);
 
 } // namespace nn::os

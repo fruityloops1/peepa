@@ -5,6 +5,6 @@
 
 namespace al {
 
-    void initNerve(al::LiveActor* actor, const Nerve* nerve, int step);
+void initNerve(al::LiveActor* actor, const Nerve* nerve, int step);
 
 } // namespace al

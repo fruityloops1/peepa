@@ -2,6 +2,7 @@
 
 namespace al {
 
-    class ActorScoreKeeper {};
+class ActorScoreKeeper {
+};
 
 } // namespace al

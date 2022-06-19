@@ -2,6 +2,7 @@
 
 namespace al {
 
-    class RailRider {};
+class RailRider {
+};
 
 } // namespace al

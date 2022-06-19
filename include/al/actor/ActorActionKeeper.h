@@ -2,6 +2,7 @@
 
 namespace al {
 
-    class ActorActionKeeper {};
+class ActorActionKeeper {
+};
 
 } // namespace al

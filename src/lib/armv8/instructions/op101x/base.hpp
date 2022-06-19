@@ -4,14 +4,18 @@
 
 namespace exl::armv8::inst::impl {
 
-    struct Op101xInstruction : public Instruction {
+struct Op101xInstruction : public Instruction {
 
-        ACCESSOR(Op0, 29, 32);
-        ACCESSOR(Op1, 12, 26);
-        ACCESSOR(Op2, 0, 5);
+    ACCESSOR(Op0, 29, 32);
+    ACCESSOR(Op1, 12, 26);
+    ACCESSOR(Op2, 0, 5);
 
-        constexpr Op101xInstruction(u8 op0) : Instruction(0b1010) { SetOp0(op0); }
-    };
+    constexpr Op101xInstruction(u8 op0)
+        : Instruction(0b1010)
+    {
+        SetOp0(op0);
+    }
+};
 } // namespace exl::armv8::inst::impl
 
 #include "hints/base.hpp"

@@ -21,23 +21,25 @@
 
 namespace nn::os::detail {
 
-    class TimeoutHelper;
+class TimeoutHelper;
 
-    class InternalConditionVariableImplByHorizon {
-      private:
-        u32 m_value;
+class InternalConditionVariableImplByHorizon {
+private:
+    u32 m_value;
 
-      public:
-        constexpr InternalConditionVariableImplByHorizon() : m_value(0) { /* ... */
-        }
+public:
+    constexpr InternalConditionVariableImplByHorizon()
+        : m_value(0)
+    { /* ... */
+    }
 
-        constexpr void Initialize() { m_value = 0; }
+    constexpr void Initialize() { m_value = 0; }
 
-        void Signal();
-        void Broadcast();
+    void Signal();
+    void Broadcast();
 
-        void Wait(InternalCriticalSection* cs);
-        ConditionVariableStatus TimedWait(InternalCriticalSection* cs, const TimeoutHelper& timeout_helper);
-    };
+    void Wait(InternalCriticalSection* cs);
+    ConditionVariableStatus TimedWait(InternalCriticalSection* cs, const TimeoutHelper& timeout_helper);
+};
 
 } // namespace nn::os::detail

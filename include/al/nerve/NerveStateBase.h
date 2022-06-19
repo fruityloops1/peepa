@@ -4,18 +4,18 @@
 
 namespace al {
 
-    class NerveStateBase : public NerveExecutor {
-      public:
-        NerveStateBase(const char*);
-        virtual ~NerveStateBase();
+class NerveStateBase : public NerveExecutor {
+public:
+    NerveStateBase(const char*);
+    virtual ~NerveStateBase();
 
-        virtual void init();
-        virtual void appear();
-        virtual void kill();
-        virtual bool update();
-        virtual void control();
+    virtual void init();
+    virtual void appear();
+    virtual void kill();
+    virtual bool update();
+    virtual void control();
 
-        bool mIsDead = true;
-    };
+    bool mIsDead = true;
+};
 
 } // namespace al

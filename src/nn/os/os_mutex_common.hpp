@@ -20,10 +20,10 @@
 
 namespace nn::os {
 
-    constexpr inline s32 MutexLockLevelMin = 1;
-    constexpr inline s32 MutexLockLevelMax = BITSIZEOF(s32) - 1;
-    constexpr inline s32 MutexLockLevelInitial = 0;
+constexpr inline s32 MutexLockLevelMin = 1;
+constexpr inline s32 MutexLockLevelMax = BITSIZEOF(s32) - 1;
+constexpr inline s32 MutexLockLevelInitial = 0;
 
-    constexpr inline s32 MutexRecursiveLockCountMax = (1 << BITSIZEOF(u16)) - 1;
+constexpr inline s32 MutexRecursiveLockCountMax = (1 << BITSIZEOF(u16)) - 1;
 
 } // namespace nn::os

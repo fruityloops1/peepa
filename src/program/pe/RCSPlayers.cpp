@@ -1,7 +1,7 @@
-#include "al/util/NerveUtil.h"
-#include "lib.hpp"
 #include "pe/RCSPlayers.h"
 #include "al/actor/LiveActor.h"
+#include "al/util/NerveUtil.h"
+#include "lib.hpp"
 
 MAKE_ASM(fightInitFix, R"(
     nop
@@ -24,7 +24,8 @@ static const char* const getPlayerNameHook()
     return "Peach"; /* Mario, Luigi, Peach, Kinopio, Rosetta */
 }
 
-void pe::initRCSPlayerHooks() {
+void pe::initRCSPlayerHooks()
+{
     exl::patch::CodePatcher(0x0040f660).BranchInst(getPlayerNameHook);
     REPLACE_ASM_O(0x0039f580, fightInitFix, 4);
     exl::patch::CodePatcher(0x0039f59c).BranchInst(al::setNerve);

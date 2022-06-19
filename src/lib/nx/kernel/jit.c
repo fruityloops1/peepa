@@ -9,7 +9,8 @@
 
 #include <stdlib.h>
 
-Result jitCreate(Jit* j, void* rx_addr, size_t size) {
+Result jitCreate(Jit* j, void* rx_addr, size_t size)
+{
     JitType type;
 
     // Use new CodeMemory object introduced in [4.0.0+], if available.
@@ -94,7 +95,8 @@ Result jitCreate(Jit* j, void* rx_addr, size_t size) {
     return rc;
 }
 
-Result jitTransitionToWritable(Jit* j) {
+Result jitTransitionToWritable(Jit* j)
+{
     Result rc = 0;
 
     switch (j->type) {
@@ -114,7 +116,8 @@ Result jitTransitionToWritable(Jit* j) {
     return rc;
 }
 
-Result jitTransitionToExecutable(Jit* j) {
+Result jitTransitionToExecutable(Jit* j)
+{
     Result rc = 0;
 
     switch (j->type) {
@@ -144,7 +147,8 @@ Result jitTransitionToExecutable(Jit* j) {
     return rc;
 }
 
-Result jitClose(Jit* j) {
+Result jitClose(Jit* j)
+{
     Result rc = 0;
 
     switch (j->type) {

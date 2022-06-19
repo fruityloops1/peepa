@@ -25,28 +25,31 @@
 
 namespace nn::os::detail {
 
-    class InternalConditionVariable {
-      private:
-        InternalConditionVariableImplByHorizon m_impl;
+class InternalConditionVariable {
+private:
+    InternalConditionVariableImplByHorizon m_impl;
 
-      public:
-        constexpr InternalConditionVariable() : m_impl() { /* ... */
-        }
+public:
+    constexpr InternalConditionVariable()
+        : m_impl()
+    { /* ... */
+    }
 
-        constexpr void Initialize() { m_impl.Initialize(); }
+    constexpr void Initialize() { m_impl.Initialize(); }
 
-        void Signal() { m_impl.Signal(); }
+    void Signal() { m_impl.Signal(); }
 
-        void Broadcast() { m_impl.Broadcast(); }
+    void Broadcast() { m_impl.Broadcast(); }
 
-        void Wait(InternalCriticalSection* cs) { m_impl.Wait(cs); }
+    void Wait(InternalCriticalSection* cs) { m_impl.Wait(cs); }
 
-        ConditionVariableStatus TimedWait(InternalCriticalSection* cs, const TimeoutHelper& timeout_helper) {
-            return m_impl.TimedWait(cs, timeout_helper);
-        }
-    };
+    ConditionVariableStatus TimedWait(InternalCriticalSection* cs, const TimeoutHelper& timeout_helper)
+    {
+        return m_impl.TimedWait(cs, timeout_helper);
+    }
+};
 
-    /* TODO: storage. */
-    using InternalConditionVariableStorage = InternalConditionVariable;
+/* TODO: storage. */
+using InternalConditionVariableStorage = InternalConditionVariable;
 
 } // namespace nn::os::detail

@@ -2,6 +2,7 @@
 
 namespace al {
 
-    class SceneInitInfo {};
+class SceneInitInfo {
+};
 
 } // namespace al

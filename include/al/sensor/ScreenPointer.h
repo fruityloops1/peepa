@@ -2,6 +2,7 @@
 
 namespace al {
 
-    class ScreenPointer {};
+class ScreenPointer {
+};
 
 } // namespace al

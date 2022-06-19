@@ -2,6 +2,7 @@
 
 namespace al {
 
-    class AudioKeeper {};
+class AudioKeeper {
+};
 
 } // namespace al

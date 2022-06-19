@@ -4,6 +4,6 @@
 
 namespace al {
 
-    void initActor(al::LiveActor* actor, const al::ActorInitInfo& info);
+void initActor(al::LiveActor* actor, const al::ActorInitInfo& info);
 
 } // namespace al

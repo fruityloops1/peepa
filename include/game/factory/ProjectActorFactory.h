@@ -4,9 +4,13 @@
 
 class ProjectActorFactory : public al::ActorFactory {
 
-  public:
+public:
     static al::ActorFactoryTableEntry sActorEntries[459];
 
-    ProjectActorFactory() : ActorFactory("アクターファクトリー") { initFactory(sActorEntries); }
+    ProjectActorFactory()
+        : ActorFactory("アクターファクトリー")
+    {
+        initFactory(sActorEntries);
+    }
     const char* convertName(const char* name) const override;
 };

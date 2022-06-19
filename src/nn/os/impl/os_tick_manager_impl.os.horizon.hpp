@@ -22,42 +22,48 @@
 
 namespace nn::os::detail {
 
-    class TickManagerImpl {
-      public:
-        constexpr TickManagerImpl() { /* ... */
-        }
+class TickManagerImpl {
+public:
+    constexpr TickManagerImpl()
+    { /* ... */
+    }
 
-        ALWAYS_INLINE Tick GetTick() const {
-            s64 tick;
-            __asm__ __volatile__("mrs %[tick], cntpct_el0" : [tick] "=&r"(tick)::"memory");
-            return Tick(tick);
-        }
+    ALWAYS_INLINE Tick GetTick() const
+    {
+        s64 tick;
+        __asm__ __volatile__("mrs %[tick], cntpct_el0"
+                             : [tick] "=&r"(tick)::"memory");
+        return Tick(tick);
+    }
 
-        ALWAYS_INLINE Tick GetSystemTickOrdered() const {
-            s64 tick;
-            __asm__ __volatile__("dsb ish\n"
-                                 "isb\n"
-                                 "mrs %[tick], cntpct_el0\n"
-                                 "isb"
-                                 : [tick] "=&r"(tick)
-                                 :
-                                 : "memory");
-            return Tick(tick);
-        }
+    ALWAYS_INLINE Tick GetSystemTickOrdered() const
+    {
+        s64 tick;
+        __asm__ __volatile__("dsb ish\n"
+                             "isb\n"
+                             "mrs %[tick], cntpct_el0\n"
+                             "isb"
+                             : [tick] "=&r"(tick)
+                             :
+                             : "memory");
+        return Tick(tick);
+    }
 
-        static constexpr inline const s64 TicksPerSecond = 19'200'000;
+    static constexpr inline const s64 TicksPerSecond = 19'200'000;
 
-        static constexpr ALWAYS_INLINE s64 GetTickFrequency() { return static_cast<s64>(TicksPerSecond); }
+    static constexpr ALWAYS_INLINE s64 GetTickFrequency() { return static_cast<s64>(TicksPerSecond); }
 
-        static constexpr ALWAYS_INLINE s64 GetMaxTick() {
-            static_assert(GetTickFrequency() <= TimeSpan::FromSeconds(1).GetNanoSeconds());
-            return (std::numeric_limits<s64>::max() / TimeSpan::FromSeconds(1).GetNanoSeconds()) * GetTickFrequency();
-        }
+    static constexpr ALWAYS_INLINE s64 GetMaxTick()
+    {
+        static_assert(GetTickFrequency() <= TimeSpan::FromSeconds(1).GetNanoSeconds());
+        return (std::numeric_limits<s64>::max() / TimeSpan::FromSeconds(1).GetNanoSeconds()) * GetTickFrequency();
+    }
 
-        static constexpr ALWAYS_INLINE s64 GetMaxTimeSpanNs() {
-            static_assert(GetTickFrequency() <= TimeSpan::FromSeconds(1).GetNanoSeconds());
-            return TimeSpan::FromNanoSeconds(std::numeric_limits<s64>::max()).GetNanoSeconds();
-        }
-    };
+    static constexpr ALWAYS_INLINE s64 GetMaxTimeSpanNs()
+    {
+        static_assert(GetTickFrequency() <= TimeSpan::FromSeconds(1).GetNanoSeconds());
+        return TimeSpan::FromNanoSeconds(std::numeric_limits<s64>::max()).GetNanoSeconds();
+    }
+};
 
 } // namespace nn::os::detail

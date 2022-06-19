@@ -35,72 +35,75 @@
 
 namespace exl::util {
 
-    template <typename T>
-    concept RealFunction = std::is_function_v<T> || std::is_function_v<std::remove_pointer_t<T>> ||
-        std::is_function_v<std::remove_reference_t<T>>;
+template <typename T>
+concept RealFunction = std::is_function_v<T> || std::is_function_v<std::remove_pointer_t<T>> || std::is_function_v<std::remove_reference_t<T>>;
 
-    class Hook {
-      private:
-        static Jit s_HookJit;
+class Hook {
+private:
+    static Jit s_HookJit;
 
-        static uintptr_t HookFuncCommon(uintptr_t hook, uintptr_t callback, bool do_trampoline = false);
-        static Result AllocForTrampoline(uint32_t** rx, uint32_t** rw);
+    static uintptr_t HookFuncCommon(uintptr_t hook, uintptr_t callback, bool do_trampoline = false);
+    static Result AllocForTrampoline(uint32_t** rx, uint32_t** rw);
 
-      public:
-        typedef union {
-            u64 x; ///< 64-bit AArch64 register view.
-            u32 w; ///< 32-bit AArch64 register view.
-            u32 r; ///< AArch32 register view.
-        } CpuRegister;
+public:
+    typedef union {
+        u64 x; ///< 64-bit AArch64 register view.
+        u32 w; ///< 32-bit AArch64 register view.
+        u32 r; ///< AArch32 register view.
+    } CpuRegister;
 
-        struct InlineCtx {
-            CpuRegister registers[29];
-        };
-        using InlineCallback = void (*)(InlineCtx*);
-
-        static void Initialize();
-
-        template <typename Func>
-        requires RealFunction<Func> || std::is_member_function_pointer_v<Func>
-        static Func HookFunc(Func hook, Func callback, bool do_trampoline = false) {
-
-            /* Workaround for being unable to cast member functions. */
-            /* Probably some horrible UB here? */
-            uintptr_t hookp;
-            uintptr_t callbackp;
-            memcpy(&hookp, &hook, sizeof(hookp));
-            memcpy(&callbackp, &callback, sizeof(callbackp));
-
-            uintptr_t trampoline = HookFuncCommon(hookp, callbackp, do_trampoline);
-
-            /* Workaround for being unable to cast member functions. */
-            /* Probably some horrible UB here? */
-            Func ret;
-            memcpy(&ret, &trampoline, sizeof(trampoline));
-
-            return ret;
-        }
-
-        template <typename Func>
-        requires RealFunction<Func>
-        static Func HookFunc(uintptr_t hook, Func callback, bool do_trampoline = false) {
-            return HookFunc(reinterpret_cast<Func>(hook), callback, do_trampoline);
-        }
-
-        template <typename Func>
-        requires RealFunction<Func>
-        static Func HookFunc(uintptr_t hook, uintptr_t callback, bool do_trampoline = false) {
-            return HookFunc(reinterpret_cast<Func>(hook), reinterpret_cast<Func>(callback), do_trampoline);
-        }
-
-        template <typename Func1, typename Func2>
-        requires
-            /* Both funcs are member pointers. */
-            std::is_member_function_pointer_v<Func1> && std::is_member_function_pointer_v<Func2>
-        /* TODO: ensure safety that Func2 can be casted to Func1 */
-        static Func1 HookFunc(Func1 hook, Func2 callback, bool do_trampoline = false) {
-            return HookFunc(reinterpret_cast<Func1>(hook), reinterpret_cast<Func1>(callback), do_trampoline);
-        }
+    struct InlineCtx {
+        CpuRegister registers[29];
     };
-    // static void InlineHook(uintptr_t addr, InlineCallback* callback);
+    using InlineCallback = void (*)(InlineCtx*);
+
+    static void Initialize();
+
+    template <typename Func>
+    requires RealFunction<Func> || std::is_member_function_pointer_v<Func>
+    static Func HookFunc(Func hook, Func callback, bool do_trampoline = false)
+    {
+
+        /* Workaround for being unable to cast member functions. */
+        /* Probably some horrible UB here? */
+        uintptr_t hookp;
+        uintptr_t callbackp;
+        memcpy(&hookp, &hook, sizeof(hookp));
+        memcpy(&callbackp, &callback, sizeof(callbackp));
+
+        uintptr_t trampoline = HookFuncCommon(hookp, callbackp, do_trampoline);
+
+        /* Workaround for being unable to cast member functions. */
+        /* Probably some horrible UB here? */
+        Func ret;
+        memcpy(&ret, &trampoline, sizeof(trampoline));
+
+        return ret;
+    }
+
+    template <typename Func>
+    requires RealFunction<Func>
+    static Func HookFunc(uintptr_t hook, Func callback, bool do_trampoline = false)
+    {
+        return HookFunc(reinterpret_cast<Func>(hook), callback, do_trampoline);
+    }
+
+    template <typename Func>
+    requires RealFunction<Func>
+    static Func HookFunc(uintptr_t hook, uintptr_t callback, bool do_trampoline = false)
+    {
+        return HookFunc(reinterpret_cast<Func>(hook), reinterpret_cast<Func>(callback), do_trampoline);
+    }
+
+    template <typename Func1, typename Func2>
+    requires
+        /* Both funcs are member pointers. */
+        std::is_member_function_pointer_v<Func1> && std::is_member_function_pointer_v<Func2>
+    /* TODO: ensure safety that Func2 can be casted to Func1 */
+    static Func1 HookFunc(Func1 hook, Func2 callback, bool do_trampoline = false)
+    {
+        return HookFunc(reinterpret_cast<Func1>(hook), reinterpret_cast<Func1>(callback), do_trampoline);
+    }
+};
+// static void InlineHook(uintptr_t addr, InlineCallback* callback);
 }; // namespace exl::util

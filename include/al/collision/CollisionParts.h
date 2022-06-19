@@ -2,6 +2,7 @@
 
 namespace al {
 
-    class CollisionParts {};
+class CollisionParts {
+};
 
 } // namespace al

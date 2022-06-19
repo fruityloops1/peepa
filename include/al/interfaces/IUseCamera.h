@@ -4,8 +4,8 @@
 
 namespace al {
 
-    class IUseCamera {
-        virtual CameraDirector* getCameraDirector() const = 0;
-    };
+class IUseCamera {
+    virtual CameraDirector* getCameraDirector() const = 0;
+};
 
 } // namespace al

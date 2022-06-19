@@ -4,8 +4,8 @@
 
 namespace al {
 
-    class IUseEffectKeeper {
-        virtual EffectKeeper* getEffectKeeper() const = 0;
-    };
+class IUseEffectKeeper {
+    virtual EffectKeeper* getEffectKeeper() const = 0;
+};
 
 } // namespace al

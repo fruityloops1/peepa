@@ -1,7 +1,8 @@
 #include "lib/reloc/rtld.hpp"
 #include "utils.hpp"
 
-Elf_Addr rtld::lookup_global_auto(const char* name) {
+Elf_Addr rtld::lookup_global_auto(const char* name)
+{
     if (ro::g_pAutoLoadList.back == (ModuleObject*)&ro::g_pAutoLoadList) {
         return 0;
     }
@@ -15,7 +16,8 @@ Elf_Addr rtld::lookup_global_auto(const char* name) {
     return 0;
 }
 
-extern "C" Elf_Addr __rtld_lazy_bind_symbol(ModuleObject* module, size_t index) {
+extern "C" Elf_Addr __rtld_lazy_bind_symbol(ModuleObject* module, size_t index)
+{
     if (module->is_rela) {
         Elf_Rela* entry = &module->rela_or_rel_plt.rela[index];
         Elf_Sym* symbol = &module->dynsym[ELF_R_SYM(entry->r_info)];

@@ -24,46 +24,46 @@
 
 namespace nn::os {
 
-    struct ThreadType {
+struct ThreadType {
 
-        enum State : u8 {
-            State_NotInitialized = 0,
-            State_Initialized = 1,
-            State_DestroyedBeforeStarted = 2,
-            State_Started = 3,
-            State_Terminated = 4,
-        };
-
-        /* List stuff. */
-        u8 _0[0x40];
-
-        State state;
-        u8 _41;
-        u8 _42;
-        u8 suspend_count;
-        s16 priority;
-        void* user_stack;
-        void* aliased_stack;
-        size_t stack_size;
-        void* argument;
-        ThreadFunction function;
-
-        /* Unknown? */
-        u8 _88[0x110];
-
-        char name_buffer[ThreadNameLengthMax];
-        char* name_pointer;
-
-        mutable detail::InternalCriticalSectionStorage cs_thread;
-        mutable detail::InternalConditionVariableStorage cv_thread;
-
-        Handle handle;
-        ThreadId thread_id;
+    enum State : u8 {
+        State_NotInitialized = 0,
+        State_Initialized = 1,
+        State_DestroyedBeforeStarted = 2,
+        State_Started = 3,
+        State_Terminated = 4,
     };
-    static_assert(sizeof(ThreadType) == 0x1C0, "");
 
-    constexpr inline s32 IdealCoreDontCare = -1;
-    constexpr inline s32 IdealCoreUseDefault = -2;
-    constexpr inline s32 IdealCoreNoUpdate = -3;
+    /* List stuff. */
+    u8 _0[0x40];
+
+    State state;
+    u8 _41;
+    u8 _42;
+    u8 suspend_count;
+    s16 priority;
+    void* user_stack;
+    void* aliased_stack;
+    size_t stack_size;
+    void* argument;
+    ThreadFunction function;
+
+    /* Unknown? */
+    u8 _88[0x110];
+
+    char name_buffer[ThreadNameLengthMax];
+    char* name_pointer;
+
+    mutable detail::InternalCriticalSectionStorage cs_thread;
+    mutable detail::InternalConditionVariableStorage cv_thread;
+
+    Handle handle;
+    ThreadId thread_id;
+};
+static_assert(sizeof(ThreadType) == 0x1C0, "");
+
+constexpr inline s32 IdealCoreDontCare = -1;
+constexpr inline s32 IdealCoreUseDefault = -2;
+constexpr inline s32 IdealCoreNoUpdate = -3;
 
 }; // namespace nn::os

@@ -3,5 +3,5 @@
 #include "abort.hpp"
 
 namespace exl::diag {
-    void NORETURN AbortToPayload(const AbortCtx&);
+void NORETURN AbortToPayload(const AbortCtx&);
 };

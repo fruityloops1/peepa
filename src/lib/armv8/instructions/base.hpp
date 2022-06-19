@@ -4,12 +4,12 @@
 
 namespace exl::armv8::inst {
 
-    struct Instruction : public InstBitSet {
+struct Instruction : public InstBitSet {
 
-        ACCESSOR(MainOp0, 25, 29);
+    ACCESSOR(MainOp0, 25, 29);
 
-        constexpr Instruction(u8 op0) { SetMainOp0(op0); }
-    };
+    constexpr Instruction(u8 op0) { SetMainOp0(op0); }
+};
 
 } // namespace exl::armv8::inst
 

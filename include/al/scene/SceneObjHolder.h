@@ -2,6 +2,7 @@
 
 namespace al {
 
-    class SceneObjHolder {};
+class SceneObjHolder {
+};
 
 } // namespace al

@@ -2,6 +2,7 @@
 
 namespace al {
 
-    class AreaObjDirector {};
+class AreaObjDirector {
+};
 
 } // namespace al

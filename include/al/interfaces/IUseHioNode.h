@@ -2,7 +2,9 @@
 
 namespace al {
 
-    class IUseHioNode {};
-    class HioNode : public IUseHioNode {};
+class IUseHioNode {
+};
+class HioNode : public IUseHioNode {
+};
 
 } // namespace al

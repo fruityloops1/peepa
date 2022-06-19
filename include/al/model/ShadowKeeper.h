@@ -2,6 +2,7 @@
 
 namespace al {
 
-    class ShadowKeeper {};
+class ShadowKeeper {
+};
 
 } // namespace al

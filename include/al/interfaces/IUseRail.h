@@ -4,8 +4,8 @@
 
 namespace al {
 
-    class IUseRail {
-        virtual RailRider* getRailRider() const = 0;
-    };
+class IUseRail {
+    virtual RailRider* getRailRider() const = 0;
+};
 
 } // namespace al

@@ -4,8 +4,8 @@
 
 namespace al {
 
-    class IUseCollision {
-        virtual CollisionDirector* getCollisionDirector() const = 0;
-    };
+class IUseCollision {
+    virtual CollisionDirector* getCollisionDirector() const = 0;
+};
 
 } // namespace al

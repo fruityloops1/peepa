@@ -5,9 +5,9 @@
 
 namespace al {
 
-    class IUseStageSwitch : IUseName {
-        virtual StageSwitchKeeper* getStageSwitchKeeper() const = 0;
-        virtual void initStageSwitchKeeper() = 0;
-    };
+class IUseStageSwitch : IUseName {
+    virtual StageSwitchKeeper* getStageSwitchKeeper() const = 0;
+    virtual void initStageSwitchKeeper() = 0;
+};
 
 } // namespace al

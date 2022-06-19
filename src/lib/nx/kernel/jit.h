@@ -11,7 +11,7 @@
 /// JIT implementation type.
 typedef enum {
     JitType_SetProcessMemoryPermission, ///< JIT supported using svcSetProcessMemoryPermission
-    JitType_CodeMemory,                 ///< JIT supported using [4.0.0+] CodeMemory syscalls
+    JitType_CodeMemory, ///< JIT supported using [4.0.0+] CodeMemory syscalls
 } JitType;
 
 /// JIT buffer object.

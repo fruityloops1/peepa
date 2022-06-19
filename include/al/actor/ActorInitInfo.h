@@ -2,6 +2,7 @@
 
 namespace al {
 
-    class ActorInitInfo {};
+class ActorInitInfo {
+};
 
 } // namespace al

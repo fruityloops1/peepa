@@ -2,6 +2,7 @@
 
 namespace al {
 
-    class LayoutPartsActorKeeper {};
+class LayoutPartsActorKeeper {
+};
 
 } // namespace al

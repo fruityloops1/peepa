@@ -2,6 +2,7 @@
 
 namespace al {
 
-    class StageSwitchKeeper {};
+class StageSwitchKeeper {
+};
 
 } // namespace al

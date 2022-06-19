@@ -5,14 +5,14 @@
 
 namespace al {
 
-    class LiveActorGroup {
+class LiveActorGroup {
 
-        const char* const mName = nullptr;
-        sead::PtrArray<LiveActor> mActors;
+    const char* const mName = nullptr;
+    sead::PtrArray<LiveActor> mActors;
 
-      public:
-        LiveActorGroup(const char* name, int max);
-        virtual void registerActor(LiveActor*);
-    };
+public:
+    LiveActorGroup(const char* name, int max);
+    virtual void registerActor(LiveActor*);
+};
 
 } // namespace al

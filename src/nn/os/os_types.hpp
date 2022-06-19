@@ -18,6 +18,6 @@
 
 namespace nn::os {
 
-    using ThreadId = u64;
+using ThreadId = u64;
 
 };

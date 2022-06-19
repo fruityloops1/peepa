@@ -2,6 +2,7 @@
 
 namespace al {
 
-    class MessageSystem {};
+class MessageSystem {
+};
 
 } // namespace al

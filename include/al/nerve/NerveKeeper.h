@@ -7,24 +7,24 @@
 
 namespace al {
 
-    class NerveKeeper {
-      public:
-        NerveKeeper(IUseNerve*, const Nerve*, int);
+class NerveKeeper {
+public:
+    NerveKeeper(IUseNerve*, const Nerve*, int);
 
-        void update();
+    void update();
 
-        const Nerve* getCurrentNerve();
-        void setNerve(const Nerve*);
+    const Nerve* getCurrentNerve();
+    void setNerve(const Nerve*);
 
-        IUseNerve* mParent;
+    IUseNerve* mParent;
 
-      private:
-        const Nerve* mLastNerve = nullptr;
-        const Nerve* mNerve = nullptr;
-        s32 mStep = 0;
-        s32 _1c;
-        NerveStateCtrl* mNerveStateCtrl = nullptr;
-        void* _28;
-    };
+private:
+    const Nerve* mLastNerve = nullptr;
+    const Nerve* mNerve = nullptr;
+    s32 mStep = 0;
+    s32 _1c;
+    NerveStateCtrl* mNerveStateCtrl = nullptr;
+    void* _28;
+};
 
 } // namespace al

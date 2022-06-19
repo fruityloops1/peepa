@@ -4,9 +4,10 @@
 #include <cstring>
 
 namespace exl::replace {
-    void ReplaceData(uintptr_t target, const uintptr_t source, size_t size) {
-        exl::util::RwPages control(target, size);
+void ReplaceData(uintptr_t target, const uintptr_t source, size_t size)
+{
+    exl::util::RwPages control(target, size);
 
-        std::memcpy((void*)control.GetRw(), (const void*)source, size);
-    }
+    std::memcpy((void*)control.GetRw(), (const void*)source, size);
+}
 } // namespace exl::replace
