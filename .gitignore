@@ -37,3 +37,4 @@ build/
 compile_commands.json
 .cache/
 build.sh
+.vscode/
