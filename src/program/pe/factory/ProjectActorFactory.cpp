@@ -1,13 +1,9 @@
-#include "pe/ProjectActorFactory.h"
-#include "pe/TestActor.h"
+#include "pe/factory/ProjectActorFactory.h"
 
-constexpr static al::ActorFactoryTableEntry customActorEntries[] = {
-    { "TestActor", pe::createActorFunction<pe::TestActor> }
-};
+constexpr static al::ActorFactoryTableEntry customActorEntries[] = {};
 
 pe::ProjectActorFactory::ProjectActorFactory()
 {
-
     static al::ActorFactoryTableEntry
         outEntries[sizeof(customActorEntries) / sizeof(al::ActorFactoryTableEntry) + sizeof(::ProjectActorFactory::sActorEntries) / sizeof(al::ActorFactoryTableEntry)];
     static bool isInitialized = false;
