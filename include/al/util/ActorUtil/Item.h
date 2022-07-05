@@ -4,6 +4,6 @@
 
 namespace al {
 
-void invalidateClipping(LiveActor*);
+void appearItemTiming(const LiveActor* actor, const char* itemName);
 
 } // namespace al

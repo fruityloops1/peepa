@@ -1,4 +1,4 @@
-/* al::LiveActor */
+/* al/actor/LiveActor.h */
 
 _ZN2al9LiveActorC1EPKc = 0x0085b390 - 0x01b52000;
 _ZN2al9LiveActorC2EPKc = 0x0085b500 - 0x01b52000;
@@ -55,7 +55,7 @@ _ZNK2al9LiveActor10getUnknownEv = 0x0085cc50 - 0x01b52000;
 _ZN2al9LiveActor35isMovePartDisableStaticTouchEffectsEv = 0x00003820 - 0x01b52000;
 _ZN2al9LiveActor21initStageSwitchKeeperEv = 0x0085ce00 - 0x01b52000;
 _ZN2al9LiveActor5unk24Ev = 0x00003830 - 0x01b52000;
-_ZN2al9LiveActor5unk25Ev = 0x0085d030 - 0x01b52000;
+_ZN2al9LiveActor7controlEv = 0x0085d030 - 0x01b52000;
 _ZN2al9LiveActor5unk26Ev = 0x00003840 - 0x01b52000;
 _ZN2al9LiveActor14updateColliderEv = 0x0085d040 - 0x01b52000;
 

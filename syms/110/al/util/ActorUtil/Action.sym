@@ -1,0 +1,12 @@
+/* al/util/ActorUtil/Action.h */
+_ZN2al26tryStartActionIfNotPlayingEPNS_9LiveActorEPKc = 0x008328b0 - 0x01b52000;
+_ZN2al11startActionEPNS_9LiveActorEPKc = 0x008326c0 - 0x01b52000;
+_ZN2al13getActionNameEPKNS_9LiveActorE = 0x00832d10 - 0x01b52000;
+_ZN2al14getActionFrameEPKNS_9LiveActorE = 0x00832cb0 - 0x01b52000;
+
+_ZN2al19setSklAnimFrameRateEPNS_9LiveActorEfi = 0x00833bc0 - 0x01b52000;
+_ZN2al19getSklAnimFrameRateEPKNS_9LiveActorEi = 0x00833b70 - 0x01b52000;
+_ZN2al14isSklAnimExistEP = 0x00833af0 - 0x01b52000;
+_ZN2al14isSklAnimExistEPKNS_9LiveActorEPKc = 0x008336e0 - 0x01b52000;
+_ZN2al35addPartialSklAnimPartsListRecursiveEPNS_9LiveActorEPKci = 0x00834a40 - 0x01b52000;
+_ZN2al21clearSklAnimInterpoleEPNS_9LiveActorE = 0x00833ae0 - 0x01b52000;

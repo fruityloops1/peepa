@@ -1,4 +1,4 @@
-/* ::ProjectActorFactory */
+/* game/factory/ProjectActorFactory.h */
 
 _ZTV19ProjectActorFactory = 0x01387228 - 0x01b52000;
 

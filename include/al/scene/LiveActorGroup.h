@@ -6,11 +6,10 @@
 namespace al {
 
 class LiveActorGroup {
-
+public:
     const char* const mName = nullptr;
     sead::PtrArray<LiveActor> mActors;
 
-public:
     LiveActorGroup(const char* name, int max);
     virtual void registerActor(LiveActor*);
 };

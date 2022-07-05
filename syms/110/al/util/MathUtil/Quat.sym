@@ -1,4 +1,4 @@
-/* Quaternion MathUtil */
+/* al/util/MathUtil/Quat.h */
 
 _ZN2al20rotateQuatXDirDegreeEPN4sead4QuatIfEERKS2_f = 0x0086d2e0 - 0x01b52000;
 _ZN2al20rotateQuatYDirDegreeEPN4sead4QuatIfEERKS2_f = 0x0086d400 - 0x01b52000;

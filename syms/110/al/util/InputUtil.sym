@@ -1,0 +1,5 @@
+/* al/util/InputUtil.h */
+
+_ZN2al16isPadTriggerPlusEi = 0x00948bc0 - 0x01b52000;
+
+_ZN2al11isPadHoldZREi = 0x0094a070 - 0x01b52000;

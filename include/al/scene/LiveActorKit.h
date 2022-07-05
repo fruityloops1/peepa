@@ -7,6 +7,7 @@ namespace al {
 
 class LiveActorKit {
 
+public:
     int _0; // max liveactors?
     int _4; // max players?
     void* _8 = nullptr;
@@ -31,7 +32,6 @@ class LiveActorKit {
     u8 _a0;
     u8 _a1;
 
-public:
     LiveActorKit(int, int, u8, u8);
 
     void init(int);

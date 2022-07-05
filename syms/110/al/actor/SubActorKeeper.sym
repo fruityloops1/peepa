@@ -1,0 +1,6 @@
+/* al/actor/SubActorKeeper.h */
+
+_ZN2al14SubActorKeeperC2EPNS_9LiveActorERKNS_13ActorInitInfoEPKci = 0x0085d8f0 - 0x01b52000;
+_ZN2al14SubActorKeeperC1EPNS_9LiveActorERKNS_13ActorInitInfoEPKci = 0x0085d8f0 - 0x01b52000;
+
+_ZN2al14SubActorKeeper9tryCreateEPNS_9LiveActorERKNS_13ActorInitInfoEPKci = 0x0085d710 - 0x01b52000;

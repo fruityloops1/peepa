@@ -1,0 +1,4 @@
+/* al/util/ActorUtil/Executor.h */
+
+_ZN2al25initExecutorEnemyMovementEPNS_9LiveActorERKNS_13ActorInitInfoE = 0x00835c90 - 0x01b52000;
+_ZN2al26initExecutorPlayerMovementEPNS_9LiveActorERKNS_13ActorInitInfoE = 0x00835c80 - 0x01b52000;

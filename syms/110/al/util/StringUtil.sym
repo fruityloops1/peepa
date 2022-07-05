@@ -1,0 +1,4 @@
+/* al/util/StringUtil.h */
+
+_ZN2al13isEqualStringEPKcS1_ = 0x008e4b20 - 0x01b52000;
+_ZN2al16isEqualSubStringEPKcS1_ = 0x008e49f0 - 0x01b52000;

@@ -1,4 +1,4 @@
-/* Pose ActorUtil */
+/* al/util/ActorUtil/Pose.h */
 
 _ZN2al18initActorPoseTFGSVEPNS_9LiveActorE = 0x00835df0 - 0x01b52000;
 _ZN2al17initActorPoseTFSVEPNS_9LiveActorE = 0x00835db0 - 0x01b52000;
@@ -54,3 +54,5 @@ _ZN2al8setFrontEPNS_9LiveActorERKN4sead7Vector3IfEE = 0x0083fed0 - 0x01b52000;
 _ZN2al7setQuatEPNS_9LiveActorERKN4sead4QuatIfEE = 0x0083fe30 - 0x01b52000;
 
 _ZN2al10setGravityEPNS_9LiveActorERKN4sead7Vector3IfEE = 0x0083fe70 - 0x01b52000;
+
+_ZN2al8copyPoseEPNS_9LiveActorEPKS0_ = 0x0083f860 - 0x01b52000;

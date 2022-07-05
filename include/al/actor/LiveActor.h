@@ -7,6 +7,7 @@
 #include "al/actor/ActorPoseKeeper/ActorPoseKeeperBase.h"
 #include "al/actor/ActorSceneInfo.h"
 #include "al/actor/ActorScoreKeeper.h"
+#include "al/actor/SubActorKeeper.h"
 #include "al/area/AreaObjDirector.h"
 #include "al/audio/AudioKeeper.h"
 #include "al/camera/CameraDirector.h"
@@ -69,7 +70,7 @@ class LiveActor : public IUseNerve,
                   public IUseCamera,
                   public IUseCollision {
 protected:
-    const char* mName = nullptr;
+    const char* const mName = nullptr;
     ActorPoseKeeperBase* mActorPoseKeeper = nullptr;
     ActorExecuteInfo* mActorExecuteInfo = nullptr;
     ActorActionKeeper* mActionKeeper = nullptr;
@@ -88,12 +89,12 @@ protected:
     RailKeeper* mRailKeeper = nullptr;
     ShadowKeeper* mShadowKeeper = nullptr;
     ActorPrePassLightKeeper* mActorPrePassLightKeeper = nullptr;
-    void* gap2 = nullptr;
+    SubActorKeeper* mSubActorKeeper = nullptr;
     void* gap3 = nullptr;
     ActorSceneInfo* mActorSceneInfo = nullptr;
     void* gap4 = nullptr;
     LiveActorFlag* mLiveActorFlag = nullptr;
-    u8 unk[0x30];
+    u8 unk[0x38];
 
 public:
     LiveActor(const char* name);
@@ -148,7 +149,7 @@ public:
     virtual bool isMovePartDisableStaticTouchEffects();
     void initStageSwitchKeeper() override;
     virtual bool unk24();
-    virtual void unk25();
+    virtual void control();
     virtual void unk26();
     virtual void updateCollider();
 

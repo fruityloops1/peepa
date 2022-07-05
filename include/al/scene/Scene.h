@@ -13,6 +13,7 @@
 namespace al {
 
 class Scene : NerveExecutor, IUseAudioKeeper, IUseCamera, IUseSceneObjHolder {
+public:
     sead::FixedSafeString<64> mName;
     bool mIsAlive = false;
     class StageResourceKeeper* mStageResourceKeeper = nullptr;
@@ -29,7 +30,6 @@ class Scene : NerveExecutor, IUseAudioKeeper, IUseCamera, IUseSceneObjHolder {
     void* unk_d8 = nullptr;
     u8 unk_e0;
 
-public:
     virtual ~Scene();
     virtual void init(const SceneInitInfo& info);
     virtual void appear();

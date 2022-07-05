@@ -1,4 +1,4 @@
-/* al::LayoutActor */
+/* al/layout/LayoutActor.h */
 
 _ZTVN2al11LayoutActorE = 0x0140b6d8 - 0x01b52000;
 

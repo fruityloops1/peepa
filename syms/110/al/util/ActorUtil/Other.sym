@@ -1,2 +1,2 @@
-/* Other ActorUtil */
-_ZN2al9initNerveEPNS_9LiveActorEPKNS_5NerveEi = 0x00839010 - 0x01b52000;
+/* al/util/ActorUtil/Other.h */
+_ZN2al18invalidateClippingEPNS_9LiveActorE = 0x00835480 - 0x01b52000;

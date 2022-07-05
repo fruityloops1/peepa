@@ -1,0 +1,6 @@
+/* al/util/SubActorUtil.h */
+
+_ZN2al11getSubActorEPKNS_9LiveActorEi = 0x0085e230 - 0x01b52000;
+_ZN2al11getSubActorEPKNS_9LiveActorEPKc = 0x0085e0d0  - 0x01b52000;
+_ZN2al14tryGetSubActorEPKNS_9LiveActorEPKc = 0x0085e180 - 0x01b52000;
+_ZN2al14getSubActorNumEPKNS_9LiveActorE = 0x0085e250 - 0x01b52000;

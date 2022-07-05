@@ -4,6 +4,6 @@
 
 namespace al {
 
-void invalidateClipping(LiveActor*);
+bool isDead(const LiveActor* actor);
 
-} // namespace al
+} // namespace

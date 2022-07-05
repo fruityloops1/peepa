@@ -10,6 +10,8 @@ void initActorPoseTQSV(LiveActor* actor);
 void initActorPoseTRMSV(LiveActor* actor);
 void initActorPoseTRSV(LiveActor* actor);
 
+void initActorSRT(LiveActor* actor, const ActorInitInfo& info);
+
 const sead::Vector3f& getTrans(const LiveActor* actor);
 const sead::Vector3f& getRotate(const LiveActor* actor);
 const sead::Vector3f& getScale(const LiveActor* actor);
@@ -58,5 +60,7 @@ void setFront(LiveActor* actor, const sead::Vector3f& front);
 
 void setQuat(LiveActor* actor, const sead::Quatf& quat);
 void setGravity(LiveActor* actor, const sead::Vector3f& gravity);
+
+void copyPose(LiveActor* to, const LiveActor* from);
 
 } // namespace al
