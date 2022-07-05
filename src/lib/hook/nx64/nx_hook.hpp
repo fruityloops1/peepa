@@ -33,23 +33,18 @@
 #include <cstring>
 #include <type_traits>
 
-namespace exl::util {
+namespace exl::hook::nx64 {
 
-template <typename T>
-concept RealFunction = std::is_function_v<T> || std::is_function_v<std::remove_pointer_t<T>> || std::is_function_v<std::remove_reference_t<T>>;
+    template<typename T>
+    concept RealFunction = std::is_function_v<T> || std::is_function_v<std::remove_pointer_t<T>> || std::is_function_v<std::remove_reference_t<T>>;
 
-class Hook {
-private:
-    static Jit s_HookJit;
+    uintptr_t HookFuncCommon(uintptr_t hook, uintptr_t callback, bool do_trampoline = false);
+    Result AllocForTrampoline(uint32_t** rx, uint32_t** rw);
 
-    static uintptr_t HookFuncCommon(uintptr_t hook, uintptr_t callback, bool do_trampoline = false);
-    static Result AllocForTrampoline(uint32_t** rx, uint32_t** rw);
-
-public:
     typedef union {
-        u64 x; ///< 64-bit AArch64 register view.
-        u32 w; ///< 32-bit AArch64 register view.
-        u32 r; ///< AArch32 register view.
+        u64 x;  ///< 64-bit AArch64 register view.
+        u32 w;  ///< 32-bit AArch64 register view.
+        u32 r;  ///< AArch32 register view.
     } CpuRegister;
 
     struct InlineCtx {
@@ -57,12 +52,27 @@ public:
     };
     using InlineCallback = void (*)(InlineCtx*);
 
-    static void Initialize();
+    void Initialize();
 
-    template <typename Func>
-    requires RealFunction<Func> || std::is_member_function_pointer_v<Func>
-    static Func HookFunc(Func hook, Func callback, bool do_trampoline = false)
-    {
+    template<typename R, typename A1, typename A2>
+    R HookFuncRaw(A1 hook, A2 callback, bool do_trampoline = false) {
+        auto r = HookFuncCommon(
+            reinterpret_cast<uintptr_t>(hook),
+            reinterpret_cast<uintptr_t>(callback),
+            do_trampoline
+        );
+
+        /* Return nothing if return type is void. */
+        if constexpr(std::is_same_v<R, void>)
+            return;
+        /* Otherwise return the value. */
+        else {
+            return reinterpret_cast<R>(r);
+        }
+    }
+
+    template<typename Func> requires RealFunction<Func> || std::is_member_function_pointer_v<Func>
+    Func HookFunc(Func hook, Func callback, bool do_trampoline = false) {
 
         /* Workaround for being unable to cast member functions. */
         /* Probably some horrible UB here? */
@@ -81,29 +91,24 @@ public:
         return ret;
     }
 
-    template <typename Func>
-    requires RealFunction<Func>
-    static Func HookFunc(uintptr_t hook, Func callback, bool do_trampoline = false)
-    {
+    template<typename Func> requires RealFunction<Func>
+    Func HookFunc(uintptr_t hook, Func callback, bool do_trampoline = false) {
         return HookFunc(reinterpret_cast<Func>(hook), callback, do_trampoline);
     }
-
-    template <typename Func>
-    requires RealFunction<Func>
-    static Func HookFunc(uintptr_t hook, uintptr_t callback, bool do_trampoline = false)
-    {
+    
+    template<typename Func> requires RealFunction<Func>
+    Func HookFunc(uintptr_t hook, uintptr_t callback, bool do_trampoline = false) {
         return HookFunc(reinterpret_cast<Func>(hook), reinterpret_cast<Func>(callback), do_trampoline);
     }
 
-    template <typename Func1, typename Func2>
-    requires
-        /* Both funcs are member pointers. */
-        std::is_member_function_pointer_v<Func1> && std::is_member_function_pointer_v<Func2>
+    template<typename Func1, typename Func2> 
+    requires 
+    /* Both funcs are member pointers. */
+    std::is_member_function_pointer_v<Func1> && std::is_member_function_pointer_v<Func2>
     /* TODO: ensure safety that Func2 can be casted to Func1 */
-    static Func1 HookFunc(Func1 hook, Func2 callback, bool do_trampoline = false)
-    {
+    Func1 HookFunc(Func1 hook, Func2 callback, bool do_trampoline = false) {
         return HookFunc(reinterpret_cast<Func1>(hook), reinterpret_cast<Func1>(callback), do_trampoline);
     }
+
+    //void InlineHook(uintptr_t addr, InlineCallback* callback);
 };
-// static void InlineHook(uintptr_t addr, InlineCallback* callback);
-}; // namespace exl::util

@@ -7,13 +7,13 @@
 
 #include "../../types.h"
 
-#include <stdalign.h>
 #include <stddef.h>
+#include <stdalign.h>
 
 #include "result.h"
 
 /// The maximum value of a u64.
-#define U64_MAX UINT64_MAX
+#define U64_MAX	UINT64_MAX
 
 #ifndef SSIZE_MAX
 #ifdef SIZE_MAX
@@ -21,24 +21,24 @@
 #endif
 #endif
 
-typedef u32 Handle; ///< Kernel object handle.
-typedef u32 Result; ///< Function error code result type.
-typedef void (*ThreadFunc)(void*); ///< Thread entrypoint function.
-typedef void (*VoidFn)(void); ///< Function without arguments nor return value.
+typedef u32 Handle;                 ///< Kernel object handle.
+typedef u32 Result;                 ///< Function error code result type.
+typedef void (*ThreadFunc)(void *); ///< Thread entrypoint function.
+typedef void (*VoidFn)(void);       ///< Function without arguments nor return value.
 
 /// Creates a bitmask from a bit number.
 #ifndef BIT
-#define BIT(n) (1U << (n))
+#define BIT(n) (1U<<(n))
 #endif
 
 /// Packs a struct so that it won't include padding bytes.
 #ifndef PACKED
-#define PACKED __attribute__((packed))
+#define PACKED     __attribute__((packed))
 #endif
 
 /// Marks a function as not returning, for the purposes of compiler optimization.
 #ifndef NORETURN
-#define NORETURN __attribute__((noreturn))
+#define NORETURN   __attribute__((noreturn))
 #endif
 
 /// Performs a dummy operation on the specified argument in order to silence compiler warnings about unused arguments.
@@ -49,7 +49,7 @@ typedef void (*VoidFn)(void); ///< Function without arguments nor return value.
 /// Flags a function as deprecated.
 #ifndef DEPRECATED
 #ifndef LIBNX_NO_DEPRECATION
-#define DEPRECATED __attribute__((deprecated))
+#define DEPRECATED __attribute__ ((deprecated))
 #else
 #define DEPRECATED
 #endif
@@ -66,4 +66,4 @@ typedef void (*VoidFn)(void); ///< Function without arguments nor return value.
 #endif
 
 /// Invalid handle.
-#define INVALID_HANDLE ((Handle)0)
+#define INVALID_HANDLE ((Handle) 0)

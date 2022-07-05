@@ -1,11 +1,11 @@
 // Copyright 2018 plutoo
-#include "jit.h"
-#include "../arm/cache.h"
+#include "../types.h"
 #include "../result.h"
 #include "../runtime/env.h"
-#include "../types.h"
+#include "../arm/cache.h"
 #include "svc.h"
 #include "virtmem.h"
+#include "jit.h"
 
 #include <stdlib.h>
 
@@ -14,21 +14,21 @@ Result jitCreate(Jit* j, void* rx_addr, size_t size)
     JitType type;
 
     // Use new CodeMemory object introduced in [4.0.0+], if available.
-    // On [5.0.0+] this is only usable with a kernel patch, as svcControlCodeMemory now errors if it's used under the
-    // same process which owns the object. The homebrew loading environment is responsible for hinting the syscalls if
-    // they are available/usable for jit.
+    // On [5.0.0+] this is only usable with a kernel patch, as svcControlCodeMemory now errors if it's used under the same process which owns the object.
+    // The homebrew loading environment is responsible for hinting the syscalls if they are available/usable for jit.
     if (true) {
         type = JitType_CodeMemory;
     }
     // Fall back to JitType_SetProcessMemoryPermission if available.
     else if (envGetOwnProcessHandle() != INVALID_HANDLE) {
         type = JitType_SetProcessMemoryPermission;
-    } else {
+    }
+    else {
         // Jit is unavailable. :(
         return MAKERESULT(Module_Libnx, LibnxError_JitUnavailable);
     }
 
-    size = (size + 0xFFF) & ~0xFFF;
+    size = (size + 0xFFF) &~ 0xFFF;
     void* src_addr = aligned_alloc(0x1000, size);
 
     if (src_addr == NULL)
@@ -42,12 +42,13 @@ Result jitCreate(Jit* j, void* rx_addr, size_t size)
 
     Result rc = 0;
 
-    switch (j->type) {
+    switch (j->type)
+    {
     case JitType_SetProcessMemoryPermission:
         virtmemLock();
         j->rx_addr = virtmemFindCodeMemory(j->size, 0x1000);
         j->rw_addr = j->src_addr;
-        j->rv = virtmemAddReservation(j->rx_addr, j->size);
+        j->rv      = virtmemAddReservation(j->rx_addr, j->size);
         virtmemUnlock();
 
         if (!j->rv) {
@@ -57,13 +58,15 @@ Result jitCreate(Jit* j, void* rx_addr, size_t size)
 
     case JitType_CodeMemory:
         rc = svcCreateCodeMemory(&j->handle, j->src_addr, j->size);
-        if (R_SUCCEEDED(rc)) {
+        if (R_SUCCEEDED(rc))
+        {
             virtmemLock();
             j->rw_addr = virtmemFindCodeMemory(j->size, 0x1000);
             rc = svcControlCodeMemory(j->handle, CodeMapOperation_MapOwner, j->rw_addr, j->size, Perm_Rw);
             virtmemUnlock();
 
-            if (R_SUCCEEDED(rc)) {
+            if (R_SUCCEEDED(rc))
+            {
                 virtmemLock();
                 j->rx_addr = virtmemFindCodeMemory(j->size, 0x1000);
                 rc = svcControlCodeMemory(j->handle, CodeMapOperation_MapSlave, j->rx_addr, j->size, Perm_Rx);
@@ -101,8 +104,7 @@ Result jitTransitionToWritable(Jit* j)
 
     switch (j->type) {
     case JitType_SetProcessMemoryPermission:
-        if (j->is_executable)
-            rc = svcUnmapProcessCodeMemory(envGetOwnProcessHandle(), (u64)j->rx_addr, (u64)j->src_addr, j->size);
+        if (j->is_executable) rc = svcUnmapProcessCodeMemory(envGetOwnProcessHandle(), (u64) j->rx_addr, (u64) j->src_addr, j->size);
         break;
 
     case JitType_CodeMemory:
@@ -110,8 +112,7 @@ Result jitTransitionToWritable(Jit* j)
         break;
     }
 
-    if (R_SUCCEEDED(rc))
-        j->is_executable = 0;
+    if (R_SUCCEEDED(rc)) j->is_executable = 0;
 
     return rc;
 }
@@ -123,10 +124,10 @@ Result jitTransitionToExecutable(Jit* j)
     switch (j->type) {
     case JitType_SetProcessMemoryPermission:
         if (!j->is_executable) {
-            rc = svcMapProcessCodeMemory(envGetOwnProcessHandle(), (u64)j->rx_addr, (u64)j->src_addr, j->size);
+            rc = svcMapProcessCodeMemory(envGetOwnProcessHandle(), (u64) j->rx_addr, (u64) j->src_addr, j->size);
 
             if (R_SUCCEEDED(rc)) {
-                rc = svcSetProcessMemoryPermission(envGetOwnProcessHandle(), (u64)j->rx_addr, j->size, Perm_Rx);
+                rc = svcSetProcessMemoryPermission(envGetOwnProcessHandle(), (u64) j->rx_addr, j->size, Perm_Rx);
 
                 if (R_FAILED(rc)) {
                     jitTransitionToWritable(j);
@@ -141,8 +142,7 @@ Result jitTransitionToExecutable(Jit* j)
         break;
     }
 
-    if (R_SUCCEEDED(rc))
-        j->is_executable = 1;
+    if (R_SUCCEEDED(rc)) j->is_executable = 1;
 
     return rc;
 }
@@ -151,7 +151,8 @@ Result jitClose(Jit* j)
 {
     Result rc = 0;
 
-    switch (j->type) {
+    switch (j->type)
+    {
     case JitType_SetProcessMemoryPermission:
         rc = jitTransitionToWritable(j);
 

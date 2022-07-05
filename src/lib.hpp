@@ -14,10 +14,13 @@
 #include "lib/patch/random_access_patcher.hpp"
 #include "lib/patch/stream_patcher.hpp"
 
-#include "lib/util/cur_proc_handle.hpp"
-#include "lib/util/nx_hook.hpp"
-#include "lib/util/rw_pages.hpp"
-#include "lib/util/soc.hpp"
+#include "lib/util/math/bitset.hpp"
+#include "lib/util/ptr_path.hpp"
+#include "lib/util/sys/cur_proc_handle.hpp"
+#include "lib/util/sys/mem_layout.hpp"
+#include "lib/util/sys/rw_pages.hpp"
+#include "lib/util/sys/soc.hpp"
+#include "lib/util/typed_storage.hpp"
 
 #include "lib/hook.hpp"
 #include "lib/replace.hpp"

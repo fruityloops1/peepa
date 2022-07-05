@@ -10,23 +10,23 @@
 
 using namespace rtld;
 
-typedef Elf_Addr (*lookup_global_t)(const char*);
+typedef Elf_Addr (*lookup_global_t)(const char *);
 
 extern "C" void __rtld_runtime_resolve(void);
 
 namespace rtld {
-Elf_Addr lookup_global_auto(const char* name);
+    Elf_Addr lookup_global_auto(const char *name);
 }
 
 namespace nn::ro::detail {
-extern ModuleObjectList g_pManualLoadList;
-extern ModuleObjectList g_pAutoLoadList;
-extern bool g_RoDebugFlag;
-extern lookup_global_t g_pLookupGlobalManualFunctionPointer;
-}; // namespace nn::ro::detail
+    extern ModuleObjectList g_pManualLoadList;
+    extern ModuleObjectList g_pAutoLoadList;
+    extern bool g_RoDebugFlag;
+    extern lookup_global_t g_LookupGlobalManualFunctionPointer;
+};
 
 namespace ro = nn::ro::detail;
 
 extern "C" {
-extern rtld::ModuleObject exl_nx_module_runtime;
+    extern rtld::ModuleObject exl_nx_module_runtime;
 };

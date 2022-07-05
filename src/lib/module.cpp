@@ -9,5 +9,4 @@ struct ModuleName {
 };
 
 __attribute__((section(".nx-module-name")))
-const ModuleName s_ModuleName
-    = { .unknown = 0, .name_length = EXL_MODULE_NAME_LEN, .name = EXL_MODULE_NAME };
+const ModuleName s_ModuleName = {.unknown = 0, .name_length = EXL_MODULE_NAME_LEN, .name = EXL_MODULE_NAME};

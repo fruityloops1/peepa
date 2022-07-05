@@ -2,6 +2,10 @@
 
 static Handle g_processHandle = INVALID_HANDLE;
 
-Handle envGetOwnProcessHandle(void) { return g_processHandle; }
+Handle envGetOwnProcessHandle(void) {
+    return g_processHandle;
+}
 
-void envSetOwnProcessHandle(Handle h) { g_processHandle = h; }
+void envSetOwnProcessHandle(Handle h) {
+    g_processHandle = h;
+}

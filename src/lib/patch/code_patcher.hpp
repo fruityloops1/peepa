@@ -17,37 +17,57 @@ public:
     {
     }
 
-    inline void WriteInst(InstBitSet inst) { Write<InstBitSet>(inst); }
+    inline void WriteInst(InstBitSet inst)
+    {
+        Write<InstBitSet>(inst);
+    }
 
     /* Special case branches as they are relative to the current position. */
-    inline void BranchInstRel(ptrdiff_t address) { WriteInst(inst::Branch(address)); }
-    inline void BranchLinkInstRel(ptrdiff_t address) { WriteInst(inst::BranchLink(address)); }
+    inline void BranchInstRel(ptrdiff_t address)
+    {
+        WriteInst(inst::Branch(address));
+    }
+    inline void BranchLinkInstRel(ptrdiff_t address)
+    {
+        WriteInst(inst::BranchLink(address));
+    }
 
     /* Address relative to the base (Ro). */
-    inline void BranchInst(uintptr_t address) { BranchInstRel(RelativeAddressFromBase(address)); }
-    inline void BranchLinkInst(uintptr_t address) { BranchLinkInstRel(RelativeAddressFromBase(address)); }
+    inline void BranchInst(uintptr_t address)
+    {
+        BranchInstRel(RelativeAddressFromBase(address));
+    }
+    inline void BranchLinkInst(uintptr_t address)
+    {
+        BranchLinkInstRel(RelativeAddressFromBase(address));
+    }
     /* Absolute addresses. */
-    inline void BranchInst(void* ptr) { BranchInstRel(RelativeAddressFromPointer(ptr)); }
-    inline void BranchLinkInst(void* ptr) { BranchLinkInstRel(RelativeAddressFromPointer(ptr)); }
-    template <typename T>
-    inline void BranchInst(T ptr)
+    inline void BranchInst(void* ptr)
     {
-        static_assert(sizeof(T) == sizeof(void*));
-        union {
+        BranchInstRel(RelativeAddressFromPointer(ptr));
+    }
+    inline void BranchLinkInst(void* ptr)
+    {
+        BranchLinkInstRel(RelativeAddressFromPointer(ptr));
+    }
+
+    /*template <typename T>
+    inline void BranchInst(T address)
+    {
+        struct {
             T a;
-            void* ptr;
-        } c { ptr };
-        BranchInstRel(RelativeAddressFromPointer(c.ptr));
+            void* b;
+        } conv(address);
+        BranchInst(conv.b);
     }
     template <typename T>
-    inline void BranchLinkInst(T ptr)
+    inline void BranchLinkInst(T address)
     {
-        static_assert(sizeof(T) == sizeof(void*));
-        union {
+        struct {
             T a;
-            void* ptr;
-        } c { ptr };
-        BranchLinkInstRel(RelativeAddressFromPointer(c.ptr));
-    }
+            void* b;
+        } conv(address);
+        BranchLinkInst(conv.b);
+    }*/
 };
-} // namespace exl::patch
+}

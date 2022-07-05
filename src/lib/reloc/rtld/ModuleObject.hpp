@@ -11,55 +11,56 @@ namespace rtld {
 
 struct ModuleObject {
 
-private:
+   private:
     // ResolveSymbols internals
-    inline void ResolveSymbolRelAbsolute(Elf_Rel* entry);
-    inline void ResolveSymbolRelaAbsolute(Elf_Rela* entry);
-    inline void ResolveSymbolRelJumpSlot(Elf_Rel* entry, bool do_lazy_got_init);
-    inline void ResolveSymbolRelaJumpSlot(Elf_Rela* entry, bool do_lazy_got_init);
+    inline void ResolveSymbolRelAbsolute(Elf_Rel *entry);
+    inline void ResolveSymbolRelaAbsolute(Elf_Rela *entry);
+    inline void ResolveSymbolRelJumpSlot(Elf_Rel *entry, bool do_lazy_got_init);
+    inline void ResolveSymbolRelaJumpSlot(Elf_Rela *entry,
+                                          bool do_lazy_got_init);
 
-public:
-    struct ModuleObject* next;
-    struct ModuleObject* prev;
+   public:
+    struct ModuleObject *next;
+    struct ModuleObject *prev;
     union {
-        Elf_Rel* rel;
-        Elf_Rela* rela;
-        void* raw;
+        Elf_Rel *rel;
+        Elf_Rela *rela;
+        void *raw;
     } rela_or_rel_plt;
     union {
-        Elf_Rel* rel;
-        Elf_Rela* rela;
+        Elf_Rel *rel;
+        Elf_Rela *rela;
     } rela_or_rel;
-    char* module_base;
-    Elf_Dyn* dynamic;
+    char *module_base;
+    Elf_Dyn *dynamic;
     bool is_rela;
     Elf_Xword rela_or_rel_plt_size;
     void (*dt_init)(void);
     void (*dt_fini)(void);
-    uint32_t* hash_bucket;
-    uint32_t* hash_chain;
-    char* dynstr;
-    Elf_Sym* dynsym;
+    uint32_t *hash_bucket;
+    uint32_t *hash_chain;
+    char *dynstr;
+    Elf_Sym *dynsym;
     Elf_Xword dynstr_size;
-    void** got;
+    void **got;
     Elf_Xword rela_dyn_size;
     Elf_Xword rel_dyn_size;
     Elf_Xword rel_count;
     Elf_Xword rela_count;
     Elf_Xword hash_nchain_value;
     Elf_Xword hash_nbucket_value;
-    void* got_stub_ptr;
+    void *got_stub_ptr;
 #ifdef __RTLD_6XX__
     Elf_Xword soname_idx;
     size_t nro_size;
     bool cannot_revert_symbols;
 #endif
 
-    void Initialize(char* aslr_base, Elf_Dyn* dynamic);
+    void Initialize(char *aslr_base, Elf_Dyn *dynamic);
     void Relocate();
-    Elf_Sym* GetSymbolByName(const char* name);
+    Elf_Sym *GetSymbolByName(const char *name);
     void ResolveSymbols(bool do_lazy_got_init);
-    bool TryResolveSymbol(Elf_Addr* target_symbol_address, Elf_Sym* symbol);
+    bool TryResolveSymbol(Elf_Addr *target_symbol_address, Elf_Sym *symbol);
 };
 
 #ifdef __RTLD_6XX__
@@ -75,4 +76,4 @@ static_assert(sizeof(ModuleObject) == 0xB8, "ModuleObject size isn't valid");
 static_assert(sizeof(ModuleObject) == 0x5C, "ModuleObject size isn't valid");
 #endif
 #endif
-} // namespace rtld
+}  // namespace rtld

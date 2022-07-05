@@ -1,4 +1,4 @@
-#include "lib/util/rw_pages.hpp"
+#include "lib/util/sys/rw_pages.hpp"
 
 #include "replace.hpp"
 #include <cstring>
@@ -10,4 +10,4 @@ void ReplaceData(uintptr_t target, const uintptr_t source, size_t size)
 
     std::memcpy((void*)control.GetRw(), (const void*)source, size);
 }
-} // namespace exl::replace
+}

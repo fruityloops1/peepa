@@ -1,6 +1,6 @@
 // Copyright 2017 plutoo
-#include "detect.h"
 #include "../types.h"
+#include "detect.h"
 //#include "mutex.h"
 #include "svc.h"
 #include <malloc.h>
@@ -38,9 +38,9 @@ static void _CacheVersion(void)
         g_Version = 6;
 
     __atomic_store_n(&g_VersionCached, true, __ATOMIC_SEQ_CST);
+
 }
-int detectKernelVersion(void)
-{
+int detectKernelVersion(void) {
     _CacheVersion();
     return g_Version;
 }
