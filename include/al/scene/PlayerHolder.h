@@ -7,9 +7,10 @@ namespace al {
 class PlayerHolder {
     struct Player* mPlayers = nullptr;
     int mBufferSize = 0;
-    int mPlayerNum = 0;
 
 public:
+    int mPlayerNum = 0;
+
     PlayerHolder(int bufferSize);
     LiveActor* tryGetPlayer(int index);
 };

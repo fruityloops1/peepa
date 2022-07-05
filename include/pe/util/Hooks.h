@@ -20,5 +20,15 @@ namespace util {
         al::setNerve(actor, nerve);
     }
 
+    template <typename To, typename F>
+    To getFuncPtrAddr(F ptr)
+    {
+        struct {
+            F ptrType;
+            To addr;
+        } conv { ptr };
+        return conv.addr;
+    }
+
 } // namespace
 } // namespace
