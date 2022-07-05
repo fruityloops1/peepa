@@ -20,3 +20,32 @@ _ZdlPvmSt11align_val_t = 0x004e4490 + __sdk_start;
 _ZdaPvSt11align_val_t = 0x004e4498 + __sdk_start;
 _ZdaPvSt11align_val_tRKSt9nothrow_t = 0x004e44a0 + __sdk_start;
 _ZdaPvmSt11align_val_t = 0x004e44a8 + __sdk_start;
+
+_ZN2nn6socket6SendToEiPKvmiPK8sockaddrj = 0x0037ba70 + __sdk_start;
+_ZN2nn6socket12GetLastErrnoEv = 0x0037bf10 + __sdk_start;
+_ZN2nn6socket4BindEiPK8sockaddrj = 0x0037bab0 + __sdk_start;
+_ZN2nn6socket6SocketEiii = 0x0037bbc0 + __sdk_start;
+_ZN2nn6socket9InetHtonsEt = 0x0037bea0 + __sdk_start;
+_ZN2nn6socket10InitializeEPvmmi = 0x0037c000 + __sdk_start;
+_ZN2nn6socket8RecvFromEiPvmiP8sockaddrPj = 0x0037ba30 + __sdk_start;
+_ZN2nn6socket8InetAtonEPKcPNS0_6InAddrE = 0x0037be60 + __sdk_start;
+_ZN2nn6socket5CloseEi = 0x0037bc10 + __sdk_start;
+_ZN2nn6socket10SetSockOptEiiiPKvj = 0x0037bb60 + __sdk_start;
+
+_ZN2nn4nifm22IsNetworkRequestOnHoldEv = 0x0032aeb0 + __sdk_start;
+_ZN2nn4nifm20SubmitNetworkRequestEv = 0x0032add0 + __sdk_start;
+_ZN2nn4nifm10InitializeEv = 0x00329cf0 + __sdk_start;
+
+_ZN2nn2os11YieldThreadEv = 0x0033beb0 + __sdk_start;
+_ZN2nn2os11SleepThreadENS_8TimeSpanE = 0x0033bec0 + __sdk_start;
+_ZN2nn2os13SuspendThreadEPNS0_10ThreadTypeE = 0x0033c000 + __sdk_start;
+_ZN2nn2os13DestroyThreadEPNS0_10ThreadTypeE = 0x0033bb30 + __sdk_start;
+_ZN2nn2os11StartThreadEPNS0_10ThreadTypeE = 0x0033bb50 + __sdk_start;
+_ZN2nn2os13SetThreadNameEPNS0_10ThreadTypeEPKc = 0x0033bb70 + __sdk_start;
+_ZN2nn2os12CreateThreadEPNS0_10ThreadTypeEPFvPvES3_S3_mii = 0x0033ba90 + __sdk_start;
+_ZN2nn2os12ResumeThreadEPNS0_10ThreadTypeE = 0x0033c020 + __sdk_start;
+
+_ZN2nn4time23StandardUserSystemClock14GetCurrentTimeEPNS0_9PosixTimeE = 0x003a24c0 + __sdk_start;
+
+_ZN2nn7account17GetLastOpenedUserEPNS0_3UidE = 0x00002590 + __sdk_start;
+_ZN2nn7account11GetNicknameEPA33_cRKNS0_3UidE = 0x000025f0 + __sdk_start;
