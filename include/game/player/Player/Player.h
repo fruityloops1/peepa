@@ -2,10 +2,15 @@
 
 #include "game/player/Player/PlayerFigureDirector.h"
 #include "types.h"
+#include <sead/math/seadVector.h>
+
+struct PlayerProperty {
+    sead::Vector3f trans;
+};
 
 class Player {
 public:
-    u8 inherits[0x60];
-    u8 unk[0x28];
+    PlayerProperty* mPlayerProperty = nullptr;
+    u8 unk[0x80];
     PlayerFigureDirector* mFigureDirector = nullptr;
 };
