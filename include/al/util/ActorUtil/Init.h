@@ -10,6 +10,7 @@ void initActor(LiveActor* actor, const ActorInitInfo& info);
 void initActorWithArchiveName(LiveActor* actor, const ActorInitInfo& info, const sead::SafeString& archiveName, const char* subArchiveName = nullptr);
 
 void initCreateActorNoPlacementInfo(LiveActor* actor, const ActorInitInfo& info);
+void initLinksActor(al::LiveActor* actor, const al::ActorInitInfo& info, const char* linkName, int index);
 
 void initActorAudioKeeper(LiveActor* actor, const ActorInitInfo& info, const char* audioEntryName);
 void initActorClipping(LiveActor* actor, const ActorInitInfo& info);

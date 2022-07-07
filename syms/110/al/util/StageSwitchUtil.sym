@@ -1,0 +1,5 @@
+/* al/util/StageSwitchUtil.h */
+
+_ZN2al16tryOnStageSwitchEPNS_15IUseStageSwitchEPKc = 0x008cc3e0 - 0x01b52000;
+_ZN2al19listenStageSwitchOnEPNS_15IUseStageSwitchEPKcRKNS_11FunctorBaseE = 0x008ccae0 - 0x01b52000;
+_ZN2al20listenStageSwitchOffEPNS_15IUseStageSwitchEPKcRKNS_11FunctorBaseE = 0x008ccb80 - 0x01b52000;

@@ -3,6 +3,7 @@ _ZN2al26tryStartActionIfNotPlayingEPNS_9LiveActorEPKc = 0x008328b0 - 0x01b52000;
 _ZN2al11startActionEPNS_9LiveActorEPKc = 0x008326c0 - 0x01b52000;
 _ZN2al13getActionNameEPKNS_9LiveActorE = 0x00832d10 - 0x01b52000;
 _ZN2al14getActionFrameEPKNS_9LiveActorE = 0x00832cb0 - 0x01b52000;
+_ZN2al11isActionEndEPKNS_9LiveActorE = 0x008329f0 - 0x01b52000;
 
 _ZN2al19setSklAnimFrameRateEPNS_9LiveActorEfi = 0x00833bc0 - 0x01b52000;
 _ZN2al19getSklAnimFrameRateEPKNS_9LiveActorEi = 0x00833b70 - 0x01b52000;

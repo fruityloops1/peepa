@@ -8,6 +8,7 @@ bool tryStartActionIfNotPlaying(LiveActor* actor, const char*);
 void startAction(LiveActor* actor, const char* actionName);
 const char* getActionName(const LiveActor* actor);
 float getActionFrame(const LiveActor* actor);
+bool isActionEnd(const al::LiveActor* actor);
 
 void setSklAnimFrameRate(LiveActor* actor, float frameRate, int);
 float getSklAnimFrameRate(const LiveActor* actor, int);

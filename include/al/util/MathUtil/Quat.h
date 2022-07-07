@@ -8,4 +8,6 @@ void rotateQuatXDirDegree(sead::Quatf* out, const sead::Quatf& from, float degre
 void rotateQuatYDirDegree(sead::Quatf* out, const sead::Quatf& from, float degree);
 void rotateQuatZDirDegree(sead::Quatf* out, const sead::Quatf& from, float degree);
 
+void rotateQuatRadian(sead::Quatf* out, const sead::Quatf& from, const sead::Vector3f& axis, float radians);
+
 } // namespace al

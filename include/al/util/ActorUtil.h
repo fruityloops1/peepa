@@ -5,6 +5,7 @@
 #include "al/util/ActorUtil/Flag.h"
 #include "al/util/ActorUtil/Init.h"
 #include "al/util/ActorUtil/Item.h"
+#include "al/util/ActorUtil/Model.h"
 #include "al/util/ActorUtil/Other.h"
 #include "al/util/ActorUtil/Pose.h"
 #include "al/util/ActorUtil/Sound.h"

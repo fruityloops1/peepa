@@ -4,6 +4,7 @@ _ZN2al9initActorEPNS_9LiveActorERKNS_13ActorInitInfoE = 0x00838240 - 0x01b52000;
 _ZN2al24initActorWithArchiveNameEPNS_9LiveActorERKNS_13ActorInitInfoERKN4sead14SafeStringBaseIcEEPKc = 0x00838370 - 0x01b52000;
 
 _ZN2al30initCreateActorNoPlacementInfoEPNS_9LiveActorERKNS_13ActorInitInfoE = 0x00838d10 - 0x01b52000;
+_ZN2al14initLinksActorEPNS_9LiveActorERKNS_13ActorInitInfoEPKci = 0x00838a90 - 0x01b52000;
 
 _ZN2al17initActorClippingEPNS_9LiveActorERKNS_13ActorInitInfoE = 0x00834e70 - 0x01b52000;
 _ZN2al21initActorEffectKeeperEPNS_9LiveActorERKNS_13ActorInitInfoEPKc = 0x00836280 - 0x01b52000;
