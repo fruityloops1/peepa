@@ -6,6 +6,7 @@
 namespace al {
 
 bool tryOnStageSwitch(al::IUseStageSwitch*, const char* name);
+bool tryOffStageSwitch(al::IUseStageSwitch*, const char* name);
 void listenStageSwitchOn(al::IUseStageSwitch*, const char* name, const al::FunctorBase&);
 void listenStageSwitchOff(al::IUseStageSwitch*, const char* name, const al::FunctorBase&);
 

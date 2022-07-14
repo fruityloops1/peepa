@@ -13,3 +13,4 @@ _ZN2al18initActorSceneInfoEPNS_9LiveActorERKNS_13ActorInitInfoE = 0x00835bc0 - 0
 _ZN2al12initActorSRTEPNS_9LiveActorERKNS_13ActorInitInfoE = 0x00835e70 - 0x01b52000;
 
 _ZN2al9initNerveEPNS_9LiveActorEPKNS_5NerveEi = 0x00839010 - 0x01b52000;
+_ZN2al25initJointControllerKeeperEPKNS_9LiveActorEi = 0x00815d10 - 0x01b52000;

@@ -19,5 +19,6 @@ void initActorModelKeeper(LiveActor* actor, const ActorInitInfo& info, const cha
 void initActorSceneInfo(LiveActor* actor, const ActorInitInfo& info);
 
 void initNerve(LiveActor* actor, const Nerve* nerve, int step = 0);
+void initJointControllerKeeper(const LiveActor* actor, int);
 
 } // namespace al

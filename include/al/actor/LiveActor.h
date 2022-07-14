@@ -132,7 +132,7 @@ public:
     virtual void unk18();
     virtual void unk19();
     virtual void unk20();
-    virtual void unk21();
+    virtual void attackSensor(HitSensor* me, HitSensor* target);
     virtual bool receiveMsg(const SensorMsg* msg, HitSensor* source, HitSensor* target);
     virtual bool receiveMsgScreenPoint(const SensorMsg* msg, ScreenPointer* pointer, ScreenPointTarget* target);
     virtual void unk22();

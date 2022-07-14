@@ -11,3 +11,6 @@ _ZN2al14isSklAnimExistEP = 0x00833af0 - 0x01b52000;
 _ZN2al14isSklAnimExistEPKNS_9LiveActorEPKc = 0x008336e0 - 0x01b52000;
 _ZN2al35addPartialSklAnimPartsListRecursiveEPNS_9LiveActorEPKci = 0x00834a40 - 0x01b52000;
 _ZN2al21clearSklAnimInterpoleEPNS_9LiveActorE = 0x00833ae0 - 0x01b52000;
+
+_ZN2al16startHitReactionEPKNS_9LiveActorEPKc = 0x008332d0 - 0x01b52000;
+_ZN2al25startHitReactionDisappearEPKNS_9LiveActorE = 0x00833420 - 0x01b52000;

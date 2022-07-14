@@ -5,6 +5,7 @@
 
 namespace al {
 
-al::HitSensor* getSensor(const al::LiveActor* actor, const char* sensorName);
+al::HitSensor* getHitSensor(const al::LiveActor* actor, const char* sensorName);
+al::LiveActor* getSensorHost(const al::HitSensor* sensor);
 
 } // namespace al

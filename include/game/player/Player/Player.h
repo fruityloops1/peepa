@@ -1,11 +1,12 @@
 #pragma once
 
 #include "game/player/Player/PlayerFigureDirector.h"
-#include "types.h"
 #include <sead/math/seadVector.h>
 
 struct PlayerProperty {
     sead::Vector3f trans;
+    u8 unk[0x18];
+    sead::Vector3f velocity;
 };
 
 class Player {
