@@ -28,6 +28,7 @@ _ZN2nn6socket6SocketEiii = 0x0037bbc0 + __sdk_start;
 _ZN2nn6socket9InetHtonsEt = 0x0037bea0 + __sdk_start;
 _ZN2nn6socket10InitializeEPvmmi = 0x0037c000 + __sdk_start;
 _ZN2nn6socket8RecvFromEiPvmiP8sockaddrPj = 0x0037ba30 + __sdk_start;
+_ZN2nn6socket4RecvEiPvmi = 0x0037ba10 + __sdk_start;
 _ZN2nn6socket8InetAtonEPKcPNS0_6InAddrE = 0x0037be60 + __sdk_start;
 _ZN2nn6socket5CloseEi = 0x0037bc10 + __sdk_start;
 _ZN2nn6socket10SetSockOptEiiiPKvj = 0x0037bb60 + __sdk_start;

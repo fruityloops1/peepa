@@ -12,7 +12,7 @@
 
 namespace al {
 
-class Scene : NerveExecutor, IUseAudioKeeper, IUseCamera, IUseSceneObjHolder {
+class Scene : public NerveExecutor, public IUseAudioKeeper, public IUseCamera, public IUseSceneObjHolder {
 public:
     sead::FixedSafeString<64> mName;
     bool mIsAlive = false;
