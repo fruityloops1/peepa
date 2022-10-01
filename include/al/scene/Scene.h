@@ -16,6 +16,7 @@ class Scene : public NerveExecutor, public IUseAudioKeeper, public IUseCamera, p
 public:
     sead::FixedSafeString<64> mName;
     bool mIsAlive = false;
+    bool mIsControlDead = false;
     class StageResourceKeeper* mStageResourceKeeper = nullptr;
     LiveActorKit* mLiveActorKit = nullptr;
     class LayoutKit* mLayoutKit = nullptr;

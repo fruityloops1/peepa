@@ -1,11 +1,15 @@
 #pragma once
 
 #include "pe/client/Client.h"
+#include "pe/client/ServerScene.h"
+#include <cstdio>
 
 namespace pe {
 
 class MPClient : public Client {
 public:
+    constexpr static const char* const sServerIp = "put ip here";
+
     MPClient()
         : Client(sPackets)
     {
@@ -24,10 +28,27 @@ public:
         log((const char*)data);
     }
 
+    pe::ServerScene mServerScene;
+
+    void receivePlayerUpdate(u8* data, size_t size);
+    void receivePlayerAnimStart(u8* data, size_t size);
+    void receivePlayerDisasterTimerUpdate(u8* data, size_t size);
+    void receivePlayerConnectionStatus(u8* data, size_t size);
+    void receivePlayerGenericPuppetUpdate(u8* data, size_t size);
+    void receivePlayerGenericPuppetAnimStart(u8* data, size_t size);
+
+    void tryAddPlayer(u64 id);
+
 private:
     constexpr static Client::receivePacket sPackets[] = {
         &Client::receiveInit,
-        &Client::receivePing
+        &Client::receivePing,
+        (Client::receivePacket)&MPClient::receivePlayerUpdate,
+        (Client::receivePacket)&MPClient::receivePlayerAnimStart,
+        (Client::receivePacket)&MPClient::receivePlayerDisasterTimerUpdate,
+        (Client::receivePacket)&MPClient::receivePlayerConnectionStatus,
+        (Client::receivePacket)&MPClient::receivePlayerGenericPuppetUpdate,
+        (Client::receivePacket)&MPClient::receivePlayerGenericPuppetAnimStart
     };
 };
 

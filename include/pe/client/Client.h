@@ -10,6 +10,8 @@ class Client {
     constexpr static int sTimeoutSeconds = 30;
     constexpr static int sPingIntervalSeconds = 10;
 
+    static_assert(sThreadStackSize > sPacketBufferSize);
+
     sockaddr_in mServerAddress;
     sockaddr mClientAddress;
     s32 mSocket = -1;
@@ -44,6 +46,7 @@ public:
     void connect(const char* address, u16 port);
     void reconnect(const char* address, u16 port);
     void reconnect();
+    void disconnect();
     void ping();
 
     void sendPacket(OutPacket&);
@@ -52,18 +55,20 @@ public:
     virtual void receiveInit(u8* data, size_t size);
     void receivePing(u8* data, size_t size);
 
-    friend void
-    threadFunc(void*);
+    friend void threadFunc(void*);
     friend void pingThreadFunc(void*);
 
-    inline bool isTimedOut()
+    inline bool isTimedOut() const
     {
+        return false;
+
         nn::time::PosixTime now;
         nn::time::StandardUserSystemClock::GetCurrentTime(&now);
         return now.time - mLastPingReceived > sTimeoutSeconds;
     }
 
-    inline bool isConnected() { return mInited && mConnected && !isTimedOut(); }
+    inline bool isConnected() const { return mInited && mConnected && !isTimedOut(); }
+    inline bool isInited() const { return mInited; }
 };
 
 } // namespace pe

@@ -1,0 +1,5 @@
+/* game/actors/Coin.h */
+
+_ZTV4Coin = 0x0130e9d0 - 0x01b52000;
+
+_ZN4CoinC1EPKc = 0x001fc260 - 0x01b52000;

@@ -12,7 +12,7 @@ void initActorWithArchiveName(LiveActor* actor, const ActorInitInfo& info, const
 void initCreateActorNoPlacementInfo(LiveActor* actor, const ActorInitInfo& info);
 void initLinksActor(al::LiveActor* actor, const al::ActorInitInfo& info, const char* linkName, int index);
 
-void initActorAudioKeeper(LiveActor* actor, const ActorInitInfo& info, const char* audioEntryName);
+void initActorAudioKeeper(LiveActor* actor, const ActorInitInfo& info, const char* audioEntryName, const sead::Vector3f* pos3d, const sead::Matrix34f* mtx);
 void initActorClipping(LiveActor* actor, const ActorInitInfo& info);
 void initActorEffectKeeper(LiveActor* actor, const ActorInitInfo& info, const char* effectEntryName);
 void initActorModelKeeper(LiveActor* actor, const ActorInitInfo& info, const char* modelArc, int, const char* animArc);

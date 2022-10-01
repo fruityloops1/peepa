@@ -18,6 +18,7 @@ _ZNK2al11LayoutActor21getLayoutActionKeeperEv = 0x00016f40 - 0x01b52000;
 _ZNK2al11LayoutActor17getCameraDirectorEv = 0x0096dfe0 - 0x01b52000;
 _ZNK2al11LayoutActor17getSceneObjHolderEv = 0x0096e000 - 0x01b52000;
 _ZNK2al11LayoutActor16getMessageSystemEv = 0x0096e020 - 0x01b52000;
+_ZN2al11LayoutActor7controlEv = 0x00016f60 - 0x01b52000;
 
 _ZThn8_NK2al11LayoutActor15getLayoutKeeperEv = 0x00016fb0 - 0x01b52000;
 _ZThn8_NK2al11LayoutActor7getNameEv = 0x00016f70 - 0x01b52000;

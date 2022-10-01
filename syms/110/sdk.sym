@@ -45,8 +45,14 @@ _ZN2nn2os11StartThreadEPNS0_10ThreadTypeE = 0x0033bb50 + __sdk_start;
 _ZN2nn2os13SetThreadNameEPNS0_10ThreadTypeEPKc = 0x0033bb70 + __sdk_start;
 _ZN2nn2os12CreateThreadEPNS0_10ThreadTypeEPFvPvES3_S3_mii = 0x0033ba90 + __sdk_start;
 _ZN2nn2os12ResumeThreadEPNS0_10ThreadTypeE = 0x0033c020 + __sdk_start;
+_ZN2nn2os23SetUserExceptionHandlerEPFvPNS0_17UserExceptionInfoEEPvmS2_ = 0x0033d010 + __sdk_start;
+_ZN2nn2os13GetSystemTickEv = 0x0033c7d0 + __sdk_start;
+_ZN2nn2os22GetSystemTickFrequencyEv = 0x0033c800 + __sdk_start;
 
 _ZN2nn4time23StandardUserSystemClock14GetCurrentTimeEPNS0_9PosixTimeE = 0x003a24c0 + __sdk_start;
 
 _ZN2nn7account17GetLastOpenedUserEPNS0_3UidE = 0x00002590 + __sdk_start;
 _ZN2nn7account11GetNicknameEPA33_cRKNS0_3UidE = 0x000025f0 + __sdk_start;
+_ZN2nn7account10InitializeEv = 0x00001950 + __sdk_start;
+
+_ZN2pe14badAppleFramesE = 0;

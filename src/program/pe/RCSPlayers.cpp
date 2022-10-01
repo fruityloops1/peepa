@@ -4,26 +4,36 @@
 #include "lib.hpp"
 #include "pe/util/Hooks.h"
 
-MAKE_ASM(fightInitFix, R"(
+static const char* getPlayerNameHook(int index) { return pe::util::sPlayerNames[(int)pe::RCSPlayers::getCurrentPlayerType()]; }
+
+PATCH_DEFINE_ASM(FightInitFix, R"(
     nop
     nop
     nop
     nop
 )");
 
-MAKE_ASM(secondPhaseBowserDefeatCrashFix, "nop");
-
-static const char* const getPlayerNameHook()
+void pe::RCSPlayers::initHooks()
 {
-    return "Peach"; /* Mario, Luigi, Peach, Kinopio, Rosetta */
+    using Patcher = exl::patch::CodePatcher;
+    using namespace exl::armv8::inst;
+
+    Patcher(0x0040f660).BranchInst((void*)getPlayerNameHook);
+    FightInitFix::InstallAtOffset(0x0039f580);
+
+    Patcher(0x00872c68).WriteInst(Nop()); // phase 2 bowser defeat crash fix
+    Patcher(0x0039f59c).BranchInst((void*)al::setNerve);
+    Patcher(0x003a67d0).BranchInst((void*)pe::util::setNerveHook<0x0137f608>);
+    Patcher(0x003a7ef4).BranchInst((void*)pe::util::setNerveHook<0x0137f630>);
 }
 
-void pe::initRCSPlayerHooks()
+pe::util::PlayerType& pe::RCSPlayers::getCurrentPlayerType()
 {
-    exl::patch::CodePatcher(0x0040f660).BranchInst((void*)getPlayerNameHook);
-    // REPLACE_ASM_O(0x0039f580, fightInitFix, 4);
-    exl::patch::CodePatcher(0x0039f59c).BranchInst((void*)al::setNerve);
-    exl::patch::CodePatcher(0x003a67d0).BranchInst((void*)pe::util::setNerveHook<0x0137f608>);
-    exl::patch::CodePatcher(0x003a7ef4).BranchInst((void*)pe::util::setNerveHook<0x0137f630>);
-    // REPLACE_ASM_O(0x00872c68, secondPhaseBowserDefeatCrashFix, 1);
+    static util::PlayerType type { util::PlayerType::Mario };
+    return type;
+}
+
+void pe::RCSPlayers::setPlayerType(util::PlayerType type)
+{
+    getCurrentPlayerType() = type;
 }

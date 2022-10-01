@@ -53,12 +53,13 @@ public:
     virtual CameraDirector* getCameraDirector() const override;
     virtual SceneObjHolder* getSceneObjHolder() const override;
     virtual MessageSystem* getMessageSystem() const override;
+    virtual void control();
 
     void initActionKeeper();
     void initAudioKeeper(AudioKeeper*);
     void initLayoutKeeper(LayoutKeeper*);
     void initLayoutPartsActorKeeper(int);
-    void initNerve(const Nerve*, int step);
+    void initNerve(const Nerve*, int step = 0);
     void initSceneInfo(LayoutSceneInfo*);
 };
 

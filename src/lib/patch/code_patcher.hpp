@@ -17,57 +17,45 @@ public:
     {
     }
 
-    inline void WriteInst(InstBitSet inst)
+    inline CodePatcher& WriteInst(InstBitSet inst)
     {
         Write<InstBitSet>(inst);
+        return *this;
     }
 
     /* Special case branches as they are relative to the current position. */
-    inline void BranchInstRel(ptrdiff_t address)
+    inline CodePatcher& BranchInstRel(ptrdiff_t address)
     {
         WriteInst(inst::Branch(address));
+        return *this;
     }
-    inline void BranchLinkInstRel(ptrdiff_t address)
+    inline CodePatcher& BranchLinkInstRel(ptrdiff_t address)
     {
         WriteInst(inst::BranchLink(address));
+        return *this;
     }
 
     /* Address relative to the base (Ro). */
-    inline void BranchInst(uintptr_t address)
+    inline CodePatcher& BranchInst(uintptr_t address)
     {
         BranchInstRel(RelativeAddressFromBase(address));
+        return *this;
     }
-    inline void BranchLinkInst(uintptr_t address)
+    inline CodePatcher& BranchLinkInst(uintptr_t address)
     {
         BranchLinkInstRel(RelativeAddressFromBase(address));
+        return *this;
     }
     /* Absolute addresses. */
-    inline void BranchInst(void* ptr)
+    inline CodePatcher& BranchInst(void* ptr)
     {
         BranchInstRel(RelativeAddressFromPointer(ptr));
+        return *this;
     }
-    inline void BranchLinkInst(void* ptr)
+    inline CodePatcher& BranchLinkInst(void* ptr)
     {
         BranchLinkInstRel(RelativeAddressFromPointer(ptr));
+        return *this;
     }
-
-    /*template <typename T>
-    inline void BranchInst(T address)
-    {
-        struct {
-            T a;
-            void* b;
-        } conv(address);
-        BranchInst(conv.b);
-    }
-    template <typename T>
-    inline void BranchLinkInst(T address)
-    {
-        struct {
-            T a;
-            void* b;
-        } conv(address);
-        BranchLinkInst(conv.b);
-    }*/
 };
 }

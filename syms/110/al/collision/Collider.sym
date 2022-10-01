@@ -1,0 +1,4 @@
+/* al/collision/Collider.sym */
+
+_ZN2al17getColliderRadiusEPKNS_9LiveActorE = 0x0093d500 - 0x01b52000;
+_ZN2al18getColliderOffsetYEPKNS_9LiveActorE = 0x0093d510 - 0x01b52000;

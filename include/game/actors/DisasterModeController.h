@@ -20,6 +20,4 @@ public:
     BlackSun* mBlackSun = nullptr;
     u8 unk3[0x03];
     bool mDisableClock;
-
-    static DisasterModeController* getDisasterModeController(al::IUseSceneObjHolder*);
 };

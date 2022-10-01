@@ -1,3 +1,8 @@
 /* sead/prim/seadSafeString.h */
 
 _ZN4sead14SafeStringBaseIcEaSERKS1_ = 0x007266a0 - 0x01b52000;
+_ZN4sead14SafeStringBaseIcE9cNullCharE = 0x0105d6d9 - 0x01b52000;
+
+_ZNK4sead22BufferedSafeStringBaseIcE22assureTerminationImpl_Ev = 0x00726930 - 0x01b52000;
+_ZN4sead22BufferedSafeStringBaseIcE7formatVEPKcSt9__va_list = 0x00726970 - 0x01b52000;
+_ZN4sead22BufferedSafeStringBaseIcEaSERKNS_14SafeStringBaseIcEE = 0x007266c0 - 0x01b52000;

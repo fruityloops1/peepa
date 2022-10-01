@@ -9,6 +9,7 @@
 
 #include "lib/reloc/rtld.hpp"
 
+#include "lib/patch/asm_patch.hpp"
 #include "lib/patch/code_patcher.hpp"
 #include "lib/patch/patcher_impl.hpp"
 #include "lib/patch/random_access_patcher.hpp"

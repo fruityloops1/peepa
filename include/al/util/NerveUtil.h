@@ -10,6 +10,8 @@
 
 namespace al {
 
+void initNerveState(IUseNerve*, NerveStateBase* state, Nerve* nerve, const char* name);
+
 void setNerve(IUseNerve* parent, const Nerve* nerve);
 bool isNerve(const IUseNerve* parent, const Nerve* nerve);
 const Nerve* getCurrentNerve(const IUseNerve* parent);

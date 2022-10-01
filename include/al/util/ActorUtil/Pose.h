@@ -50,11 +50,13 @@ void setVelocity(LiveActor* actor, const sead::Vector3f& velocity);
 void setVelocity(LiveActor* actor, float x, float y, float z);
 void setVelocityX(LiveActor* actor, float x);
 void setVelocityY(LiveActor* actor, float y);
+
 // ???
 void setVelocityZero(LiveActor* actor);
 void setVelocityJump(LiveActor* actor, float);
 void setVelocityToDirection(LiveActor* actor, const sead::Vector3f&, float);
 void setVelocityToGravity(LiveActor* actor, float gravity);
+void addVelocityToGravity(LiveActor* actor, float);
 
 void setFront(LiveActor* actor, const sead::Vector3f& front);
 

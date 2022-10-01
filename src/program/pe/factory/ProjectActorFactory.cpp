@@ -1,6 +1,15 @@
 #include "pe/factory/ProjectActorFactory.h"
+#include "al/util/ActorUtil/Init.h"
+#include "pe/actors/CoinVideoPlayer.h"
+#include "pe/actors/Foomin.h"
+#include "pe/actors/NeedleSwitchParts.h"
+#include "pe/actors/PatanPanel.h"
+#include "pe/actors/PatanPanelStarter.h"
 
-constexpr static al::ActorFactoryTableEntry customActorEntries[] = {};
+constexpr static al::ActorFactoryTableEntry customActorEntries[] = {
+    { "Foomin", pe::createActorFunction<pe::Foomin> },
+    { "NeedleSwitchParts", pe::createActorFunction<pe::NeedleSwitchParts> }
+};
 
 pe::ProjectActorFactory::ProjectActorFactory()
 {

@@ -6,17 +6,17 @@
 
 namespace al {
 
-class NerveExecutor : public IUseNerve, public al::HioNode {
+class NerveExecutor : public IUseNerve, public HioNode {
+    al::NerveKeeper* mNerveKeeper = nullptr;
+
 public:
-    NerveExecutor(const char*);
+    NerveExecutor(const char* name);
 
     virtual NerveKeeper* getNerveKeeper() const;
-    virtual ~NerveExecutor();
+    virtual ~NerveExecutor() = default;
 
-    void initNerve(const Nerve*, int);
+    void initNerve(const Nerve*, int step = 0);
     void updateNerve();
-
-    al::NerveKeeper* mNerveKeeper;
 };
 
 } // namespace al

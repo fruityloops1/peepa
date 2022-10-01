@@ -3,20 +3,20 @@
 #include "al/interfaces/IUseNerve.h"
 #include "al/nerve/Nerve.h"
 #include "al/nerve/NerveStateCtrl.h"
-#include "types.h"
 
 namespace al {
 
+class NerveActionCtrl;
 class NerveKeeper {
 public:
-    NerveKeeper(IUseNerve*, const Nerve*, int);
+    NerveKeeper(void*, const Nerve*, int);
 
     void update();
-
-    const Nerve* getCurrentNerve();
     void setNerve(const Nerve*);
+    const Nerve* getCurrentNerve();
+    void initNerveAction(al::NerveActionCtrl*);
 
-    IUseNerve* mParent;
+    IUseNerve* mParent = nullptr;
 
 private:
     const Nerve* mLastNerve = nullptr;
@@ -24,7 +24,7 @@ private:
     s32 mStep = 0;
     s32 _1c;
     NerveStateCtrl* mNerveStateCtrl = nullptr;
-    void* _28;
+    NerveActionCtrl* mNerveActionCtrl = nullptr;
 };
 
 } // namespace al

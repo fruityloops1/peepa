@@ -31,11 +31,9 @@ void threadFunc(void* c)
     const nn::TimeSpan wait = nn::TimeSpan::FromNanoSeconds(16000000);
     u8 buf[Client::sPacketBufferSize] { 0 };
     size_t len = 0;
-    u32 serverSize = sizeof(client->mServerAddress);
 
     while (true) {
-
-        len = nn::socket::RecvFrom(client->mSocket, buf, Client::sPacketBufferSize, 0, (sockaddr*)&client->mServerAddress, &serverSize);
+        len = nn::socket::Recv(client->mSocket, buf, Client::sPacketBufferSize, 0x80);
 
         client->handlePacket(buf, len);
         nn::os::YieldThread();
@@ -64,14 +62,16 @@ namespace {
         struct {
             nn::account::Uid userId;
             nn::account::Nickname nickname;
+            bool isDisconnect;
         } mData;
 
     public:
-        Init(const nn::account::Uid& id)
+        Init(const nn::account::Uid& id, bool disconnect)
             : OutPacket(0)
             , mData { id }
         {
             nn::account::GetNickname(&mData.nickname, mData.userId);
+            mData.isDisconnect = disconnect;
         }
         size_t calcSize() { return sizeof(mData); }
         void construct(u8* data) { *(typeof(mData)*)data = mData; }
@@ -89,7 +89,7 @@ void Client::connect(const char* address, u16 port)
     R_ABORT_UNLESS(mSocket);
 
     int timeout = 100;
-    nn::socket::SetSockOpt(mSocket, 0xffff, 0x1006, (const char*)&timeout, sizeof(timeout));
+    nn::socket::SetSockOpt(mSocket, 0xffff, 0x1006, (const void*)&timeout, sizeof(timeout));
 
     mServerAddress.family = 2;
     mServerAddress.port = nn::socket::InetHtons(port);
@@ -115,7 +115,7 @@ void Client::reconnect()
     nn::account::GetLastOpenedUser(&user);
     if (!user.IsValid())
         EXL_ABORT(0x45);
-    Init initPacket(user);
+    Init initPacket(user, false);
     sendPacket(initPacket);
 }
 
@@ -147,9 +147,23 @@ void Client::reconnect(const char* address, u16 port)
     reconnect();
 }
 
+void Client::disconnect()
+{
+    nn::account::Uid user;
+    nn::account::GetLastOpenedUser(&user);
+    if (!user.IsValid())
+        EXL_ABORT(0x45);
+    Init initPacket(user, true);
+    sendPacket(initPacket);
+    mConnected = false;
+}
+
 void Client::handlePacket(u8* data, size_t size)
 {
     u8 type = data[0];
+    if (type != 0 && !mConnected)
+        return;
+
     if (type >= mPackets.amount)
         EXL_ABORT(0x42069, "invalid packet id received (%d)", type);
     (this->*mPackets.packets[type])(data + 1, size - 1);
@@ -157,6 +171,9 @@ void Client::handlePacket(u8* data, size_t size)
 
 void Client::sendPacket(OutPacket& packet)
 {
+    if (packet.mId != 0 && !mConnected)
+        return;
+
     u32 size = packet.calcSize();
     u8 data[size + 1];
 

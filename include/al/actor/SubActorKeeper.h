@@ -8,10 +8,10 @@ class LiveActor;
 class ActorInitInfo;
 
 class SubActorKeeper {
-public:
-    LiveActor* mParent = nullptr;
+    LiveActor* const mParent = nullptr;
     sead::PtrArray<LiveActor> mSubActors;
 
+public:
     SubActorKeeper(al::LiveActor* actor, const al::ActorInitInfo& info, const char*, int);
 
     static SubActorKeeper* tryCreate(al::LiveActor* actor, const al::ActorInitInfo& info, const char*, int);

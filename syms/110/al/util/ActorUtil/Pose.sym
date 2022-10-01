@@ -48,6 +48,7 @@ _ZN2al15setVelocityZeroEPNS_9LiveActorE = 0x0083bc20 - 0x01b52000;
 _ZN2al15setVelocityJumpEPNS_9LiveActorEf = 0x0083bc90 - 0x01b52000;
 _ZN2al22setVelocityToDirectionEPNS_9LiveActorERKN4sead7Vector3IfEEf = 0x0083bd00 - 0x01b52000;
 _ZN2al20setVelocityToGravityEPNS_9LiveActorEf = 0x0083bd70 - 0x01b52000;
+_ZN2al20addVelocityToGravityEPNS_9LiveActorEf = 0x0083bf00 - 0x01b52000;
 
 _ZN2al8setFrontEPNS_9LiveActorERKN4sead7Vector3IfEE = 0x0083fed0 - 0x01b52000;
 

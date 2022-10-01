@@ -1,32 +1,33 @@
 #pragma once
 
 #include "al/nerve/NerveStateBase.h"
+#include <sead/container/seadPtrArray.h>
 
 namespace al {
 
-struct State {
-    al::NerveStateBase* mNerveStateBase;
-    const al::Nerve* mNerve;
-    const char* mName;
-};
-
 class NerveStateCtrl {
 public:
-    NerveStateCtrl(int);
+    struct State {
+        al::NerveStateBase* mNerveStateBase;
+        const al::Nerve* mNerve;
+        const char* mName;
+    };
 
-    void addState(al::NerveStateBase*, const al::Nerve*, const char*);
+private:
+    sead::PtrArray<State> mStates;
+    State* mCurrentState;
+
+public:
+    NerveStateCtrl(int bufferSize);
+
+    void addState(al::NerveStateBase* state, const al::Nerve* nerve, const char* name);
     bool updateCurrentState();
-    void startState(const al::Nerve*);
+    void startState(const al::Nerve* nerve);
     void update();
 
-    State* findStateInfo(const al::Nerve*);
+    State* findStateInfo(const al::Nerve* nerve);
     bool isCurrentStateEnd() const;
     void tryEndCurrentState();
-
-    int _0;
-    int mStateCount;
-    State* mStates;
-    State* mCurrentState;
 };
 
 } // namespace al

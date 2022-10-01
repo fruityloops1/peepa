@@ -15,6 +15,7 @@
 #include "al/collision/CollisionDirector.h"
 #include "al/collision/CollisionParts.h"
 #include "al/effect/EffectKeeper.h"
+#include "al/effect/HitReactionKeeper.h"
 #include "al/interfaces/IUseAreaObj.h"
 #include "al/interfaces/IUseAudioKeeper.h"
 #include "al/interfaces/IUseCamera.h"
@@ -38,6 +39,8 @@
 #include "al/stage/StageSwitchKeeper.h"
 
 namespace al {
+
+class ActorParamHolder;
 
 struct LiveActorFlag {
     bool isDead = true;
@@ -84,13 +87,13 @@ protected:
     ScreenPointKeeper* mScreenPointKeeper = nullptr;
     EffectKeeper* mEffectKeeper = nullptr;
     AudioKeeper* mAudioKeeper = nullptr;
-    void* gap = nullptr;
+    HitReactionKeeper* mHitReactionKeeper = nullptr;
     StageSwitchKeeper* mStageSwitchKeeper = nullptr;
     RailKeeper* mRailKeeper = nullptr;
     ShadowKeeper* mShadowKeeper = nullptr;
     ActorPrePassLightKeeper* mActorPrePassLightKeeper = nullptr;
     SubActorKeeper* mSubActorKeeper = nullptr;
-    void* gap3 = nullptr;
+    ActorParamHolder* mParamHolder = nullptr;
     ActorSceneInfo* mActorSceneInfo = nullptr;
     void* gap4 = nullptr;
     LiveActorFlag* mLiveActorFlag = nullptr;
@@ -117,17 +120,17 @@ public:
     virtual void unk8();
     virtual void setTrans(const sead::Vector3f& trans);
     virtual void movement();
-    virtual void calcAnim();
     virtual void unk9();
+    virtual void calcAnim();
     virtual void unk10();
     virtual void unk11();
     virtual void unk12();
     virtual void unk13();
     virtual void unk14();
-    virtual void startClipped();
-    virtual void endClipped();
     virtual void unk15();
     virtual void unk16();
+    virtual void startClipped();
+    virtual void endClipped();
     virtual void unk17();
     virtual void unk18();
     virtual void unk19();
@@ -155,7 +158,7 @@ public:
 
     void initActionKeeper(const char*, const char*);
     void initActorPrePassLightKeeper(ActorPrePassLightKeeper*);
-    void initCollider(float, float, u32);
+    void initCollider(float radius, float y, u32);
     void initExecuteInfo(ActorExecuteInfo*);
     void initHitSensor(int sensorAmount);
     void initItemKeeper(int);
@@ -167,6 +170,9 @@ public:
     void initScoreKeeper();
     void initScreenPointKeeper(int targetAmount);
     void initShadowKeeper(ShadowKeeper*);
+
+    friend void bindSklAnimRetargetting(const LiveActor* actor, const SklAnimRetargettingInfo* info);
+    friend ActorParamHolder* getActorParamHolder(LiveActor* actor);
 };
 
 } // namespace al

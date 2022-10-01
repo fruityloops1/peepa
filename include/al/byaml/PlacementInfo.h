@@ -1,7 +1,11 @@
 #pragma once
 
+#include <sead/basis/seadTypes.h>
+
 namespace al {
 
-class PlacementInfo { };
+class PlacementInfo {
+    u8 unk[0x30];
+};
 
 } // namespace al

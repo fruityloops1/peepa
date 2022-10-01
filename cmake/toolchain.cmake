@@ -80,7 +80,7 @@ add_definitions(-DSWITCH -DNNSDK -D__SWITCH__ -D__RTLD_6XX__)
 
 set(ARCH "-march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fpic -fvisibility=hidden")
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -Wall -O0 -ffunction-sections -fdata-sections ${ARCH}" CACHE STRING "C flags")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -Wall -O3 -ffunction-sections -fdata-sections ${ARCH}" CACHE STRING "C flags")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_C_FLAGS} -fno-rtti -fno-exceptions -fno-asynchronous-unwind-tables -fno-unwind-tables" CACHE STRING "C++ flags")
 set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} -x assembler-with-cpp -g ${ARCH}" CACHE STRING "ASM flags")
 # These flags are purposefully empty to use the default flags when invoking the

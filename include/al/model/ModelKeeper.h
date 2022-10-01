@@ -1,12 +1,12 @@
 #pragma once
 
-#include "types.h"
+#include "al/model/alModelCafe.h"
 
 namespace al {
 
 class ModelKeeper {
 public:
-    class alModelCafe* mModelCafe;
+    alModelCafe* mModelCafe;
     u8 _0[0x18];
 };
 

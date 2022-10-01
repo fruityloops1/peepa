@@ -1,14 +1,17 @@
 #pragma once
 
-#include "al/interfaces/IUseRail.h"
+#include "al/byaml/PlacementInfo.h"
+#include "al/rail/Rail.h"
 #include "al/rail/RailRider.h"
+
 namespace al {
 
-class RailKeeper : IUseRail {
+class RailKeeper {
+    Rail* mRail = nullptr;
     RailRider* mRailRider = nullptr;
 
 public:
-    al::RailRider* getRailRider() const override { return mRailRider; }
+    RailKeeper(const PlacementInfo& info);
 };
 
 } // namespace al
