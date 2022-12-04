@@ -1,14 +1,12 @@
 #include "pe/RCSMultiplayer.h"
-#include "al/util/ActorUtil/Item.h"
-#include "al/util/InputUtil.h"
-#include "al/util/NerveUtil.h"
-#include "game/actors/DisasterModeController.h"
-#include "game/layouts/WindowMessage.h"
-#include "game/player/PlayerActor.h"
+#include "Game/Layout/WindowMessage.h"
+#include "Game/MapObj/DisasterModeController.h"
+#include "Game/Player/PlayerActor.h"
+#include "al/Controller/ControllerUtil.h"
 #include "lib.hpp"
-#include "pe/client/MPClient.h"
-#include "pe/util/Hooks.h"
-#include "rc/util/SceneObjUtil.h"
+#include "pe/Client/MPClient.h"
+#include "pe/Util/Hooks.h"
+#include "rc/Util/SceneObjUtil.h"
 
 namespace {
 

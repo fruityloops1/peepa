@@ -1,6 +1,0 @@
-/* al/collision/MtxConnector.h */
-
-_ZN2al21tryCreateMtxConnectorEPNS_9LiveActorERKNS_13ActorInitInfoE = 0x007fe830 - 0x01b52000;
-
-_ZN2al29attachMtxConnectorToCollisionEPNS_12MtxConnectorEPKNS_9LiveActorEb = 0x007fe930 - 0x01b52000;
-_ZN2al13connectPoseQTEPNS_9LiveActorEPKNS_12MtxConnectorE = 0x007fea60 - 0x01b52000;

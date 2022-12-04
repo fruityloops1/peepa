@@ -1,15 +1,13 @@
 #include "pe/EchoEmitterMod.h"
-#include "al/audio/MeInfo.h"
-#include "al/interfaces/IUseAudioKeeper.h"
-#include "al/scene/SceneInitInfo.h"
-#include "al/util/ActorUtil/Flag.h"
-#include "al/util/AudioUtil.h"
-#include "container/seadPtrArray.h"
-#include "game/actors/EchoBlockMapParts.h"
-#include "game/scene/StageScene.h"
+#include "Game/MapObj/EchoBlockMapParts.h"
+#include "Game/Scene/StageScene.h"
+#include "al/Audio/MeInfo.h"
+#include "al/Scene/SceneInitInfo.h"
+#include "al/Se/SeFunction.h"
 #include "lib.hpp"
-#include "pe/client/MPClient.h"
-#include "prim/seadSafeString.h"
+#include "pe/Client/MPClient.h"
+#include <sead/container/seadPtrArray.h>
+#include <sead/prim/seadSafeString.h>
 
 HOOK_DEFINE_TRAMPOLINE(EchoBlockMapPartsInitHook) { static void Callback(EchoBlockMapParts*, const al::ActorInitInfo&); };
 HOOK_DEFINE_TRAMPOLINE(StageSceneInitHook) { static void Callback(StageScene*, al::SceneInitInfo*); };

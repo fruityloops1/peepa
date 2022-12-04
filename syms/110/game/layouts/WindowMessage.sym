@@ -1,5 +1,0 @@
-/* game/layouts/WindowMessage.h */
-
-_ZN13WindowMessageC1ERKN2al14LayoutInitInfoEPKcS5_S5_ = 0x001a0480 - 0x01b52000;
-
-_ZN13WindowMessage23appearWithSystemMessageEPKcS1_i = 0x001a05b0 - 0x01b52000;

@@ -1,4 +1,0 @@
-/* al/util/AudioUtil.h */
-
-_ZN2al8startBgmEPKNS_15IUseAudioKeeperEPKcii = 0x008efaa0 - 0x01b52000;
-_ZN2al7startSeEPKNS_15IUseAudioKeeperERKN4sead14SafeStringBaseIcEEPNS_6MeInfoE = 0x009b5000 - 0x01b52000;

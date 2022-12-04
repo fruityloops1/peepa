@@ -1,4 +1,0 @@
-/* al/actor/ActorInitInfo.h */
-
-_ZN2al16getPlacementInfoERKNS_13ActorInitInfoE = 0x00839610 - 0x01b52000;
-_ZN2al17getLayoutInitInfoERKNS_13ActorInitInfoE = 0x00316510 - 0x01b52000;

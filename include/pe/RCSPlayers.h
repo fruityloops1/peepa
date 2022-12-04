@@ -1,6 +1,6 @@
 #pragma once
 
-#include "pe/util/PlayerModelNameUtil.h"
+#include "pe/Util/PlayerModelNameUtil.h"
 
 namespace pe {
 

@@ -1,4 +1,2 @@
-/* sead/container/seadPtrArray.h */
-
 _ZN4sead12PtrArrayImpl11allocBufferEiPNS_4HeapEi = 0x0070c090 - 0x01b52000;
 _ZN4sead12PtrArrayImpl10freeBufferEv = 0x0070c160 - 0x01b52000;

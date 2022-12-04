@@ -1,8 +1,0 @@
-/* al/util/ActorUtil/Model.h */
-
-_ZN2al28setSklAnimBlendWeightSixfoldEPNS_9LiveActorEffffff = 0x00833c90 - 0x01b52000;
-
-_ZN2al19killPrePassLightAllEPKNS_9LiveActorEi = 0x0081ff70 - 0x01b52000;
-_ZN2al18appearPrePassLightEPKNS_9LiveActorEPKci = 0x0081fe90 - 0x01b52000;
-
-_ZN2al12calcJointPosEPN4sead7Vector3IfEEPKNS_9LiveActorEPKc = 0x0083b560 - 0x01b52000;

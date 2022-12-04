@@ -1,7 +1,7 @@
 #pragma once
 
-#include "al/actor/ActorInitInfo.h"
-#include "game/scene/SingleModeScene.h"
+#include "Game/Scene/SingleModeScene.h"
+#include "al/LiveActor/ActorInitInfo.h"
 
 namespace pe {
 

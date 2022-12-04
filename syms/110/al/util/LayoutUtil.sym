@@ -1,8 +1,0 @@
-/* al/util/LayoutUtil.h */
-
-_ZN2al15initLayoutActorEPNS_11LayoutActorERKNS_14LayoutInitInfoEPKcS6_ = 0x00970d30 - 0x01b52000;
-
-_ZN2al11isActionEndEPKNS_16IUseLayoutActionEPKc = 0x0096d0f0 - 0x01b52000;
-_ZN2al11startActionEPNS_16IUseLayoutActionEPKcS3_ = 0x0096cd80 - 0x01b52000;
-
-_ZN2al13setPaneStringEPNS_10IUseLayoutEPKcPKDsti = 0x0096edf0 - 0x01b52000;

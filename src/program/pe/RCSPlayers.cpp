@@ -1,8 +1,8 @@
 #include "pe/RCSPlayers.h"
-#include "al/actor/LiveActor.h"
-#include "al/util/NerveUtil.h"
+#include "al/LiveActor/LiveActor.h"
+#include "al/Nerve/NerveFunction.h"
 #include "lib.hpp"
-#include "pe/util/Hooks.h"
+#include "pe/Util/Hooks.h"
 
 static const char* getPlayerNameHook(int index) { return pe::util::sPlayerNames[(int)pe::RCSPlayers::getCurrentPlayerType()]; }
 

@@ -1,5 +1,0 @@
-/* game/player/PlayerAnimator.h */
-
-_ZN14PlayerAnimatorC1EPN2al9LiveActorEP17PlayerModelHolderP30IUsePlayerRetargettingSelector = 0x003740a0 - 0x01b52000;
-_ZN14PlayerAnimator4initEv = 0x003741a0 - 0x01b52000;
-_ZN14PlayerAnimator6updateEv = 0x003741c0 - 0x01b52000;

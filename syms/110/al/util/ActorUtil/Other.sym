@@ -1,4 +1,0 @@
-/* al/util/ActorUtil/Other.h */
-
-_ZN2al16validateClippingEPNS_9LiveActorE = 0x008354f0 - 0x01b52000;
-_ZN2al18invalidateClippingEPNS_9LiveActorE = 0x00835480 - 0x01b52000;

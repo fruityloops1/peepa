@@ -1,24 +1,23 @@
-#include "al/sequence/SequenceInitInfo.h"
-#include "al/util/ActorUtil/Init.h"
-#include "al/util/StringUtil.h"
-#include "game/player/PlayerActor.h"
-#include "game/scene/SingleModeScene.h"
-#include "game/scene/StageScene.h"
-#include "game/sequence/ProductSequence.h"
+#include "Game/Player/PlayerActor.h"
+#include "Game/Scene/SingleModeScene.h"
+#include "Game/Scene/StageScene.h"
+#include "Game/Sequence/ProductSequence.h"
+#include "al/LiveActor/LiveActorFunction.h"
+#include "al/Sequence/SequenceInitInfo.h"
 #include "lib.hpp"
 #include "nn/os.h"
 #include "pe/BunbunMod.h"
+#include "pe/Client/MPClient.h"
 #include "pe/EchoEmitterMod.h"
+#include "pe/Factory/ProjectActorFactory.h"
 #include "pe/RCSMultiplayer.h"
 #include "pe/RCSPlayers.h"
-#include "pe/client/MPClient.h"
-#include "pe/factory/ProjectActorFactory.h"
-#include "pe/util/Hooks.h"
+#include "pe/Util/Hooks.h"
 #include "replace.hpp"
 #include "util/modules.hpp"
 #include "util/sys/rw_pages.hpp"
 
-constexpr static bool isSingleModeMultiplayer = true;
+constexpr static bool isSingleModeMultiplayer = false;
 
 HOOK_DEFINE_TRAMPOLINE(StageSceneMovementHook) { static void Callback(StageScene*); };
 HOOK_DEFINE_TRAMPOLINE(SingleModeSceneInitHook) { static void Callback(SingleModeScene*, const al::SceneInitInfo&); };
@@ -60,7 +59,7 @@ void disableTransparentWallHook(al::LiveActor* actor) { actor->kill(); }
 void disableDynamicResolutionHook(al::NerveExecutor* graphics)
 {
     static class : public al::Nerve {
-        void execute(al::NerveKeeper*) override { }
+        void execute(al::NerveKeeper*) const override { }
         void executeOnEnd(al::NerveKeeper*) const override { }
     } dummy;
     graphics->initNerve(&dummy);
@@ -177,7 +176,7 @@ extern "C" void exl_main(void* x0, void* x1)
     using Patcher = exl::patch::CodePatcher;
     using namespace exl::patch::inst;
 
-    if (isSingleModeMultiplayer or true) {
+    if (isSingleModeMultiplayer) {
         constexpr size_t poolSize = 0xC0000;
         void* pool = malloc(poolSize);
         nn::socket::Initialize(pool, poolSize, 0x4000, 0xe);

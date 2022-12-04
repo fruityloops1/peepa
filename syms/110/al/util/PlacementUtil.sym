@@ -1,6 +1,0 @@
-/* al/util/PlacementUtil.h */
-
-_ZN2al16calcLinkChildNumERKNS_13ActorInitInfoEPKc = 0x0088bea0 - 0x01b52000;
-
-_ZN2al9tryGetArgEPfRKNS_13ActorInitInfoEPKc = 0x0088b1a0 - 0x01b52000;
-_ZN2al9tryGetArgEPbRKNS_13ActorInitInfoEPKc = 0x0088b1c0 - 0x01b52000;
