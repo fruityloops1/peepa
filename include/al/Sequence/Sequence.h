@@ -12,8 +12,8 @@ namespace al {
 class Sequence : public NerveExecutor, public IUseAudioKeeper, public IUseSceneCreator {
 public:
     sead::FixedSafeString<64> mName;
-    al::Scene* mCurScene = nullptr;
     void* unk1;
+    al::Scene* mCurrentScene = nullptr;
     SceneCreator* mSceneCreator = nullptr;
     AudioDirector* mAudioDirector = nullptr;
     AudioKeeper* mAudioKeeper = nullptr;
@@ -36,6 +36,10 @@ private:
 public:
     SceneCreator* getSceneCreator() const override;
     void setSceneCreator(SceneCreator*) override;
+
+    AudioDirector* getAudioDirector() const { return mAudioDirector; }
+
+    void setCurrentScene(al::Scene* scene) { mCurrentScene = scene; }
 };
 
 } // namespace al

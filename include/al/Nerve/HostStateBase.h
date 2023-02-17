@@ -6,11 +6,13 @@ namespace al {
 
 template <typename T>
 class HostStateBase : public NerveStateBase {
+protected:
     T* const mHost = nullptr;
 
 public:
-    HostStateBase(T* host)
-        : mHost(host)
+    HostStateBase(const char* name, T* host)
+        : NerveStateBase(name)
+        , mHost(host)
     {
     }
 };

@@ -1,5 +1,5 @@
-_ZN2al6isDeadEPKNS_9LiveActorE = 0x00835ac0 - 0x01b52000;
-_ZN2al9isClippedEPKNS_9LiveActorE = 0x00835460 - 0x01b52000;
+_ZN2al6isDeadEPKNS_9LiveActorE = __main_start + 0x00835ac0;
+_ZN2al9isClippedEPKNS_9LiveActorE = __main_start + 0x00835460;
 
-_ZN2al9onCollideEPNS_9LiveActorE = 0x00835b10 - 0x01b52000;
-_ZN2al10offCollideEPNS_9LiveActorE = 0x00835b30 - 0x01b52000;
+_ZN2al9onCollideEPNS_9LiveActorE = __main_start + 0x00835b10;
+_ZN2al10offCollideEPNS_9LiveActorE = __main_start + 0x00835b30;

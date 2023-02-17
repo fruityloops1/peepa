@@ -1,4 +1,4 @@
-_ZN2al16isPadTriggerPlusEi = 0x00948bc0 - 0x01b52000;
+_ZN2al16isPadTriggerPlusEi = __main_start + 0x00948bc0;
 
-_ZN2al11isPadHoldZLEi = 0x00949f80 - 0x01b52000;
-_ZN2al11isPadHoldZREi = 0x0094a070 - 0x01b52000;
+_ZN2al11isPadHoldZLEi = __main_start + 0x00949f80;
+_ZN2al11isPadHoldZREi = __main_start + 0x0094a070;

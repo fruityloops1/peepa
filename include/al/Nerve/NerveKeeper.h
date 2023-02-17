@@ -32,6 +32,8 @@ public:
     void setNerve(const Nerve*);
     const Nerve* getCurrentNerve();
     void initNerveAction(al::NerveActionCtrl*);
+    NerveStateCtrl* getNerveStateCtrl() const { return mNerveStateCtrl; }
+    NerveActionCtrl* getNerveActionCtrl() const { return mNerveActionCtrl; }
 
     IUseNerve* getHost() const { return mHost; }
 };

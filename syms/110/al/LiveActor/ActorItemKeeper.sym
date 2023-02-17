@@ -1,1 +1,1 @@
-_ZN2al16appearItemTimingEPKNS_9LiveActorEPKc = 0x008150c0 - 0x01b52000;
+_ZN2al16appearItemTimingEPKNS_9LiveActorEPKc = __main_start + 0x008150c0;

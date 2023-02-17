@@ -8,6 +8,8 @@
 
 constexpr static al::ActorFactoryTableEntry customActorEntries[] = {
     { "Foomin", pe::createActorFunction<pe::Foomin> },
+    { "PatanPanel", pe::createActorFunction<pe::PatanPanel> },
+    { "PatanPanelStarter", pe::createActorFunction<pe::PatanPanelStarter> },
     { "NeedleSwitchParts", pe::createActorFunction<pe::NeedleSwitchParts> }
 };
 

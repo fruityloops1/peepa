@@ -1,0 +1,3 @@
+_ZN2al15SceneHeapSetterC1Ev = __main_start + 0x00872960;
+
+_ZN2al15createSceneHeapEPKc = __main_start + 0x008725e0;

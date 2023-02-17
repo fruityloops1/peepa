@@ -15,6 +15,7 @@ SECTIONS
   PROVIDE(__start__ = 0x0);
   . = __start__;
   __code_start__ = .;
+  __main_start = . - 0x01b52000;
 
   /* App code */
   .text : {

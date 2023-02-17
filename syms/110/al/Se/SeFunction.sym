@@ -1,2 +1,2 @@
-_ZN2al7startSeEPKNS_15IUseAudioKeeperERKN4sead14SafeStringBaseIcEEPNS_6MeInfoE = 0x009b5000 - 0x01b52000;
-_ZN2al28setSeSeqLocalVariableDefaultEPKNS_15IUseAudioKeeperEii = 0x009b5a30 - 0x01b52000;
+_ZN2al7startSeEPKNS_15IUseAudioKeeperERKN4sead14SafeStringBaseIcEEPNS_6MeInfoE = __main_start + 0x009b5000;
+_ZN2al28setSeSeqLocalVariableDefaultEPKNS_15IUseAudioKeeperEii = __main_start + 0x009b5a30;

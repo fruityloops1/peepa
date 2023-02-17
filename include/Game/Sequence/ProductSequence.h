@@ -1,7 +1,11 @@
 #pragma once
 
-#include "Game/Sequence/ProductStateSingleMode.h"
+#include "Game/System/GameDataHolder.h"
 #include "al/Sequence/Sequence.h"
+
+namespace pe {
+class ProductStateTest;
+} // namespace pe
 
 class IUseUnknownSequence {
     virtual void unknown(const char*);
@@ -9,12 +13,12 @@ class IUseUnknownSequence {
 
 class ProductSequence : public al::Sequence, IUseUnknownSequence {
     void* unk1;
-    class GameDataHolder* mGameDataHolder;
+    GameDataHolder* mGameDataHolder;
     void* unk2[3];
     class ProductStateBoot* mStateBoot;
     class ProductStateTitle* mStateTitle;
     class ProductStateSingleModeOpening* mStateSingleModeOpening;
-    ProductStateSingleMode* mStateSingleMode;
+    class ProductStateSingleMode* mStateSingleMode;
     class ProductStateSingleModeEnding* mStateSingleModeEnding;
     class ProductStateCourseSelect* mStateCourseSelect;
     class ProductStateNetworkStop* mStateNetworkStop;
@@ -22,9 +26,14 @@ class ProductSequence : public al::Sequence, IUseUnknownSequence {
     class ProductStateEnding* mStateEnding;
     class ProductStateAfterEndingEvent* mStateAfterEndingEvent;
     class ProductStateTopMenu* mStateTopMenu;
-    class ProductStateTopLuigiBros* mStateTopLuigiBros;
 
 public:
+    class ProductStateLuigiBros* mStateLuigiBros;
+    u8 _140[0x70];
+    class pe::ProductStateTest* mStateTest; // fake
+
+    static const al::Nerve* getTestNrv();
+
     ~ProductSequence() override;
     void init(const al::SequenceInitInfo& info) override;
     void update() override;
@@ -33,4 +42,9 @@ public:
     bool isDisposable() const override;
     al::Scene* getCurrentScene() const override;
     void unknown(const char*) override;
+
+    void exeTitle();
+    void exeTest();
 };
+
+void installProductSequenceHooks();

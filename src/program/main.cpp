@@ -12,6 +12,7 @@
 #include "pe/Factory/ProjectActorFactory.h"
 #include "pe/RCSMultiplayer.h"
 #include "pe/RCSPlayers.h"
+#include "pe/Sequence/ProductStateTest.h"
 #include "pe/Util/Hooks.h"
 #include "replace.hpp"
 #include "util/modules.hpp"
@@ -65,89 +66,6 @@ void disableDynamicResolutionHook(al::NerveExecutor* graphics)
     graphics->initNerve(&dummy);
 }
 
-static void userExceptionHandler(nn::os::UserExceptionInfo* info)
-{
-    auto& c = pe::MPClient::instance();
-    if (c.isConnected()) {
-        auto& rtld = exl::util::GetRtldModuleInfo();
-        auto& main = exl::util::GetMainModuleInfo();
-        auto& self = exl::util::GetSelfModuleInfo();
-        auto& nnsdk = exl::util::GetSdkModuleInfo();
-
-        const struct {
-            const exl::util::ModuleInfo& info;
-            const char name[8];
-        } modules[] { { rtld, "rtld" }, { main, "main" }, { self, "self" }, { nnsdk, "nnsdk" } };
-
-        struct ModuleAddrOffset {
-            const char* moduleName;
-            uintptr_t offset;
-        };
-
-        auto getAddrOffset = [&modules](uintptr_t addr) {
-            ModuleAddrOffset offset { "?", 0 };
-            for (const auto& module : modules)
-                if (addr >= module.info.m_Total.m_Start && addr <= module.info.m_Total.GetEnd()) {
-                    offset.moduleName = module.name;
-                    offset.offset = addr - module.info.m_Total.m_Start;
-                    break;
-                }
-
-            return offset;
-        };
-
-        c.log("Modules: ");
-        for (auto& module : modules)
-            c.log("\t%s: %.16lx - %.16lx ", module.name, module.info.m_Total.m_Start, module.info.m_Total.GetEnd());
-
-        c.log("Fault Address: %.16lx ", info->FAR.x);
-        c.log("Registers: ");
-        for (int i = 0; i < 29; i++) {
-            auto offset = getAddrOffset(info->CpuRegisters[i].x);
-            if (offset.offset != 0)
-                c.log("\tX[%02d]: %.16lx (%s + 0x%.8lx) ", i, info->CpuRegisters[i].x, offset.moduleName, offset.offset);
-            else
-                c.log("\tX[%02d]: %.16lx ", i, info->CpuRegisters[i].x);
-        }
-
-        const struct {
-            const char name[3];
-            uintptr_t value;
-        } registers[] {
-            { "FP", info->FP.x },
-            { "LR", info->LR.x },
-            { "SP", info->SP.x },
-            { "PC", info->PC.x },
-        };
-
-        for (auto& r : registers) {
-            auto offset = getAddrOffset(r.value);
-            if (offset.offset != 0)
-                c.log("\t%s:    %.16lx (%s + 0x%.8lx) ", r.name, r.value, offset.moduleName, offset.offset);
-            else
-                c.log("\t%s:    %.16lx  ", r.name, r.value);
-        }
-        c.log("Stack Trace: ");
-
-        uintptr_t* frame = (uintptr_t*)info->FP.x;
-        uintptr_t* prevFrame = nullptr;
-        int i = 0;
-        while (frame != nullptr and prevFrame != frame) {
-            prevFrame = frame;
-            auto offset = getAddrOffset(frame[1]);
-            if (offset.offset != 0)
-                c.log("\tReturnAddress[%02d]: %.16lx (%s + 0x%.8lx) ", i, frame[1], offset.moduleName, offset.offset);
-            else
-                c.log("\tReturnAddress[%02d]: %.16lx ", i, frame[1]);
-            frame = (uintptr_t*)frame[0];
-
-            i++;
-        }
-
-        pe::MPClient::instance().disconnect();
-    }
-}
-
 HOOK_DEFINE_TRAMPOLINE(ProductSequenceInitHook) { static void Callback(ProductSequence*, const al::SequenceInitInfo&); };
 
 void ProductSequenceInitHook::Callback(ProductSequence* sequence, const al::SequenceInitInfo& info)
@@ -170,21 +88,16 @@ bool enableSharcHook(const char* s1, const char* s2)
 
 extern "C" void exl_main(void* x0, void* x1)
 {
-    envSetOwnProcessHandle(exl::util::proc_handle::Get());
     exl::hook::Initialize();
 
     using Patcher = exl::patch::CodePatcher;
     using namespace exl::patch::inst;
 
-    if (isSingleModeMultiplayer) {
+    if (isSingleModeMultiplayer or true) {
         constexpr size_t poolSize = 0xC0000;
         void* pool = malloc(poolSize);
         nn::socket::Initialize(pool, poolSize, 0x4000, 0xe);
     }
-
-    constexpr size_t userExceptionHandlerStackSize = 0x1000;
-    void* userExceptionHandlerStack = malloc(userExceptionHandlerStackSize);
-    nn::os::SetUserExceptionHandler(userExceptionHandler, userExceptionHandlerStack, userExceptionHandlerStackSize, nullptr);
 
     SceneObjHolderSize::InstallAtOffset(0x003e624c);
     FixHook::InstallAtOffset(0x008d1598);
@@ -195,8 +108,8 @@ extern "C" void exl_main(void* x0, void* x1)
     Patcher(0x00360198).BranchLinkInst((void*)playerActorInitHook);
     Patcher(0x003fcf68).BranchLinkInst((void*)productSequenceUpdateHook);
     Patcher(0x003d86b0).BranchInst((void*)projectActorFactoryHook);
-    Patcher(0x009b79e0).BranchLinkInst((void*)enableSharcHook);
-    // Patcher(0x002d65b4).BranchLinkInst((void*)disableTransparentWallHook);
+    // Patcher(0x009b79e0).BranchLinkInst((void*)enableSharcHook);
+    Patcher(0x002d65b4).BranchLinkInst((void*)disableTransparentWallHook);
     // Patcher(0x0080196c).BranchLinkInst((void*)disableDynamicResolutionHook);
 
     if (isSingleModeMultiplayer) {
@@ -206,6 +119,8 @@ extern "C" void exl_main(void* x0, void* x1)
     }
     pe::initBunbunModHooks();
     pe::initEchoEmitterModHooks();
+    // pe::installProductStateTestHooks();
+    // installProductSequenceHooks();
 }
 
 extern "C" NORETURN void exl_exception_entry()

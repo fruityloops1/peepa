@@ -1,13 +1,13 @@
 /* Game.nss */
 
-_ZNSt3__127__tree_balance_after_insertIPNS_16__tree_node_baseIPvEEEEvT_S5_ = 0x00451830 - 0x01b52000;
-_ZNSt3__113__tree_removeIPNS_16__tree_node_baseIPvEEEEvT_S5_ = 0x00452070 - 0x01b52000;
-_ZN2nn2os5MutexD2Ev = 0x00681a70 - 0x01b52000;
-_Znwm = 0x0070b8b0 - 0x01b52000;
-_Znam = 0x0070b910 - 0x01b52000;
-_ZnwmRKSt9nothrow_t = 0x0070b970 - 0x01b52000;
-_ZnamRKSt9nothrow_t = 0x0070b9d0 - 0x01b52000;
-_ZdlPv = 0x0070bcd0 - 0x01b52000;
-_ZdaPv = 0x0070bd40 - 0x01b52000;
-_ZdlPvRKSt9nothrow_t = 0x0070bdb0 - 0x01b52000;
-_ZdaPvRKSt9nothrow_t = 0x0070be20 - 0x01b52000;
+_ZNSt3__127__tree_balance_after_insertIPNS_16__tree_node_baseIPvEEEEvT_S5_ = __main_start + 0x00451830;
+_ZNSt3__113__tree_removeIPNS_16__tree_node_baseIPvEEEEvT_S5_ = __main_start + 0x00452070;
+_ZN2nn2os5MutexD2Ev = __main_start + 0x00681a70;
+_Znwm = __main_start + 0x0070b8b0;
+_Znam = __main_start + 0x0070b910;
+_ZnwmRKSt9nothrow_t = __main_start + 0x0070b970;
+_ZnamRKSt9nothrow_t = __main_start + 0x0070b9d0;
+_ZdlPv = __main_start + 0x0070bcd0;
+_ZdaPv = __main_start + 0x0070bd40;
+_ZdlPvRKSt9nothrow_t = __main_start + 0x0070bdb0;
+_ZdaPvRKSt9nothrow_t = __main_start + 0x0070be20;

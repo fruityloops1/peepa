@@ -1,1 +1,1 @@
-_ZN4sead4QuatIfE4unitE = 0x0105d590 - 0x01b52000;
+_ZN4sead4QuatIfE4unitE = __main_start + 0x0105d590;

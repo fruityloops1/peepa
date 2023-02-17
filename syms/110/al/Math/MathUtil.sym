@@ -1,1 +1,1 @@
-_ZN2al9lerpValueEfff = 0x0086adb0 - 0x01b52000;
+_ZN2al9lerpValueEfff = __main_start + 0x0086adb0;
