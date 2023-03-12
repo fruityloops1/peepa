@@ -4,7 +4,11 @@
 #include "Game/Sequence/ProductSequence.h"
 #include "al/LiveActor/LiveActorFunction.h"
 #include "al/Sequence/SequenceInitInfo.h"
+#include "devenv/seadFontMgr.h"
+#include "diag/assert.hpp"
+#include "imgui.h"
 #include "lib.hpp"
+#include "nn/fs.h"
 #include "nn/os.h"
 #include "pe/BunbunMod.h"
 #include "pe/Client/MPClient.h"
@@ -14,9 +18,12 @@
 #include "pe/RCSPlayers.h"
 #include "pe/Sequence/ProductStateTest.h"
 #include "pe/Util/Hooks.h"
+#include "program/imgui_nvn.h"
 #include "replace.hpp"
 #include "util/modules.hpp"
 #include "util/sys/rw_pages.hpp"
+#include <sead/filedevice/nin/seadNinSDFileDeviceNin.h>
+#include <sead/filedevice/seadFileDeviceMgr.h>
 
 constexpr static bool isSingleModeMultiplayer = false;
 
@@ -44,6 +51,12 @@ void productSequenceUpdateHook(ProductSequence* sequence)
     sequence->al::Sequence::update();
 
     RUN_EACH(300, pe::MPClient::instance().ping(););
+}
+
+void productSequenceInitHook(ProductSequence* thisPtr, const al::Nerve* nerve, int nerveStateNum)
+{
+    thisPtr->initNerve(nerve, nerveStateNum);
+    pe::MPClient::instance().connect(pe::MPClient::sServerIp, 7032);
 }
 
 void projectActorFactoryHook(ProjectActorFactory* factory) { new (factory) pe::ProjectActorFactory(); }
@@ -86,6 +99,32 @@ bool enableSharcHook(const char* s1, const char* s2)
     return al::isEqualSubString(s1, ".sharc");
 }
 
+HOOK_DEFINE_TRAMPOLINE(CreateFileDeviceMgr) { static void Callback(sead::FileDeviceMgr * thisPtr); };
+
+struct FileDeviceMgrIsMountedSd {
+    typedef bool type;
+};
+
+void CreateFileDeviceMgr::Callback(sead::FileDeviceMgr* thisPtr)
+{
+
+    Orig(thisPtr);
+
+    // balls
+    // thisPtr->mMountedSd = true;
+    *(bool*)(uintptr_t(thisPtr) + 81) = nn::fs::MountSdCardForDebug("sd").IsFailure();
+
+    // literally not a thing
+    // sead::NinSDFileDevice* sdFileDevice = new sead::NinSDFileDevice();
+
+    // thisPtr->mount(sdFileDevice);
+}
+
+void testDraw()
+{
+    ImGui::ShowDemoWindow();
+}
+
 extern "C" void exl_main(void* x0, void* x1)
 {
     exl::hook::Initialize();
@@ -105,11 +144,13 @@ extern "C" void exl_main(void* x0, void* x1)
     SingleModeSceneInitHook::InstallAtOffset(0x003e7090);
     SingleModeSceneDtorHook::InstallAtOffset(0x003e6810);
     ProductSequenceInitHook::InstallAtOffset(0x003fc4d0);
+    CreateFileDeviceMgr::InstallAtOffset(0x0070e7e0);
     Patcher(0x00360198).BranchLinkInst((void*)playerActorInitHook);
     Patcher(0x003fcf68).BranchLinkInst((void*)productSequenceUpdateHook);
     Patcher(0x003d86b0).BranchInst((void*)projectActorFactoryHook);
     // Patcher(0x009b79e0).BranchLinkInst((void*)enableSharcHook);
     Patcher(0x002d65b4).BranchLinkInst((void*)disableTransparentWallHook);
+    Patcher(0x003fcb10).BranchLinkInst((void*)productSequenceInitHook);
     // Patcher(0x0080196c).BranchLinkInst((void*)disableDynamicResolutionHook);
 
     if (isSingleModeMultiplayer) {
@@ -121,6 +162,9 @@ extern "C" void exl_main(void* x0, void* x1)
     pe::initEchoEmitterModHooks();
     // pe::installProductStateTestHooks();
     // installProductSequenceHooks();
+
+    nvnImGui::InstallHooks();
+    nvnImGui::addDrawFunc(testDraw);
 }
 
 extern "C" NORETURN void exl_exception_entry()

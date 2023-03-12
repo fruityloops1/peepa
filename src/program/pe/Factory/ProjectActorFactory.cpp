@@ -2,6 +2,7 @@
 #include "al/LiveActor/LiveActorFunction.h"
 #include "pe/Enemy/Foomin.h"
 #include "pe/MapObj/CoinVideoPlayer.h"
+#include "pe/MapObj/FlipBlock.h"
 #include "pe/MapObj/NeedleSwitchParts.h"
 #include "pe/MapObj/PatanPanel.h"
 #include "pe/MapObj/PatanPanelStarter.h"
@@ -10,7 +11,8 @@ constexpr static al::ActorFactoryTableEntry customActorEntries[] = {
     { "Foomin", pe::createActorFunction<pe::Foomin> },
     { "PatanPanel", pe::createActorFunction<pe::PatanPanel> },
     { "PatanPanelStarter", pe::createActorFunction<pe::PatanPanelStarter> },
-    { "NeedleSwitchParts", pe::createActorFunction<pe::NeedleSwitchParts> }
+    { "NeedleSwitchParts", pe::createActorFunction<pe::NeedleSwitchParts> },
+    { "FlipBlock", pe::createActorFunction<pe::FlipBlock> }
 };
 
 pe::ProjectActorFactory::ProjectActorFactory()

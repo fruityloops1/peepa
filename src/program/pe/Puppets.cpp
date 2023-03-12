@@ -182,29 +182,39 @@ static void raidonGetOffHook(al::IUseNerve* t, al::Nerve* nerve)
     al::setNerve(t, nerve);
 }
 
-MAKE_HOOK_T(void, startAnimHook, (PlayerAnimator * animator, const sead::SafeString& anim), {
-    if (getPuppetHookState().isStartAnimHookEnabled) {
-        PlayerAnimStart packet(anim.cstr(), PlayerAnimStart::AnimType::Anim, 0);
-        pe::MPClient::instance().sendPacket(packet);
-    }
-    impl(animator, anim);
-});
+// clang-format off
 
-MAKE_HOOK_T(void, startSubAnimHook, (PlayerAnimator * animator, const sead::SafeString& subAnim), {
-    if (getPuppetHookState().isStartAnimHookEnabled) {
-        PlayerAnimStart packet(subAnim.cstr(), PlayerAnimStart::AnimType::SubAnim, 0);
-        pe::MPClient::instance().sendPacket(packet);
+HOOK_DEFINE_TRAMPOLINE(StartAnimHook) {
+    static void Callback(PlayerAnimator * animator, const sead::SafeString& anim)
+    {
+        if (getPuppetHookState().isStartAnimHookEnabled) {
+            PlayerAnimStart packet(anim.cstr(), PlayerAnimStart::AnimType::Anim, 0);
+            pe::MPClient::instance().sendPacket(packet);
+        }
+        Orig(animator, anim);
     }
-    impl(animator, subAnim);
-});
+};
+
+HOOK_DEFINE_TRAMPOLINE(StartSubAnimHook) {
+    static void Callback(PlayerAnimator * animator, const sead::SafeString& subAnim)
+    {
+        if (getPuppetHookState().isStartAnimHookEnabled) {
+            PlayerAnimStart packet(subAnim.cstr(), PlayerAnimStart::AnimType::SubAnim, 0);
+            pe::MPClient::instance().sendPacket(packet);
+        }
+        Orig(animator, subAnim);
+    }
+};
+
+// clang-format on
 
 void initPuppetHooks()
 {
     exl::patch::CodePatcher(0x003bd0a0).BranchLinkInst((void*)raidonGetOnHook);
     exl::patch::CodePatcher(0x003bd494).BranchLinkInst((void*)raidonGetOffHook);
 
-    INJECT_HOOK_T(0x003747a0, startAnimHook);
-    INJECT_HOOK_T(0x00374c60, startSubAnimHook);
+    StartSubAnimHook::InstallAtOffset(0x003747a0);
+    StartAnimHook::InstallAtOffset(0x00374c60);
 }
 
 static void sendPlayerUpdatePacket(PlayerActor* player)

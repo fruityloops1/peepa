@@ -2,6 +2,7 @@
 
 #include "al/AreaObj/AreaObjDirector.h"
 #include "al/Camera/CameraDirector.h"
+#include "al/Camera/CameraDirector_RS.h"
 #include "al/Collision/CollisionDirector.h"
 #include "al/Scene/SceneObjHolder.h"
 #include "types.h"
@@ -22,6 +23,9 @@ struct ActorSceneInfo {
     void* gap7 = nullptr;
     void* gap8 = nullptr;
     void* unk = nullptr;
+    void* gap9 = nullptr;
+    void* gap10 = nullptr;
+    CameraDirector_RS* mCameraDirector_RS = nullptr;
 };
 
 } // namespace al

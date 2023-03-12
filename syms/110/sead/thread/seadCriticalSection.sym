@@ -1,0 +1,2 @@
+_ZN4sead15CriticalSection4lockEv = __main_start + 0x00733cf0;
+_ZN4sead15CriticalSection6unlockEv = __main_start + 0x00733d10;

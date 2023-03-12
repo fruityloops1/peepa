@@ -30,6 +30,7 @@
 #include "al/Rail/RailKeeper.h"
 #include "al/Scene/SceneObjHolder.h"
 #include "al/Stage/StageSwitchKeeper.h"
+#include "al/Camera/CameraDirector_RS.h"
 
 namespace al {
 
@@ -39,10 +40,6 @@ struct Unknown {
     void* unknown = nullptr;
 };
 
-class IUseUnknown {
-    virtual void* getUnknown() const = 0;
-};
-
 class LiveActor : public IUseNerve,
                   public IUseEffectKeeper,
                   public IUseAudioKeeper,
@@ -50,7 +47,7 @@ class LiveActor : public IUseNerve,
                   public IUseStageSwitch,
                   public IUseSceneObjHolder,
                   public IUseAreaObj,
-                  public IUseUnknown,
+                  public IUseCamera_RS,
                   public IUseCamera,
                   public IUseCollision {
 protected:
@@ -88,38 +85,38 @@ public:
     virtual void init(const ActorInitInfo& info);
     virtual void initAfterPlacement();
     virtual void appear();
-    virtual void unk1();
-    virtual void unk2();
+    virtual void reappear();
+    virtual void respawn();
     virtual void makeActorAppeared();
     virtual void kill();
-    virtual void unk3();
+    virtual void killComplete(bool);
     virtual void makeActorDead();
-    virtual void unk4();
-    virtual void unk5();
-    virtual void unk6();
-    virtual void unk7();
-    virtual void unk8();
-    virtual void setTrans(const sead::Vector3f& trans);
+    virtual void showActor();
+    virtual void hideActor();
+    virtual void startDemoActor(int);
+    virtual void endDemoActor(int);
+    virtual void changeScenarioID(int, bool);
+    virtual void updateLinkedTrans(const sead::Vector3f& trans);
     virtual void movement();
-    virtual void unk9();
+    virtual void movementPaused(bool);
     virtual void calcAnim();
-    virtual void unk10();
-    virtual void unk11();
-    virtual void unk12();
-    virtual void unk13();
-    virtual void unk14();
-    virtual void unk15();
-    virtual void unk16();
+    virtual void modelUpdate();
+    virtual void pausedModelUpdate();
+    virtual void draw() const;
+    virtual void pause();
+    virtual void resume();
     virtual void startClipped();
     virtual void endClipped();
-    virtual void unk17();
-    virtual void unk18();
-    virtual void unk19();
-    virtual void unk20();
+    virtual void startClippedByLod();
+    virtual void endClippedByLod();
+    virtual void startFarLod();
+    virtual void endFarLod();
+    virtual bool isFarLodSwitchOkay();
+    virtual bool canLinkYOffset() const;
     virtual void attackSensor(HitSensor* me, HitSensor* target);
     virtual bool receiveMsg(const SensorMsg* msg, HitSensor* source, HitSensor* target);
     virtual bool receiveMsgScreenPoint(const SensorMsg* msg, ScreenPointer* pointer, ScreenPointTarget* target);
-    virtual void unk22();
+    virtual bool receiveMsgScreenPointSM(const SensorMsg* msg, ScreenPointer* pointer, ScreenPointTarget* target);
     const char* getName() const override;
     virtual const sead::Matrix34f& getBaseMtx();
     EffectKeeper* getEffectKeeper() const override;
@@ -128,13 +125,13 @@ public:
     SceneObjHolder* getSceneObjHolder() const override;
     CollisionDirector* getCollisionDirector() const override;
     AreaObjDirector* getAreaObjDirector() const override;
-    CameraDirector* getCameraDirector() const override;
-    void* getUnknown() const override;
-    virtual bool isMovePartDisableStaticTouchEffects();
+    void* getSceneCameraInfo() const override;
+    CameraDirector_RS* getCameraDirector_RS() const override;
+    virtual bool isInRouteDokan() const;
     void initStageSwitchKeeper() override;
-    virtual bool unk24();
+    virtual LiveActor* getLinkedActor();
     virtual void control();
-    virtual void unk26();
+    virtual void calcAndSetBaseMtx();
     virtual void updateCollider();
 
     void initActionKeeper(const char*, const char*);

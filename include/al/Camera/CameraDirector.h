@@ -6,7 +6,7 @@ class CameraDirector {
 };
 
 class IUseCamera {
-    virtual CameraDirector* getCameraDirector() const = 0;
+    virtual void* getSceneCameraInfo() const = 0;
 };
 
 } // namespace al

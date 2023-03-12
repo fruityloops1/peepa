@@ -50,7 +50,7 @@ void CoinVideoPlayer::exeWaitStart()
 
 void CoinVideoPlayer::exePlay()
 {
-    mFrame = (nn::os::GetSystemTick() - mStartTick) / (nn::os::GetSystemTickFrequency() / 30);
+    mFrame = ((s64)nn::os::GetSystemTick() - mStartTick) / (nn::os::GetSystemTickFrequency() / 30);
     if (mFrame >= 6573)
         mFrame = 0;
 

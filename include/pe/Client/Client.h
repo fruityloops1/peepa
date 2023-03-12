@@ -1,4 +1,5 @@
 #include "pe/Client/OutPacket.h"
+#include "sys/socket.h"
 #include <nn/os.h>
 #include <nn/socket.h>
 
@@ -58,14 +59,7 @@ public:
     friend void threadFunc(void*);
     friend void pingThreadFunc(void*);
 
-    inline bool isTimedOut() const
-    {
-        return false;
-
-        nn::time::PosixTime now;
-        nn::time::StandardUserSystemClock::GetCurrentTime(&now);
-        return now.time - mLastPingReceived > sTimeoutSeconds;
-    }
+    bool isTimedOut() const;
 
     inline bool isConnected() const { return mInited && mConnected && !isTimedOut(); }
     inline bool isInited() const { return mInited; }

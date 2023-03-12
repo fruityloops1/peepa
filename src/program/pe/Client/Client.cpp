@@ -194,4 +194,13 @@ void Client::receivePing(u8* data, size_t size)
     mLastPingReceived = now.time;
 }
 
+bool Client::isTimedOut() const
+{
+    return false;
+
+    nn::time::PosixTime now;
+    nn::time::StandardUserSystemClock::GetCurrentTime(&now);
+    return now.time - mLastPingReceived > sTimeoutSeconds;
+}
+
 } // namespace fl

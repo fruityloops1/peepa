@@ -12,21 +12,42 @@ enable_language(ASM C CXX)
 
 ## Title Id
 set(CONFIG_TITLE_ID 0x010028600ebda000)
-add_compile_definitions(EXL_PROGRAM_ID=${CONFIG_TITLE_ID} EXL_LOAD_KIND=Module EXL_LOAD_KIND_ENUM=2)
+add_compile_definitions(EXL_PROGRAM_ID=${CONFIG_TITLE_ID} EXL_LOAD_KIND=Module EXL_LOAD_KIND_ENUM=2 NNSDK IMGUI_USER_CONFIG="imgui_backend/nvn_imgui_config.h")
+
+set(NN_SDK_MAJOR 4) # idk
+set(NN_SDK_MINOR 0) # idk
+set(NN_SDK_PATCH 0) # idk
+set(NN_SDK_TYPE "Release")
+set(NN_WARE_MAJOR 4) # idk
+set(NN_WARE_MINOR 0) # idk
+set(NN_WARE_PATCH 0) # idk
+
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/module/subsdk9.json.template ${CMAKE_CURRENT_BINARY_DIR}/subsdk9.json)
 
 ## Project sources
-include_directories(${PROJECT_SOURCE_DIR}/src/ ${PROJECT_SOURCE_DIR}/src/lib ${PROJECT_SOURCE_DIR}/include ${PROJECT_SOURCE_DIR}/lib/sead/include ${PROJECT_SOURCE_DIR}/lib/sead/nnheaders/include)
+include_directories(
+  ${PROJECT_SOURCE_DIR}/src/
+  ${PROJECT_SOURCE_DIR}/src/lib 
+  ${PROJECT_SOURCE_DIR}/include
+  ${PROJECT_SOURCE_DIR}/lib/sead/include
+  ${PROJECT_SOURCE_DIR}/lib/NintendoSDK/include
+  ${PROJECT_SOURCE_DIR}/lib/NintendoSDK/include/nvn
+  ${PROJECT_SOURCE_DIR}/lib/imgui
+  )
+
 file(GLOB_RECURSE SOURCES_ASM ${PROJECT_SOURCE_DIR}/src/*.s)
 file(GLOB_RECURSE SOURCES_C ${PROJECT_SOURCE_DIR}/src/*.c)
 file(GLOB_RECURSE SOURCES_CXX ${PROJECT_SOURCE_DIR}/src/*.cpp)
+
+file(GLOB IMGUI_SOURCES ${PROJECT_SOURCE_DIR}/lib/imgui/*.cpp)
 
 ## Include nx tools
 include(${CMAKE_SOURCE_DIR}/cmake/SwitchTools.cmake)
 
 ## subsdk9
 set(CMAKE_EXECUTABLE_SUFFIX ".nss")
-add_executable(subsdk9 ${SOURCES_ASM} ${SOURCES_C} ${SOURCES_CXX})
+add_executable(subsdk9 ${SOURCES_ASM} ${SOURCES_C} ${SOURCES_CXX} ${IMGUI_SOURCES})
+#target_link_libraries(subsdk9 PUBLIC )
 
 ## Prepare subsdk ld
 set(SUBSDK_LD_PATH ${CMAKE_CURRENT_SOURCE_DIR}/module/subsdk9.ld)

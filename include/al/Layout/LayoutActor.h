@@ -40,19 +40,19 @@ class LayoutActor : public IUseHioNode,
 public:
     LayoutActor(const char* name);
 
-    virtual NerveKeeper* getNerveKeeper() const override;
+    NerveKeeper* getNerveKeeper() const override;
     virtual void appear();
     virtual void kill();
     virtual void movement();
     virtual void calcAnim(bool);
-    virtual const char* getName() const override;
-    virtual EffectKeeper* getEffectKeeper() const override;
-    virtual AudioKeeper* getAudioKeeper() const override;
-    virtual LayoutActionKeeper* getLayoutActionKeeper() const override;
-    virtual LayoutKeeper* getLayoutKeeper() const override;
-    virtual CameraDirector* getCameraDirector() const override;
-    virtual SceneObjHolder* getSceneObjHolder() const override;
-    virtual MessageSystem* getMessageSystem() const override;
+    const char* getName() const override;
+    EffectKeeper* getEffectKeeper() const override;
+    AudioKeeper* getAudioKeeper() const override;
+    LayoutActionKeeper* getLayoutActionKeeper() const override;
+    LayoutKeeper* getLayoutKeeper() const override;
+    void* getSceneCameraInfo() const override;
+    SceneObjHolder* getSceneObjHolder() const override;
+    MessageSystem* getMessageSystem() const override;
     virtual void control();
 
     void initActionKeeper();

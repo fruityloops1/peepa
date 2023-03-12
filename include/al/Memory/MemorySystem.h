@@ -14,9 +14,6 @@ public:
 
 void createSceneHeap(const char* stageName);
 
-struct balls {
-    int balls;
-    int balls5[];
-};
+sead::Heap* getSequenceHeap();
 
 } // namespace al
