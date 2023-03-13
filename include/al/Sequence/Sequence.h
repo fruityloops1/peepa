@@ -6,14 +6,15 @@
 #include "al/Scene/Scene.h"
 #include "al/Scene/SceneCreator.h"
 #include "al/Sequence/SequenceInitInfo.h"
+#include "nerd/ErrorViewer.h"
 
 namespace al {
 
 class Sequence : public NerveExecutor, public IUseAudioKeeper, public IUseSceneCreator {
 public:
     sead::FixedSafeString<64> mName;
-    void* unk1;
     al::Scene* mCurrentScene = nullptr;
+    al::Scene* mCurrentInitScene = nullptr;
     SceneCreator* mSceneCreator = nullptr;
     AudioDirector* mAudioDirector = nullptr;
     AudioKeeper* mAudioKeeper = nullptr;
@@ -31,7 +32,7 @@ public:
     virtual Scene* getCurrentScene() const;
 
 private:
-    virtual bool vunk1();
+    ErrorViewer* getErrorViewer() const;
 
 public:
     SceneCreator* getSceneCreator() const override;

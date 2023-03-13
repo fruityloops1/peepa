@@ -8,7 +8,9 @@ namespace al {
 class LiveActorGroup {
 public:
     const char* const mName = nullptr;
-    sead::PtrArray<LiveActor> mActors;
+    s32 mCapacity = 0;
+    s32 mSize = 0;
+    LiveActor** mActors;
 
     LiveActorGroup(const char* name, int max);
     virtual void registerActor(LiveActor*);

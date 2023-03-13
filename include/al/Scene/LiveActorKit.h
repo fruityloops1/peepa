@@ -1,7 +1,7 @@
 #pragma once
 
+#include "al/Player/PlayerHolder.h"
 #include "al/Scene/LiveActorGroup.h"
-#include "al/Scene/PlayerHolder.h"
 
 namespace al {
 
@@ -25,7 +25,7 @@ public:
     void* _68 = nullptr;
     void* _70 = nullptr;
     void* _78 = nullptr;
-    LiveActorGroup* mLiveActorGroup = nullptr;
+    LiveActorGroup* mAllActors = nullptr;
     void* _88 = nullptr;
     void* _90 = nullptr;
     void* _98 = nullptr;

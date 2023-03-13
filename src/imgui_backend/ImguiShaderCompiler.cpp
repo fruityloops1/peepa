@@ -185,10 +185,10 @@ CompiledData ImguiShaderCompiler::CompileShader(const char* shaderName)
     const char* shaders[6];
     NVNshaderStage stages[6];
 
-    char vshPath[0x40] = {}; //"sd:/LunaKit/ImGuiData/sources/imgui_vsh.glsl";
-    createPath(vshPath, "sd:/LunaKit/ImGuiData/sources", shaderName, "_vsh.glsl");
-    char fshPath[0x40] = {}; //"sd:/LunaKit/ImGuiData/sources/imgui_fsh.glsl";
-    createPath(fshPath, "sd:/LunaKit/ImGuiData/sources", shaderName, "_fsh.glsl");
+    char vshPath[0x40] = {};
+    createPath(vshPath, "sd:/Peepa/ImGuiData/Shaders", shaderName, "_vsh.glsl");
+    char fshPath[0x40] = {};
+    createPath(fshPath, "sd:/Peepa/ImGuiData/Shaders", shaderName, "_fsh.glsl");
 
     shaders[0] = GetShaderSource(vshPath);
     stages[0] = NVNshaderStage::NVN_SHADER_STAGE_VERTEX;

@@ -26,7 +26,7 @@ class NerveKeeper {
     NerveActionCtrl* mNerveActionCtrl = nullptr;
 
 public:
-    NerveKeeper(void*, const Nerve*, int);
+    NerveKeeper(void*, const Nerve*, int numNerveStates);
 
     void update();
     void setNerve(const Nerve*);

@@ -8,7 +8,7 @@ namespace pe {
 
 class MPClient : public Client {
 public:
-    constexpr static const char* const sServerIp = "put ip here";
+    constexpr static const char* const sServerIp = "192.168.188.89";
 
     MPClient()
         : Client(sPackets)

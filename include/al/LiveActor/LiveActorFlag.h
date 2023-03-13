@@ -7,15 +7,15 @@ struct LiveActorFlag {
     bool isDead = true;
     bool isClipped = false;
     bool flag3;
-    bool flag4;
-    bool flag5;
-    bool flag6;
+    bool isDraw;
+    bool isClippedByLod;
+    bool isOffCalcAnim;
     bool isHideModel = false;
-    bool flag8;
+    bool isColliderDisabled;
     bool flag9;
     bool flag10;
-    bool flag11;
-    bool flag12;
+    bool isMaterialCode;
+    bool isAreaTarget;
     bool isUpdateMovementEffectAudioCollisionSensor = true; // true?
 };
 

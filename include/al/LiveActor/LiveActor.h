@@ -3,6 +3,7 @@
 #include "al/AreaObj/AreaObjDirector.h"
 #include "al/Audio/AudioKeeper.h"
 #include "al/Camera/CameraDirector.h"
+#include "al/Camera/CameraDirector_RS.h"
 #include "al/Collision/Collider.h"
 #include "al/Collision/CollisionDirector.h"
 #include "al/Collision/CollisionParts.h"
@@ -27,10 +28,10 @@
 #include "al/Model/ModelKeeper.h"
 #include "al/Model/ShadowKeeper.h"
 #include "al/Nerve/NerveKeeper.h"
+#include "al/Placement/PlacementHolder.h"
 #include "al/Rail/RailKeeper.h"
 #include "al/Scene/SceneObjHolder.h"
 #include "al/Stage/StageSwitchKeeper.h"
-#include "al/Camera/CameraDirector_RS.h"
 
 namespace al {
 
@@ -73,9 +74,15 @@ protected:
     SubActorKeeper* mSubActorKeeper = nullptr;
     ActorParamHolder* mParamHolder = nullptr;
     ActorSceneInfo* mActorSceneInfo = nullptr;
-    void* gap4 = nullptr;
+    void* _100 = nullptr;
     LiveActorFlag* mLiveActorFlag = nullptr;
-    u8 unk[0x38];
+    void* _110 = nullptr;
+    PlacementHolder* mPlacementHolder = nullptr;
+    void* _120 = nullptr;
+    void* _128 = nullptr;
+    void* _130 = nullptr;
+    LiveActor* mFarLodActor = nullptr;
+    void* _140;
 
 public:
     LiveActor(const char* name);
@@ -151,6 +158,11 @@ public:
 
     friend void bindSklAnimRetargetting(const LiveActor* actor, const SklAnimRetargettingInfo* info);
     friend ActorParamHolder* getActorParamHolder(LiveActor* actor);
+
+    ActorPoseKeeperBase* getActorPoseKeeper() const { return mActorPoseKeeper; }
+    SubActorKeeper* getSubActorKeeper() const { return mSubActorKeeper; }
+    PlacementHolder* getPlacementHolder() const { return mPlacementHolder; }
+    LiveActorFlag* getLiveActorFlag() const { return mLiveActorFlag; }
 };
 
 } // namespace al

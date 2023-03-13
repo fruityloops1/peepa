@@ -3,17 +3,22 @@
 #include "Game/Scene/StageScene.h"
 #include "Game/Sequence/ProductSequence.h"
 #include "al/LiveActor/LiveActorFunction.h"
+#include "al/Memory/MemorySystem.h"
 #include "al/Sequence/SequenceInitInfo.h"
 #include "devenv/seadFontMgr.h"
 #include "diag/assert.hpp"
+#include "heap/seadFrameHeap.h"
+#include "heap/seadHeapMgr.h"
 #include "imgui.h"
 #include "lib.hpp"
 #include "nn/fs.h"
 #include "nn/os.h"
 #include "pe/BunbunMod.h"
 #include "pe/Client/MPClient.h"
+#include "pe/DbgGui/DbgGui.h"
 #include "pe/EchoEmitterMod.h"
 #include "pe/Factory/ProjectActorFactory.h"
+#include "pe/Hacks/PlacementHolderMod.h"
 #include "pe/RCSMultiplayer.h"
 #include "pe/RCSPlayers.h"
 #include "pe/Sequence/ProductStateTest.h"
@@ -50,13 +55,20 @@ void productSequenceUpdateHook(ProductSequence* sequence)
 {
     sequence->al::Sequence::update();
 
+    {
+        sead::ScopedCurrentHeapSetter heapSetter(pe::gui::getDbgGuiHeap());
+
+        auto* dbgGui = pe::gui::DbgGui::instance();
+        if (dbgGui)
+            dbgGui->update();
+    }
+
     RUN_EACH(300, pe::MPClient::instance().ping(););
 }
 
 void productSequenceInitHook(ProductSequence* thisPtr, const al::Nerve* nerve, int nerveStateNum)
 {
     thisPtr->initNerve(nerve, nerveStateNum);
-    pe::MPClient::instance().connect(pe::MPClient::sServerIp, 7032);
 }
 
 void projectActorFactoryHook(ProjectActorFactory* factory) { new (factory) pe::ProjectActorFactory(); }
@@ -84,6 +96,15 @@ HOOK_DEFINE_TRAMPOLINE(ProductSequenceInitHook) { static void Callback(ProductSe
 void ProductSequenceInitHook::Callback(ProductSequence* sequence, const al::SequenceInitInfo& info)
 {
     Orig(sequence, info);
+
+    pe::gui::getDbgGuiHeap() = sead::FrameHeap::create(1024 * 1024 * 0.5, "DbgGuiHeap", al::getSequenceHeap(), 8, sead::FrameHeap::cHeapDirection_Forward, false);
+    {
+        sead::ScopedCurrentHeapSetter heapSetter(pe::gui::getDbgGuiHeap());
+        pe::gui::DbgGui::createInstance(nullptr);
+        pe::gui::DbgGui::instance()->mSharedData.productSequence = sequence;
+    }
+
+    pe::MPClient::instance().connect(pe::MPClient::sServerIp, 7032);
 }
 
 PATCH_DEFINE_ASM(FixHook, R"(
@@ -120,9 +141,13 @@ void CreateFileDeviceMgr::Callback(sead::FileDeviceMgr* thisPtr)
     // thisPtr->mount(sdFileDevice);
 }
 
-void testDraw()
+void drawDbgGui()
 {
-    ImGui::ShowDemoWindow();
+    sead::ScopedCurrentHeapSetter heapSetter(pe::gui::getDbgGuiHeap());
+
+    auto* dbgGui = pe::gui::DbgGui::instance();
+    if (dbgGui)
+        dbgGui->draw();
 }
 
 extern "C" void exl_main(void* x0, void* x1)
@@ -160,11 +185,12 @@ extern "C" void exl_main(void* x0, void* x1)
     }
     pe::initBunbunModHooks();
     pe::initEchoEmitterModHooks();
+    pe::initPlacementHolderModHooks();
     // pe::installProductStateTestHooks();
     // installProductSequenceHooks();
 
     nvnImGui::InstallHooks();
-    nvnImGui::addDrawFunc(testDraw);
+    nvnImGui::addDrawFunc(drawDbgGui);
 }
 
 extern "C" NORETURN void exl_exception_entry()

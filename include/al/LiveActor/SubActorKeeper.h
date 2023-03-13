@@ -9,7 +9,9 @@ class ActorInitInfo;
 
 class SubActorKeeper {
     LiveActor* const mParent = nullptr;
-    sead::PtrArray<LiveActor> mSubActors;
+    s32 mCapacity = 0;
+    s32 mSize = 0;
+    LiveActor** mActors;
 
 public:
     SubActorKeeper(al::LiveActor* actor, const al::ActorInitInfo& info, const char*, int);
