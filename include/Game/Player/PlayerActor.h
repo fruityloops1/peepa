@@ -6,6 +6,7 @@
 #include "al/Collision/Collider.h"
 #include "al/LiveActor/LiveActor.h"
 #include "al/LiveActor/SubActorKeeper.h"
+#include "al/Npc/FootPrintHolder.h"
 
 class PlayerActor : public al::LiveActor {
     u8 inherits[0x58];
@@ -24,4 +25,9 @@ public:
     }* mBoomerangHolder = nullptr;
     u8 unk5[0x98];
     al::Collider* mCollider = nullptr;
+    u8 _310[0x190];
+    al::FootPrintHolder* mFootPrintHolder = nullptr;
+    u8 _4B0[0x1A0];
 };
+
+static_assert(sizeof(PlayerActor) == 0x648);

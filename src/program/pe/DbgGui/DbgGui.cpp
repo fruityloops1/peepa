@@ -10,9 +10,9 @@ namespace gui {
 
     SEAD_SINGLETON_DISPOSER_IMPL(DbgGui)
 
-    sead::FrameHeap*& getDbgGuiHeap()
+    sead::ExpHeap*& getDbgGuiHeap()
     {
-        static sead::FrameHeap* heap { nullptr };
+        static sead::ExpHeap* heap { nullptr };
         return heap;
     }
 

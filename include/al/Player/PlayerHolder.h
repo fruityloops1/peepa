@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Game/Player/PlayerActor.h"
 #include "al/LiveActor/LiveActor.h"
 
 namespace al {
@@ -18,6 +17,6 @@ public:
 };
 
 int getPlayerNumMax(const LiveActor*);
-PlayerActor* getPlayerActor(const LiveActor*, int index);
+LiveActor* getPlayerActor(const LiveActor*, int index);
 
 } // namespace al

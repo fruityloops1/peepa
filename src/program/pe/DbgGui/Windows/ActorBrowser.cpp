@@ -1,7 +1,9 @@
 #include "pe/DbgGui/Windows/ActorBrowser.h"
 #include "Game/Player/PlayerActor.h"
 #include "Game/Sequence/ProductSequence.h"
+#include "al/LiveActor/ActorMovementFunction.h"
 #include "al/LiveActor/ActorPoseKeeperBase.h"
+#include "al/LiveActor/ActorResourceFunction.h"
 #include "al/LiveActor/LiveActorFlag.h"
 #include "al/LiveActor/SubActorKeeper.h"
 #include "al/Nerve/NerveFunction.h"
@@ -9,6 +11,7 @@
 #include "heap/seadHeapMgr.h"
 #include "imgui.h"
 #include "pe/Client/MPClient.h"
+#include "pe/Util/Type.h"
 #include <sead/heap/seadHeap.h>
 
 namespace pe {
@@ -31,16 +34,36 @@ namespace gui {
                 snprintf(buf, sizeof(buf), "%d/%d (%s)", allActors->mSize, allActors->mCapacity, allActors->mName);
                 ImGui::ProgressBar(allActors->mSize / (float(allActors->mCapacity) / 100) / 100, ImVec2(-FLT_MIN, 0), buf);
 
-                // actors with UnitConfigName
-                for (int i = 0; i < allActors->mSize; i++) {
-                    al::LiveActor* actor(allActors->mActors[i]);
-                    showActorInList(actor);
-                }
+                if (allActors->mSize > 0) {
+                    // show players first
+                    for (int i = 0; i < al::getPlayerNumMax(allActors->mActors[0]); i++) {
+                        PlayerActor* actor = util::checkPlayer(al::getPlayerActor(allActors->mActors[0], i));
 
-                // non-placement actors at bottom
-                for (int i = 0; i < allActors->mSize; i++) {
-                    al::LiveActor* actor(allActors->mActors[i]);
-                    showActorInListNoUnitConfigName(actor);
+                        if (actor) {
+                            ImGui::PushID(actor);
+                            if (ImGui::Selectable(actor->mFootPrintHolder->getPlayerName(), mCurrentSelection == actor))
+                                mCurrentSelection = mCurrentSelection == actor ? nullptr : actor;
+                            ImGui::PopID();
+                        }
+                    }
+
+                    ImGui::NewLine();
+
+                    // actors with UnitConfigName
+                    for (int i = 0; i < allActors->mSize; i++) {
+                        al::LiveActor* actor(allActors->mActors[i]);
+                        if (pe::util::checkPlayer(actor))
+                            continue;
+                        showActorInList(actor);
+                    }
+
+                    // non-placement actors at bottom
+                    for (int i = 0; i < allActors->mSize; i++) {
+                        al::LiveActor* actor(allActors->mActors[i]);
+                        showActorInListNoUnitConfigName(actor);
+                        if (pe::util::checkPlayer(actor))
+                            continue;
+                    }
                 }
             }
 
@@ -78,6 +101,17 @@ namespace gui {
         }
     }
 
+    void ActorBrowser::showPlayerActor(PlayerActor* actor)
+    {
+        ImGui::PushID("playerTrans");
+        ImGui::DragFloat3("Trans", actor->mPlayer->mPlayerProperty->trans.e.data());
+        ImGui::PopID();
+
+        ImGui::PushID("playerVelocity");
+        ImGui::DragFloat3("Velocity", actor->mPlayer->mPlayerProperty->velocity.e.data());
+        ImGui::PopID();
+    }
+
     void ActorBrowser::showActorView()
     {
         if (ImGui::Begin("Actor")) {
@@ -110,6 +144,16 @@ namespace gui {
                 if (mCurrentSelection->getLiveActorFlag() && ImGui::CollapsingHeader("Flags"))
                     showLiveActorFlag();
 
+                if (ImGui::CollapsingHeader("Debug")) {
+                    ImGui::Text("Ptr: 0x%p", mCurrentSelection);
+                    ImGui::Text("vtable: 0x%.8lx", pe::util::getVftOffsetMain(mCurrentSelection) - 16);
+                }
+
+                PlayerActor* playerActor = pe::util::checkPlayer(mCurrentSelection);
+
+                if (playerActor && ImGui::CollapsingHeader("Player Actor"))
+                    showPlayerActor(playerActor);
+
             } else
                 ImGui::Text("No Actor Selected!");
             ImGui::End();
@@ -118,14 +162,15 @@ namespace gui {
 
     void ActorBrowser::showActorPoseKeeper()
     {
-        sead::Vector3f* velocityPtr = al::getScalePtr(mCurrentSelection);
+        PlayerActor* player = pe::util::checkPlayer(al::getPlayerActor(mCurrentSelection, 0));
 
-        PlayerActor* player = al::getPlayerActor(mCurrentSelection, 0);
-
-        auto setTransForAllPlayers = [this](const sead::Vector3f& trans) {
-            for (int i = 0; i < al::getPlayerNumMax(mCurrentSelection); i++)
-                al::getPlayerActor(mCurrentSelection, i)->mPlayer->mPlayerProperty->trans = trans;
-        };
+        auto setTransForAllPlayers
+            = [this](const sead::Vector3f& trans) {
+                  for (int i = 0; i < al::getPlayerNumMax(mCurrentSelection); i++) {
+                      PlayerActor* curPlayer = pe::util::checkPlayer(al::getPlayerActor(mCurrentSelection, i));
+                      curPlayer->mPlayer->mPlayerProperty->trans = trans;
+                  }
+              };
 
         if (player) {
             if (ImGui::Button("Teleport to"))
@@ -138,12 +183,20 @@ namespace gui {
             }
         }
 
+        sead::Vector3f* scalePtr = al::getScalePtr(mCurrentSelection);
+
         ImGui::DragFloat3("Trans", al::getTransPtr(mCurrentSelection)->e.data());
-        ImGui::DragFloat3("Scale", velocityPtr->e.data());
+        ImGui::DragFloat3("Scale", scalePtr->e.data());
         for (int i = 0; i < 3; i++)
-            if (velocityPtr->e[i] == 0)
-                velocityPtr->e[i] = 1; // 0 in scale = crashes game
+            if (scalePtr->e[i] == 0)
+                scalePtr->e[i] = 1; // 0 in scale = crashes game
         ImGui::DragFloat3("Velocity", al::getVelocityPtr(mCurrentSelection)->e.data());
+
+        float speed = al::calcSpeed(mCurrentSelection), speedH = al::calcSpeedH(mCurrentSelection), speedV = al::calcSpeedV(mCurrentSelection);
+
+        ImGui::InputFloat("Speed", &speed, 0, 0, "%.3f", ImGuiInputTextFlags_ReadOnly);
+        ImGui::InputFloat("Speed H", &speedH, 0, 0, "%.3f", ImGuiInputTextFlags_ReadOnly);
+        ImGui::InputFloat("Speed V", &speedV, 0, 0, "%.3f", ImGuiInputTextFlags_ReadOnly);
     }
 
     void ActorBrowser::showNerveKeeper()

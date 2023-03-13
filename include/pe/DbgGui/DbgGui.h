@@ -3,7 +3,7 @@
 #include "Game/Sequence/ProductSequence.h"
 #include "container/seadPtrArray.h"
 #include <sead/heap/seadDisposer.h>
-#include <sead/heap/seadFrameHeap.h>
+#include <sead/heap/seadExpHeap.h>
 
 struct ProductSequenceInitHook;
 
@@ -12,7 +12,7 @@ namespace gui {
 
     class IComponent;
 
-    sead::FrameHeap*& getDbgGuiHeap();
+    sead::ExpHeap*& getDbgGuiHeap();
 
     class DbgGui {
         SEAD_SINGLETON_DISPOSER(DbgGui);

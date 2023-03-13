@@ -5,6 +5,7 @@
 #include "Game/Player/PlayerAnimFunc.h"
 #include "Game/Scene/SingleModeScene.h"
 #include "al/Joint/JointFunction.h"
+#include "al/LiveActor/ActorMovementFunction.h"
 #include "al/LiveActor/LiveActorFunction.h"
 #include "al/Math/VectorUtil.h"
 #include "math/seadVector.h"

@@ -7,8 +7,6 @@
 #include "al/Sequence/SequenceInitInfo.h"
 #include "devenv/seadFontMgr.h"
 #include "diag/assert.hpp"
-#include "heap/seadFrameHeap.h"
-#include "heap/seadHeapMgr.h"
 #include "imgui.h"
 #include "lib.hpp"
 #include "nn/fs.h"
@@ -29,6 +27,8 @@
 #include "util/sys/rw_pages.hpp"
 #include <sead/filedevice/nin/seadNinSDFileDeviceNin.h>
 #include <sead/filedevice/seadFileDeviceMgr.h>
+#include <sead/heap/seadExpHeap.h>
+#include <sead/heap/seadHeapMgr.h>
 
 constexpr static bool isSingleModeMultiplayer = false;
 
@@ -97,7 +97,8 @@ void ProductSequenceInitHook::Callback(ProductSequence* sequence, const al::Sequ
 {
     Orig(sequence, info);
 
-    pe::gui::getDbgGuiHeap() = sead::FrameHeap::create(1024 * 1024 * 0.5, "DbgGuiHeap", al::getSequenceHeap(), 8, sead::FrameHeap::cHeapDirection_Forward, false);
+    pe::gui::getDbgGuiHeap() = sead::ExpHeap::create(1024 * 1024 * 1, "DbgGuiHeap", al::getSequenceHeap(), 8, sead::ExpHeap::cHeapDirection_Forward, false);
+    pe::createPlacementInfoHeap();
     {
         sead::ScopedCurrentHeapSetter heapSetter(pe::gui::getDbgGuiHeap());
         pe::gui::DbgGui::createInstance(nullptr);

@@ -20,15 +20,10 @@ static void deletePlacementHolderIfExist(al::LiveActor* actor)
 
 al::PlacementHolder::~PlacementHolder()
 {
-    pe::MPClient::instance().log("~PlacementHolder()");
-    sead::ScopedCurrentHeapSetter setter(pe::gui::getDbgGuiHeap());
-
-    if (mUnitConfigName)
-        delete mUnitConfigName;
-    if (mIdClone)
-        delete mIdClone;
-    if (mModelNameClone)
-        delete mModelNameClone;
+    if (pe::getPlacementInfoHeap()) {
+        pe::getPlacementInfoHeap()->destroy();
+        pe::getPlacementInfoHeap() = nullptr;
+    }
 }
 
 HOOK_DEFINE_TRAMPOLINE(LiveActorDtorHook1) { static void Callback(al::LiveActor * actor, void* vtt); }; // vtt dtor
@@ -67,7 +62,10 @@ void PlacementHolderInitHook::Callback(al::PlacementHolder* holder, const al::Pl
 {
     Orig(holder, info);
 
-    sead::ScopedCurrentHeapSetter setter(pe::gui::getDbgGuiHeap());
+    if (!pe::getPlacementInfoHeap()) {
+        pe::createPlacementInfoHeap();
+    }
+    sead::ScopedCurrentHeapSetter setter(pe::getPlacementInfoHeap());
 
     const char* unitConfigName = nullptr;
     if (info.getPlacementIter().tryGetStringByKey(&unitConfigName, "UnitConfigName")) {
@@ -95,6 +93,17 @@ void PlacementHolderInitHook::Callback(al::PlacementHolder* holder, const al::Pl
 }
 
 namespace pe {
+
+sead::FrameHeap*& getPlacementInfoHeap()
+{
+    static sead::FrameHeap* heap { nullptr };
+    return heap;
+}
+
+void createPlacementInfoHeap()
+{
+    getPlacementInfoHeap() = sead::FrameHeap::create(1024 * 1024 * 0.5, "PlacementInfoHeap", pe::gui::getDbgGuiHeap(), 8, sead::ExpHeap::cHeapDirection_Forward, false);
+}
 
 void initPlacementHolderModHooks()
 {
