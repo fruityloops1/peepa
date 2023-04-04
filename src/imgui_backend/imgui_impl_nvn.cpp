@@ -1,7 +1,7 @@
-#include "imgui_impl_nvn.hpp"
 #include "helpers/fsHelper.h"
 #include "imgui.h"
 #include "imgui_hid_mappings.h"
+#include "imgui_impl_nvn.hpp"
 #include "lib.hpp"
 #include <cmath>
 
@@ -397,10 +397,19 @@ void InitBackend(const NvnBackendInitInfo& initInfo)
     bd->isInitialized = false;
 
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-    io.Fonts->AddFontDefault();
+
+    FsHelper::LoadData loadData = {
+        .path = "sd:/Peepa/ImGuiData/Fonts/SFMonoSquare-Regular.otf"
+    };
+
+    FsHelper::loadFileFromPath(loadData);
+
+    io.Fonts->AddFontFromMemoryTTF(loadData.buffer, loadData.bufSize, 13, nullptr, io.Fonts->GetGlyphRangesJapanese());
 
     ImGuiStyle& style = ImGui::GetStyle();
     ImVec4* colors = style.Colors;
+
+    ImGui::StyleColorsDark();
 
     style.FrameBorderSize = 0;
     style.WindowBorderSize = 0;
@@ -641,8 +650,6 @@ void renderDrawData(ImDrawData* drawData)
     if (!(bd->vtxBuffer->IsBufferReady() && bd->idxBuffer->IsBufferReady())) {
         return;
     }
-
-    // pe::MPClient::instance().log("CmdBuf %x %x", bd->cmdBuf->GetControlMemorySize(), bd->cmdBuf->GetControlMemoryUsed());
 
     bd->cmdBuf->BeginRecording(); // start recording our commands to the cmd buffer
 

@@ -8,6 +8,9 @@
 #include "al/LiveActor/SubActorKeeper.h"
 #include "al/Npc/FootPrintHolder.h"
 
+class IUsePlayerActionGraphBuilder;
+class IUsePlayerRetargettingInfoCreator;
+
 class PlayerActor : public al::LiveActor {
     u8 inherits[0x58];
 
@@ -28,6 +31,8 @@ public:
     u8 _310[0x190];
     al::FootPrintHolder* mFootPrintHolder = nullptr;
     u8 _4B0[0x1A0];
+
+    void initSpecial(const al::ActorInitInfo&, int, const char*, IUsePlayerRetargettingInfoCreator*, IUsePlayerRetargettingSelector*, IUsePlayerActionGraphBuilder*, const char*, unsigned int, int, const char*);
 };
 
 static_assert(sizeof(PlayerActor) == 0x648);

@@ -25,13 +25,19 @@ namespace gui {
             bool showDemoWindow = false;
             bool showHeapViewer = false;
             bool showActorBrowser = false;
+            bool showHacks = false;
+            bool showRCSCamera = false;
         } mSharedData;
+
+        bool mIsSingleModeScene = false;
 
     public:
         DbgGui();
 
         void update();
         void draw();
+
+        bool isSingleModeScene() const { return mIsSingleModeScene; }
 
         friend class IComponent;
         friend ::ProductSequenceInitHook;

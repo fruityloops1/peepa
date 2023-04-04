@@ -1,6 +1,6 @@
-#include "pe/DbgGui/MenuBar.h"
 #include "heap/seadHeapMgr.h"
 #include "imgui.h"
+#include "pe/DbgGui/MenuBar.h"
 #include "pe/Util/Nerve.h"
 #include <sead/heap/seadHeap.h>
 
@@ -18,6 +18,8 @@ namespace gui {
                 ImGui::Checkbox("Demo Window", &getDbgGuiSharedData().showDemoWindow);
                 ImGui::Checkbox("HeapViewer", &getDbgGuiSharedData().showHeapViewer);
                 ImGui::Checkbox("ActorBrowser", &getDbgGuiSharedData().showActorBrowser);
+                ImGui::Checkbox("Hacks", &getDbgGuiSharedData().showHacks);
+                ImGui::Checkbox("RCSCamera", &getDbgGuiSharedData().showRCSCamera);
                 ImGui::EndMenu();
             }
             ImGui::EndMainMenuBar();

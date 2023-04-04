@@ -36,7 +36,7 @@ public:
     virtual void control();
     AudioKeeper* getAudioKeeper() const override;
     SceneObjHolder* getSceneObjHolder() const override;
-    void* getSceneCameraInfo() const override;
+    SceneCameraInfo* getSceneCameraInfo() const override;
 
 private:
     virtual bool unk_58();

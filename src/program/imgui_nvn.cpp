@@ -1,7 +1,8 @@
-#include "imgui_nvn.h"
 #include "helpers/InputHelper.h"
 #include "imgui_backend/imgui_impl_nvn.hpp"
+#include "imgui_nvn.h"
 #include "lib.hpp"
+#include "nn/hid.h"
 #include "nn/init.h"
 #include "nvn_Cpp.h"
 #include "nvn_CppFuncPtrImpl.h"
@@ -107,7 +108,7 @@ void disableButtons(nn::hid::NpadBaseState* state)
     }
 }
 
-HOOK_DEFINE_TRAMPOLINE(DisableFullKeyState) { static int Callback(int* unkInt, nn::hid::NpadFullKeyState* state, int count, uint const& port); };
+HOOK_DEFINE_TRAMPOLINE(DisableFullKeyState) { static int Callback(int* unkInt, nn::hid::NpadFullKeyState* state, int count, const uint& port); };
 
 int DisableFullKeyState::Callback(int* unkInt, nn::hid::NpadFullKeyState* state, int count, const uint& port)
 {
@@ -116,7 +117,7 @@ int DisableFullKeyState::Callback(int* unkInt, nn::hid::NpadFullKeyState* state,
     return result;
 }
 
-HOOK_DEFINE_TRAMPOLINE(DisableHandheldState) { static int Callback(int* unkInt, nn::hid::NpadHandheldState* state, int count, uint const& port); };
+HOOK_DEFINE_TRAMPOLINE(DisableHandheldState) { static int Callback(int* unkInt, nn::hid::NpadHandheldState* state, int count, const uint& port); };
 
 int DisableHandheldState::Callback(int* unkInt, nn::hid::NpadHandheldState* state, int count, const uint& port)
 {
@@ -125,7 +126,7 @@ int DisableHandheldState::Callback(int* unkInt, nn::hid::NpadHandheldState* stat
     return result;
 }
 
-HOOK_DEFINE_TRAMPOLINE(DisableJoyDualState) { static int Callback(int* unkInt, nn::hid::NpadJoyDualState* state, int count, uint const& port); };
+HOOK_DEFINE_TRAMPOLINE(DisableJoyDualState) { static int Callback(int* unkInt, nn::hid::NpadJoyDualState* state, int count, const uint& port); };
 
 int DisableJoyDualState::Callback(int* unkInt, nn::hid::NpadJoyDualState* state, int count, const uint& port)
 {
@@ -134,7 +135,7 @@ int DisableJoyDualState::Callback(int* unkInt, nn::hid::NpadJoyDualState* state,
     return result;
 }
 
-HOOK_DEFINE_TRAMPOLINE(DisableJoyLeftState) { static int Callback(int* unkInt, nn::hid::NpadJoyLeftState* state, int count, uint const& port); };
+HOOK_DEFINE_TRAMPOLINE(DisableJoyLeftState) { static int Callback(int* unkInt, nn::hid::NpadJoyLeftState* state, int count, const uint& port); };
 
 int DisableJoyLeftState::Callback(int* unkInt, nn::hid::NpadJoyLeftState* state, int count, const uint& port)
 {
@@ -143,7 +144,7 @@ int DisableJoyLeftState::Callback(int* unkInt, nn::hid::NpadJoyLeftState* state,
     return result;
 }
 
-HOOK_DEFINE_TRAMPOLINE(DisableJoyRightState) { static int Callback(int* unkInt, nn::hid::NpadJoyRightState* state, int count, uint const& port); };
+HOOK_DEFINE_TRAMPOLINE(DisableJoyRightState) { static int Callback(int* unkInt, nn::hid::NpadJoyRightState* state, int count, const uint& port); };
 
 int DisableJoyRightState::Callback(int* unkInt, nn::hid::NpadJoyRightState* state, int count, const uint& port)
 {
@@ -179,9 +180,16 @@ void nvnImGui::addDrawFunc(ProcDrawFunc func)
     drawQueue.push_back(func);
 }
 
+bool nvnImGui::sDisableRender = true;
+
 void nvnImGui::procDraw()
 {
     ImguiNvnBackend::newFrame();
+    if (InputHelper::isButtonHold(nn::hid::NpadButton::ZR) && InputHelper::isButtonPress(nn::hid::NpadButton::Plus))
+        sDisableRender = !sDisableRender;
+
+    if (sDisableRender)
+        return;
     ImGui::NewFrame();
 
     for (auto drawFunc : drawQueue) {

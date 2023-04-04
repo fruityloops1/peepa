@@ -2,19 +2,21 @@
 
 #include "types.h"
 
-#define IMGUINVN_ADDDRAW(FuncBody) nvnImGui::addDrawFunc([]() {             \
-FuncBody                                                                    \
-});                                                                         \
+#define IMGUINVN_ADDDRAW(FuncBody) nvnImGui::addDrawFunc([]() { \
+    FuncBody                                                    \
+});
 
 namespace nvnImGui {
 
-    typedef void (*ProcDrawFunc)();
+extern bool sDisableRender;
 
-    void InstallHooks();
+typedef void (*ProcDrawFunc)();
 
-    bool InitImGui();
+void InstallHooks();
 
-    void procDraw();
+bool InitImGui();
 
-    void addDrawFunc(ProcDrawFunc func);
+void procDraw();
+
+void addDrawFunc(ProcDrawFunc func);
 }

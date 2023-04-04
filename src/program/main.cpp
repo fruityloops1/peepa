@@ -2,21 +2,26 @@
 #include "Game/Scene/SingleModeScene.h"
 #include "Game/Scene/StageScene.h"
 #include "Game/Sequence/ProductSequence.h"
+#include "al/Controller/ControllerUtil.h"
 #include "al/LiveActor/LiveActorFunction.h"
 #include "al/Memory/MemorySystem.h"
+#include "al/Nerve/NerveFunction.h"
 #include "al/Sequence/SequenceInitInfo.h"
 #include "devenv/seadFontMgr.h"
 #include "diag/assert.hpp"
 #include "imgui.h"
 #include "lib.hpp"
 #include "nn/fs.h"
+#include "nn/oe.h"
 #include "nn/os.h"
 #include "pe/BunbunMod.h"
 #include "pe/Client/MPClient.h"
 #include "pe/DbgGui/DbgGui.h"
 #include "pe/EchoEmitterMod.h"
+#include "pe/Exception.h"
 #include "pe/Factory/ProjectActorFactory.h"
 #include "pe/Hacks/PlacementHolderMod.h"
+#include "pe/Hacks/WiiUMod.h"
 #include "pe/RCSMultiplayer.h"
 #include "pe/RCSPlayers.h"
 #include "pe/Sequence/ProductStateTest.h"
@@ -63,7 +68,7 @@ void productSequenceUpdateHook(ProductSequence* sequence)
             dbgGui->update();
     }
 
-    RUN_EACH(300, pe::MPClient::instance().ping(););
+    // RUN_EACH(300, pe::MPClient::instance().ping(););
 }
 
 void productSequenceInitHook(ProductSequence* thisPtr, const al::Nerve* nerve, int nerveStateNum)
@@ -80,32 +85,26 @@ void playerActorInitHook(PlayerActor* actor, const al::ActorInitInfo& info)
     al::initActorSceneInfo(actor, info);
 }
 
-void disableTransparentWallHook(al::LiveActor* actor) { actor->kill(); }
-
-void disableDynamicResolutionHook(al::NerveExecutor* graphics)
-{
-    static class : public al::Nerve {
-        void execute(al::NerveKeeper*) const override { }
-        void executeOnEnd(al::NerveKeeper*) const override { }
-    } dummy;
-    graphics->initNerve(&dummy);
-}
-
 HOOK_DEFINE_TRAMPOLINE(ProductSequenceInitHook) { static void Callback(ProductSequence*, const al::SequenceInitInfo&); };
 
-void ProductSequenceInitHook::Callback(ProductSequence* sequence, const al::SequenceInitInfo& info)
+static void initDbgGui()
 {
-    Orig(sequence, info);
-
     pe::gui::getDbgGuiHeap() = sead::ExpHeap::create(1024 * 1024 * 1, "DbgGuiHeap", al::getSequenceHeap(), 8, sead::ExpHeap::cHeapDirection_Forward, false);
     pe::createPlacementInfoHeap();
     {
         sead::ScopedCurrentHeapSetter heapSetter(pe::gui::getDbgGuiHeap());
         pe::gui::DbgGui::createInstance(nullptr);
-        pe::gui::DbgGui::instance()->mSharedData.productSequence = sequence;
     }
+}
 
-    pe::MPClient::instance().connect(pe::MPClient::sServerIp, 7032);
+void ProductSequenceInitHook::Callback(ProductSequence* sequence, const al::SequenceInitInfo& info)
+{
+    Orig(sequence, info);
+
+    initDbgGui();
+    pe::gui::DbgGui::instance()->mSharedData.productSequence = sequence;
+
+    // pe::MPClient::instance().connect(pe::MPClient::sServerIp, 7032);
 }
 
 PATCH_DEFINE_ASM(FixHook, R"(
@@ -151,6 +150,14 @@ void drawDbgGui()
         dbgGui->draw();
 }
 
+HOOK_DEFINE_TRAMPOLINE(FilePrintHook) { static void Callback(sead::FileDevice * thisPtr, sead::FileHandle * handle, const sead::SafeString& file, sead::FileDevice::FileOpenFlag flag, u32 smth); };
+
+void FilePrintHook::Callback(sead::FileDevice* thisPtr, sead::FileHandle* handle, const sead::SafeString& file, sead::FileDevice::FileOpenFlag flag, u32 smth)
+{
+    pe::MPClient::instance().log("%s ", file.cstr());
+    Orig(thisPtr, handle, file, flag, smth);
+}
+
 extern "C" void exl_main(void* x0, void* x1)
 {
     exl::hook::Initialize();
@@ -175,18 +182,30 @@ extern "C" void exl_main(void* x0, void* x1)
     Patcher(0x003fcf68).BranchLinkInst((void*)productSequenceUpdateHook);
     Patcher(0x003d86b0).BranchInst((void*)projectActorFactoryHook);
     // Patcher(0x009b79e0).BranchLinkInst((void*)enableSharcHook);
-    Patcher(0x002d65b4).BranchLinkInst((void*)disableTransparentWallHook);
     Patcher(0x003fcb10).BranchLinkInst((void*)productSequenceInitHook);
-    // Patcher(0x0080196c).BranchLinkInst((void*)disableDynamicResolutionHook);
+
+    // FilePrintHook::InstallAtOffset(0x0070d100);
+
+    // worldmap shit
+    /*Patcher(0x000990c0).BranchLinkInst(reinterpret_cast<void*>(uintptr_t(0x0035fa90) + exl::util::modules::GetTargetStart()));
+    Patcher(0x0009910c).BranchLinkInst(reinterpret_cast<void*>(uintptr_t(0x0032d0e0) + exl::util::modules::GetTargetStart()));
+    Patcher(0x000990cc).WriteInst(Nop());
+    Patcher(0x0008b334).WriteInst(Nop());
+    Patcher(0x00099158).WriteInst(Nop());
+    Patcher(0x000899d4).WriteInst(Nop());
+    Patcher(0x0008df4c).WriteInst(Nop());*/
 
     if (isSingleModeMultiplayer) {
         pe::RCSPlayers::initHooks();
         pe::initRCSMultiplayerHooks();
         pe::initPuppetHooks();
     }
+
+    // pe::initUserExceptionHandler();
     pe::initBunbunModHooks();
     pe::initEchoEmitterModHooks();
     pe::initPlacementHolderModHooks();
+    // pe::initWiiUModHooks();
     // pe::installProductStateTestHooks();
     // installProductSequenceHooks();
 

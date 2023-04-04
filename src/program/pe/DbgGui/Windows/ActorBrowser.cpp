@@ -1,4 +1,3 @@
-#include "pe/DbgGui/Windows/ActorBrowser.h"
 #include "Game/Player/PlayerActor.h"
 #include "Game/Sequence/ProductSequence.h"
 #include "al/LiveActor/ActorMovementFunction.h"
@@ -8,9 +7,11 @@
 #include "al/LiveActor/SubActorKeeper.h"
 #include "al/Nerve/NerveFunction.h"
 #include "al/Player/PlayerHolder.h"
+#include "al/Scene/SceneStopCtrl.h"
 #include "heap/seadHeapMgr.h"
 #include "imgui.h"
 #include "pe/Client/MPClient.h"
+#include "pe/DbgGui/Windows/ActorBrowser.h"
 #include "pe/Util/Type.h"
 #include <sead/heap/seadHeap.h>
 
@@ -30,7 +31,7 @@ namespace gui {
             if (kit) {
                 al::LiveActorGroup* allActors = kit->mAllActors;
 
-                char buf[128];
+                char buf[128] { 0 };
                 snprintf(buf, sizeof(buf), "%d/%d (%s)", allActors->mSize, allActors->mCapacity, allActors->mName);
                 ImGui::ProgressBar(allActors->mSize / (float(allActors->mCapacity) / 100) / 100, ImVec2(-FLT_MIN, 0), buf);
 
@@ -73,7 +74,7 @@ namespace gui {
 
     void ActorBrowser::showActorInList(al::LiveActor* actor)
     {
-        char buf[128];
+        char buf[128] { 0 };
         if (actor && actor->getPlacementHolder()->mUnitConfigName) {
             al::PlacementHolder* holder = actor->getPlacementHolder();
             const char* unitConfigName = holder->mUnitConfigName;
@@ -82,7 +83,7 @@ namespace gui {
             if (modelName)
                 snprintf(buf, sizeof(buf), "%s (%s)", unitConfigName, modelName);
             else
-                strncpy(buf, unitConfigName, sizeof(buf));
+                strcpy(buf, unitConfigName);
 
             ImGui::PushID(actor);
             if (ImGui::Selectable(buf, mCurrentSelection == actor))
@@ -110,6 +111,23 @@ namespace gui {
         ImGui::PushID("playerVelocity");
         ImGui::DragFloat3("Velocity", actor->mPlayer->mPlayerProperty->velocity.e.data());
         ImGui::PopID();
+
+        if (ImGui::CollapsingHeader("Items")) {
+            if (ImGui::Button("Super Mushroom"))
+                al::appearItemTiming(actor, "スーパーキノコ");
+            if (ImGui::Button("Super Bell"))
+                al::appearItemTiming(actor, "スーパーベル");
+            if (ImGui::Button("Fire Flower"))
+                al::appearItemTiming(actor, "ファイアフラワー");
+            if (ImGui::Button("Super Leaf"))
+                al::appearItemTiming(actor, "スーパーこのは");
+            if (ImGui::Button("Boomerang Flower"))
+                al::appearItemTiming(actor, "ブーメランフラワー");
+            if (ImGui::Button("Invincibility Leaf"))
+                al::appearItemTiming(actor, "無敵このは");
+            if (ImGui::Button("Lucky Bell"))
+                al::appearItemTiming(actor, "まねきネコベル");
+        }
     }
 
     void ActorBrowser::showActorView()
@@ -145,7 +163,7 @@ namespace gui {
                     showLiveActorFlag();
 
                 if (ImGui::CollapsingHeader("Debug")) {
-                    ImGui::Text("Ptr: 0x%p", mCurrentSelection);
+                    ImGui::Text("Ptr: %p", mCurrentSelection);
                     ImGui::Text("vtable: 0x%.8lx", pe::util::getVftOffsetMain(mCurrentSelection) - 16);
                 }
 
@@ -184,12 +202,27 @@ namespace gui {
         }
 
         sead::Vector3f* scalePtr = al::getScalePtr(mCurrentSelection);
+        sead::Quatf* quatPtr = al::getQuatPtr(mCurrentSelection);
+        sead::Vector3f* frontPtr = al::getFrontPtr(mCurrentSelection);
+        sead::Vector3f* rotatePtr = al::getRotatePtr(mCurrentSelection);
+        sead::Vector3f* gravityPtr = al::getGravityPtr(mCurrentSelection);
 
         ImGui::DragFloat3("Trans", al::getTransPtr(mCurrentSelection)->e.data());
-        ImGui::DragFloat3("Scale", scalePtr->e.data());
-        for (int i = 0; i < 3; i++)
-            if (scalePtr->e[i] == 0)
-                scalePtr->e[i] = 1; // 0 in scale = crashes game
+
+        if (quatPtr)
+            ImGui::DragFloat4("Quat", &quatPtr->x);
+        if (frontPtr)
+            ImGui::DragFloat3("Front", &frontPtr->x);
+        if (rotatePtr)
+            ImGui::DragFloat3("Rotate", &rotatePtr->x);
+        if (gravityPtr && ImGui::DragFloat3("Gravity", &gravityPtr->x))
+            if (gravityPtr->y == 0)
+                gravityPtr->y = 1; // 0 in gravity y = crashes game
+
+        if (ImGui::DragFloat3("Scale", scalePtr->e.data()))
+            for (int i = 0; i < 3; i++)
+                if (scalePtr->e[i] == 0)
+                    scalePtr->e[i] = 1; // 0 in scale = crashes game
         ImGui::DragFloat3("Velocity", al::getVelocityPtr(mCurrentSelection)->e.data());
 
         float speed = al::calcSpeed(mCurrentSelection), speedH = al::calcSpeedH(mCurrentSelection), speedV = al::calcSpeedV(mCurrentSelection);

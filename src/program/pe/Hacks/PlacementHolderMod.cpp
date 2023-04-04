@@ -1,4 +1,4 @@
-#include "pe/Hacks/PlacementHolderMod.h"
+#include "Game/Scene/SingleModeScene.h"
 #include "al/LiveActor/LiveActor.h"
 #include "al/Placement/PlacementHolder.h"
 #include "heap/seadHeapMgr.h"
@@ -6,6 +6,7 @@
 #include "lib.hpp"
 #include "pe/Client/MPClient.h"
 #include "pe/DbgGui/DbgGui.h"
+#include "pe/Hacks/PlacementHolderMod.h"
 #include <sead/basis/seadNew.h>
 
 PATCH_DEFINE_ASM(PlacementHolderSizeModHook1, "mov w0, #0x40");
@@ -31,6 +32,17 @@ HOOK_DEFINE_TRAMPOLINE(LiveActorDtorHook2) { static void Callback(al::LiveActor 
 HOOK_DEFINE_TRAMPOLINE(LiveActorDtorHook3) { static void Callback(al::LiveActor * actor); }; // delete dtor
 HOOK_DEFINE_TRAMPOLINE(PlacementHolderCtorHook) { static void Callback(al::PlacementHolder * holder); };
 HOOK_DEFINE_TRAMPOLINE(PlacementHolderInitHook) { static void Callback(al::PlacementHolder * holder, const al::PlacementInfo& info); };
+HOOK_DEFINE_TRAMPOLINE(SingleModeScenePrepareDestroyHook) { static void Callback(SingleModeScene * scene); };
+
+void SingleModeScenePrepareDestroyHook::Callback(SingleModeScene* scene)
+{
+    Orig(scene);
+
+    if (pe::getPlacementInfoHeap()) {
+        pe::getPlacementInfoHeap()->destroy();
+        pe::getPlacementInfoHeap() = nullptr;
+    }
+}
 
 void LiveActorDtorHook1::Callback(al::LiveActor* actor, void* vtt)
 {
@@ -62,6 +74,9 @@ void PlacementHolderInitHook::Callback(al::PlacementHolder* holder, const al::Pl
 {
     Orig(holder, info);
 
+    if (pe::gui::DbgGui::instance()->isSingleModeScene())
+        return;
+
     if (!pe::getPlacementInfoHeap()) {
         pe::createPlacementInfoHeap();
     }
@@ -72,7 +87,7 @@ void PlacementHolderInitHook::Callback(al::PlacementHolder* holder, const al::Pl
         size_t size = strlen(unitConfigName) + 1;
         char* out = new char[size];
         holder->mUnitConfigName = out;
-        strncpy(out, unitConfigName, size - 1);
+        strcpy(out, unitConfigName);
     }
 
     const char* id = nullptr;
@@ -80,7 +95,7 @@ void PlacementHolderInitHook::Callback(al::PlacementHolder* holder, const al::Pl
         size_t size = strlen(id) + 1;
         char* out = new char[size];
         holder->mIdClone = out;
-        strncpy(out, id, size - 1);
+        strcpy(out, id);
     }
 
     const char* modelName = nullptr;
@@ -88,7 +103,7 @@ void PlacementHolderInitHook::Callback(al::PlacementHolder* holder, const al::Pl
         size_t size = strlen(modelName) + 1;
         char* out = new char[size];
         holder->mModelNameClone = out;
-        strncpy(out, modelName, size - 1);
+        strcpy(out, modelName);
     }
 }
 
@@ -107,6 +122,7 @@ void createPlacementInfoHeap()
 
 void initPlacementHolderModHooks()
 {
+    SingleModeScenePrepareDestroyHook::InstallAtOffset(0x003e9460);
     PlacementHolderSizeModHook1::InstallAtOffset(0x0085b4d4);
     PlacementHolderSizeModHook2::InstallAtOffset(0x0085b5ac);
     LiveActorDtorHook1::InstallAtOffset(0x0085b5d0);

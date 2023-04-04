@@ -1,5 +1,6 @@
 #pragma once
 
+#include "al/Draw/GraphicsSystemInfo.h"
 #include "al/Player/PlayerHolder.h"
 #include "al/Scene/LiveActorGroup.h"
 
@@ -13,7 +14,7 @@ public:
     void* _8 = nullptr;
     void* _10 = nullptr;
     void* _18 = nullptr;
-    void* _20 = nullptr;
+    GraphicsSystemInfo* mGraphicsSystemInfo = nullptr;
     void* _28 = nullptr;
     void* _30 = nullptr;
     void* _38 = nullptr;

@@ -50,7 +50,7 @@ public:
     AudioKeeper* getAudioKeeper() const override;
     LayoutActionKeeper* getLayoutActionKeeper() const override;
     LayoutKeeper* getLayoutKeeper() const override;
-    void* getSceneCameraInfo() const override;
+    SceneCameraInfo* getSceneCameraInfo() const override;
     SceneObjHolder* getSceneObjHolder() const override;
     MessageSystem* getMessageSystem() const override;
     virtual void control();

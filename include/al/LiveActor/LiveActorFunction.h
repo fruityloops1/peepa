@@ -60,4 +60,7 @@ void initExecutorMapObj(LiveActor* actor, const ActorInitInfo& info);
 void initExecutorEnemyMovement(LiveActor* actor, const ActorInitInfo& info);
 void initExecutorPlayerMovement(LiveActor* actor, const ActorInitInfo& info);
 
+// StageSwitch
+void trySyncStageSwitchAppearAndKill(al::LiveActor*);
+
 } // namespace al

@@ -12,6 +12,8 @@ class ActorInitInfo {
 
 public:
     ActorInitInfo() = default;
+
+    void initNoViewId(const PlacementInfo*, const ActorInitInfo&);
 };
 
 const PlacementInfo& getPlacementInfo(const ActorInitInfo& info);

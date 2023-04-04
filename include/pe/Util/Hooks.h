@@ -20,10 +20,17 @@ namespace pe {
 namespace util {
 
     template <uintptr_t nerveOffset>
-    void setNerveHook(al::LiveActor* actor)
+    void setNerveHook(al::IUseNerve* user, const al::Nerve* prevNrv)
     {
         const al::Nerve* nerve = util::getNerveAt(nerveOffset);
-        al::setNerve(actor, nerve);
+        al::setNerve(user, nerve);
+    }
+
+    template <uintptr_t nerveOffset, uintptr_t condNerveOffset>
+    void setNerveHookIfNot(al::IUseNerve* user, const al::Nerve* prevNrv)
+    {
+        const al::Nerve* nerve = prevNrv == util::getNerveAt(condNerveOffset) ? prevNrv : util::getNerveAt(nerveOffset);
+        al::setNerve(user, nerve);
     }
 
     template <typename F>

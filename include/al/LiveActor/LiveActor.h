@@ -132,7 +132,7 @@ public:
     SceneObjHolder* getSceneObjHolder() const override;
     CollisionDirector* getCollisionDirector() const override;
     AreaObjDirector* getAreaObjDirector() const override;
-    void* getSceneCameraInfo() const override;
+    SceneCameraInfo* getSceneCameraInfo() const override;
     CameraDirector_RS* getCameraDirector_RS() const override;
     virtual bool isInRouteDokan() const;
     void initStageSwitchKeeper() override;

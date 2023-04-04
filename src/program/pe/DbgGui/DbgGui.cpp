@@ -1,9 +1,14 @@
-#include "pe/DbgGui/DbgGui.h"
+#include "al/Controller/ControllerUtil.h"
 #include "imgui.h"
+#include "pe/DbgGui/DbgGui.h"
 #include "pe/DbgGui/MenuBar.h"
 #include "pe/DbgGui/Windows/ActorBrowser.h"
+#include "pe/DbgGui/Windows/Hacks.h"
 #include "pe/DbgGui/Windows/HeapViewer.h"
 #include "pe/DbgGui/Windows/ImGuiDemo.h"
+#include "pe/DbgGui/Windows/RCSCamera.h"
+#include "program/imgui_nvn.h"
+#include "util/modules.hpp"
 
 namespace pe {
 namespace gui {
@@ -23,6 +28,8 @@ namespace gui {
         mComponents.pushBack(new ImGuiDemo);
         mComponents.pushBack(new HeapViewer);
         mComponents.pushBack(new ActorBrowser);
+        mComponents.pushBack(new RCSCamera);
+        mComponents.pushBack(new Hacks);
     }
 
     void DbgGui::draw()

@@ -8,10 +8,13 @@ namespace al {
 class PlacementInfo {
     ByamlIter mPlacementIter;
     ByamlIter mUnitConfigIter;
-    u8 _20[0x10];
+    PlacementInfo* _20 = nullptr;
+    s32 _28;
 
 public:
     PlacementInfo();
+
+    void set(const ByamlIter& pPlacementIter, const ByamlIter& pUnitConfigIter, PlacementInfo*, s32);
 
     const ByamlIter& getPlacementIter() const { return mPlacementIter; }
     const ByamlIter& getUnitConfigIter() const { return mUnitConfigIter; }

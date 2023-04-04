@@ -15,6 +15,8 @@ class ProductSequence : public al::Sequence, IUseUnknownSequence {
     void* unk1;
     GameDataHolder* mGameDataHolder;
     void* unk2[3];
+
+public:
     class ProductStateBoot* mStateBoot;
     class ProductStateTitle* mStateTitle;
     class ProductStateSingleModeOpening* mStateSingleModeOpening;
@@ -27,7 +29,6 @@ class ProductSequence : public al::Sequence, IUseUnknownSequence {
     class ProductStateAfterEndingEvent* mStateAfterEndingEvent;
     class ProductStateTopMenu* mStateTopMenu;
 
-public:
     class ProductStateLuigiBros* mStateLuigiBros;
     u8 _140[0x70];
     class pe::ProductStateTest* mStateTest; // fake
