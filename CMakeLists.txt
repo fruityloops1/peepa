@@ -12,7 +12,7 @@ enable_language(ASM C CXX)
 
 ## Title Id
 set(CONFIG_TITLE_ID 0x010028600ebda000)
-add_compile_definitions(EXL_PROGRAM_ID=${CONFIG_TITLE_ID} EXL_LOAD_KIND=Module EXL_LOAD_KIND_ENUM=2 NNSDK IMGUI_USER_CONFIG="imgui_backend/nvn_imgui_config.h")
+add_compile_definitions(EXL_PROGRAM_ID=${CONFIG_TITLE_ID} EXL_LOAD_KIND=Module EXL_LOAD_KIND_ENUM=2 NNSDK IMGUI_USER_CONFIG="imgui_backend/nvn_imgui_config.h" private=public protected=public)
 
 set(NN_SDK_MAJOR 4) # idk
 set(NN_SDK_MINOR 0) # idk
