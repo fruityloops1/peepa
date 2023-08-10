@@ -1,10 +1,11 @@
 #include "pe/MapObj/PatanPanel.h"
 #include "al/Functor/FunctorV0M.h"
 #include "al/LiveActor/LiveActorFunction.h"
-#include "al/Math/QuatUtil.h"
+#include "al/Math/MathQuatUtil.h"
 #include "al/Nerve/Nerve.h"
 #include "al/Nerve/NerveFunction.h"
 #include "al/Placement/PlacementFunction.h"
+#include "al/Placement/PlacementUtil.h"
 #include "pe/Client/MPClient.h"
 #include "pe/Util/Math.h"
 #include <sead/math/seadVector.h>

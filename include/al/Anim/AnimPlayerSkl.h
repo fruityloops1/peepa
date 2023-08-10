@@ -1,6 +1,6 @@
 #pragma once
 
-#include "al/Model/SklAnimRetargettingInfo.h"
+#include "al/Anim/SklAnimRetargettingInfo.h"
 #include <sead/basis/seadTypes.h>
 
 namespace al {

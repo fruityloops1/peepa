@@ -3,9 +3,9 @@
 #include "Game/Player/PlayerAnimFunc.h"
 #include "Game/Player/PlayerAnimator.h"
 #include "Game/Player/PlayerModelHolder.h"
+#include "al/Base/String.h"
 #include "al/LiveActor/LiveActor.h"
 #include "al/LiveActor/SubActorKeeper.h"
-#include "al/Util/StringUtil.h"
 #include "pe/Util/PlayerModelNameUtil.h"
 #include <sead/prim/seadSafeString.h>
 

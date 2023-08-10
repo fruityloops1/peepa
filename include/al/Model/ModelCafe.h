@@ -1,6 +1,6 @@
 #pragma once
 
-#include "al/Model/AnimPlayerSkl.h"
+#include "al/Anim/AnimPlayerSkl.h"
 
 namespace al {
 

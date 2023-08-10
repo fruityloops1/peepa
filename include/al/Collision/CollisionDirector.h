@@ -1,8 +1,12 @@
 #pragma once
 
+#include "al/Execute/ExecuteDirector.h"
+
 namespace al {
 
-class CollisionDirector {
+class CollisionDirector : public IUseExecutor {
+public:
+    CollisionDirector(ExecuteDirector*, int);
 };
 
 class IUseCollision {

@@ -2,7 +2,7 @@
 
 #include "Game/Player/IUsePlayerRetargettingSelector.h"
 #include "Game/Player/PlayerAnimFunc.h"
-#include "al/Model/SklAnimRetargettingInfo.h"
+#include "al/Anim/SklAnimRetargettingInfo.h"
 #include <sead/basis/seadTypes.h>
 #include <sead/container/seadPtrArray.h>
 

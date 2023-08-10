@@ -47,6 +47,8 @@ bool tryGetFront(sead::Vector3f* pOut, const ActorInitInfo& pInfo);
 bool tryGetFront(sead::Vector3f* pOut, const PlacementInfo& pInfo);
 bool tryGetLocalAxis(sead::Vector3f* pOut, const ActorInitInfo& pInfo, int pAxis);
 bool tryGetLocalAxis(sead::Vector3f* pOut, const PlacementInfo& pInfo, int pAxis);
+void getLinksInfo(PlacementInfo* out, const PlacementInfo& parentInfo, const char* linkName);
+int calcLinkChildNum(const al::ActorInitInfo& info, const char* linkName);
 
 s32 tryGetLayerID(const ByamlIter& pInfo);
 

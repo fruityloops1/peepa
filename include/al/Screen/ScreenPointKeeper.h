@@ -1,6 +1,6 @@
 #pragma once
 
-#include "al/HitSensor/ScreenPointTarget.h"
+#include "al/Screen/ScreenPointTarget.h"
 #include <sead/container/seadPtrArray.h>
 
 namespace al {

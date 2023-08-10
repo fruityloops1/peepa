@@ -12,8 +12,19 @@ public:
     SceneHeapSetter();
 };
 
-void createSceneHeap(const char* stageName);
-
+sead::Heap* getStationedHeap();
 sead::Heap* getSequenceHeap();
+sead::Heap* getSceneResourceHeap();
+sead::Heap* getSceneHeap();
+sead::Heap* getCourseSelectResourceHeap();
+sead::Heap* getCourseSelectHeap();
+sead::Heap* tryFindNamedHeap(const char* name);
+
+void createSceneHeap(const char* stageName);
+void createSceneResourceHeap(const char*);
+bool isCreatedSceneResourceHeap();
+void destroySceneHeap(bool);
+void createCourseSelectHeap();
+void destroyCourseSelectHeap();
 
 } // namespace al

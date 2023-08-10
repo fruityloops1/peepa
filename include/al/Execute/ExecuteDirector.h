@@ -10,4 +10,7 @@ public:
     virtual void draw() { }
 };
 
+class ActorExecuteInfo {
+};
+
 } // namespace al

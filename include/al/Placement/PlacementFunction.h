@@ -6,9 +6,6 @@
 
 namespace al {
 
-void getLinksInfo(PlacementInfo* out, const PlacementInfo& parentInfo, const char* linkName);
-int calcLinkChildNum(const al::ActorInitInfo& info, const char* linkName);
-
 bool tryGetArg(float* out, const al::ActorInitInfo& info, const char* key);
 bool tryGetArg(bool* out, const al::ActorInitInfo& info, const char* key);
 

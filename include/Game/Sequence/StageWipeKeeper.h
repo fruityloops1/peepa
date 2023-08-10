@@ -1,6 +1,6 @@
 #pragma once
 
-#include "al/Layout/WipeSimple.h"
+#include "al/Npc/WipeSimple.h"
 
 class StageWipeKeeper {
 public:

@@ -1,10 +1,10 @@
 #pragma once
 
 #include "al/HitSensor/HitSensor.h"
-#include "al/HitSensor/ScreenPointTarget.h"
-#include "al/HitSensor/ScreenPointer.h"
 #include "al/HitSensor/SensorMsg.h"
 #include "al/Nerve/ActorStateBase.h"
+#include "al/Screen/ScreenPointTarget.h"
+#include "al/Screen/ScreenPointer.h"
 
 class ActorStateSupportFreezeParam {
     u8 unk[0x1c];

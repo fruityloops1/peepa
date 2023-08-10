@@ -1,6 +1,6 @@
 #pragma once
 
-#include "al/Model/alModelCafe.h"
+#include "al/Model/ModelCafe.h"
 
 namespace al {
 

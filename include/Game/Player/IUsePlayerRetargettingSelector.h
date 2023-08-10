@@ -1,7 +1,7 @@
 #pragma once
 
+#include "al/Anim/SklAnimRetargettingInfo.h"
 #include "al/LiveActor/LiveActor.h"
-#include "al/Model/SklAnimRetargettingInfo.h"
 
 // wtf is IUsePlayerRetargettingInfoCreator and why isn't it this smh nintendo
 class IUsePlayerRetargettingSelector {
