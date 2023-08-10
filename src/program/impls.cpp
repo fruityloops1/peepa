@@ -1,4 +1,4 @@
-// i LOVE devkit pro 😍😍😍😍
+// i LOVE devshit pro 😍😍😍😍
 
 extern "C" struct _reent* __getreent()
 {
