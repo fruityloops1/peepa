@@ -4,7 +4,6 @@
 #include "al/LiveActor/LiveActorFunction.h"
 #include "al/Nerve/Nerve.h"
 #include "al/Nerve/NerveFunction.h"
-#include "pe/Client/MPClient.h"
 #include <nn/os.h>
 
 namespace pe {

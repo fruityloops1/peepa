@@ -1,3 +1,4 @@
+#include "pe/Hacks/WiiUMod.h"
 #include "Game/Sequence/ProductSequence.h"
 #include "Game/System/AssetLoadingThread.h"
 #include "Game/Util/PlayerConstUtil.h"
@@ -9,8 +10,6 @@
 #include "hook/trampoline.hpp"
 #include "nn/oe.h"
 #include "patch/code_patcher.hpp"
-#include "pe/Client/MPClient.h"
-#include "pe/Hacks/WiiUMod.h"
 #include "pe/Util/Hooks.h"
 #include "pe/Util/Nerve.h"
 #include <heap/seadHeap.h>
@@ -46,7 +45,7 @@ static sead::FrameHeap* createCourseSelectResourceHeapHook(size_t size, const se
 
 static void* newCallback(size_t size, sead::Heap* heap, int alignment)
 {
-    pe::MPClient::instance().log("Allocating 0x%.8x with 0x%.8x left out of 0x%.8x %s (alignment: %d) ", size, heap->getFreeSize(), heap->getSize(), heap->getName().cstr(), alignment);
+    // pe::log("Allocating 0x%.8x with 0x%.8x left out of 0x%.8x %s (alignment: %d) ", size, heap->getFreeSize(), heap->getSize(), heap->getName().cstr(), alignment);
     return new (heap, alignment) u8[size];
 }
 
@@ -71,7 +70,7 @@ HOOK_DEFINE_TRAMPOLINE(abc) { static void Callback(al::Scene * scene); };
 void abc::Callback(al::Scene* scene)
 {
     Orig(scene);
-    pe::MPClient::instance().log("BootScene::tryEnd");
+    // pe::log("BootScene::tryEnd");
 }
 
 void initWiiUModHooks()

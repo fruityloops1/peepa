@@ -1,3 +1,4 @@
+#include "pe/DbgGui/Windows/ActorBrowser.h"
 #include "Game/Player/PlayerActor.h"
 #include "Game/Sequence/ProductSequence.h"
 #include "al/LiveActor/ActorMovementFunction.h"
@@ -10,8 +11,6 @@
 #include "al/Scene/SceneStopCtrl.h"
 #include "heap/seadHeapMgr.h"
 #include "imgui.h"
-#include "pe/Client/MPClient.h"
-#include "pe/DbgGui/Windows/ActorBrowser.h"
 #include "pe/Util/Type.h"
 #include <sead/heap/seadHeap.h>
 

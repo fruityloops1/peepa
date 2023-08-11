@@ -5,7 +5,6 @@
 #include "al/Scene/SceneInitInfo.h"
 #include "al/Se/SeFunction.h"
 #include "lib.hpp"
-#include "pe/Client/MPClient.h"
 #include <sead/container/seadPtrArray.h>
 #include <sead/prim/seadSafeString.h>
 

@@ -1,12 +1,11 @@
+#include "pe/Hacks/PlacementHolderMod.h"
 #include "Game/Scene/SingleModeScene.h"
 #include "al/LiveActor/LiveActor.h"
 #include "al/Placement/PlacementHolder.h"
 #include "heap/seadHeapMgr.h"
 #include "hook/trampoline.hpp"
 #include "lib.hpp"
-#include "pe/Client/MPClient.h"
 #include "pe/DbgGui/DbgGui.h"
-#include "pe/Hacks/PlacementHolderMod.h"
 #include <sead/basis/seadNew.h>
 
 PATCH_DEFINE_ASM(PlacementHolderSizeModHook1, "mov w0, #0x40");

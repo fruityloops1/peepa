@@ -1,7 +1,7 @@
+#include "imgui_impl_nvn.hpp"
 #include "helpers/fsHelper.h"
 #include "imgui.h"
 #include "imgui_hid_mappings.h"
-#include "imgui_impl_nvn.hpp"
 #include "lib.hpp"
 #include <cmath>
 
@@ -9,7 +9,6 @@
 
 #include "MemoryPoolMaker.h"
 #include "helpers/InputHelper.h"
-#include "pe/Client/MPClient.h"
 
 #define UBOSIZE 0x1000
 

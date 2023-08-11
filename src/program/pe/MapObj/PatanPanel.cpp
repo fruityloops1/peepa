@@ -6,7 +6,6 @@
 #include "al/Nerve/NerveFunction.h"
 #include "al/Placement/PlacementFunction.h"
 #include "al/Placement/PlacementUtil.h"
-#include "pe/Client/MPClient.h"
 #include "pe/Util/Math.h"
 #include <sead/math/seadVector.h>
 

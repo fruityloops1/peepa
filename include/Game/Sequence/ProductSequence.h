@@ -33,8 +33,6 @@ public:
     u8 _140[0x70];
     class pe::ProductStateTest* mStateTest; // fake
 
-    static const al::Nerve* getTestNrv();
-
     ~ProductSequence() override;
     void init(const al::SequenceInitInfo& info) override;
     void update() override;
@@ -45,7 +43,4 @@ public:
     void unknown(const char*) override;
 
     void exeTitle();
-    void exeTest();
 };
-
-void installProductSequenceHooks();

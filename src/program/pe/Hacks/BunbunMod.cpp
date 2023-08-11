@@ -5,7 +5,6 @@
 #include "al/LiveActor/ActorParamHolder.h"
 #include "al/Nerve/NerveFunction.h"
 #include "lib.hpp"
-#include "pe/Client/MPClient.h"
 #include "pe/Util/Hooks.h"
 #include "pe/Util/Nerve.h"
 
