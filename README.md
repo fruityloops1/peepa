@@ -1,3 +1,5 @@
+use [3DW-ProjectTemplate](https://github.com/3DWCommunity/3DW-ProjectTemplate)
+
 # Peepa
 
 Base Project for custom code in Super Mario 3D World + Bowser's Fury 1.1
